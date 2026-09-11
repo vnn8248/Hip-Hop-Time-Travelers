@@ -37,8 +37,8 @@ Thelonius,recorder,recorders,Todd Fairall,False
 Thelonius,recorder,assistant_recorder,Dylan Koski-Budabin,True
 Thelonius,mixer,mixer,Bob Power,True
 Thelonius,mixer,assistant_mixer,Mike Tocci,True
-Payback Is a Grandmother,producer,producer,Jay Dee,True
-Payback Is a Grandmother,writer,writer,Jay Dee,True
+Payback Is a Grandmother,producer,producer,J Dilla,True
+Payback Is a Grandmother,writer,writer,J Dilla,True
 Payback Is a Grandmother,writer,writer,Common,False
 Payback Is a Grandmother,writer,writer,John Starks,False
 Payback Is a Grandmother,writer,writer,Fred Wesley,False
@@ -50,7 +50,7 @@ Payback Is a Grandmother,recorder,assistant_recorders,Mike Tocci,False
 Payback Is a Grandmother,recorder,assistant_recorders,Dylan Koski-Budabin,False
 Payback Is a Grandmother,mixer,mixer,Bob Power,True
 Payback Is a Grandmother,mixer,assistant_mixer,Mike Tocci,True
-Cold Blooded,producer,producer,Questlove,True
+Cold Blooded,producer,producer,?uestlove,True
 Cold Blooded,producer,producer,D'Angelo,False
 Cold Blooded,writer,writer,D'Angelo,True
 Cold Blooded,writer,writer,Common,False
@@ -60,11 +60,11 @@ Cold Blooded,writer,writer,George Clinton,False
 Cold Blooded,writer,writer,Kelo Saunders,False
 Cold Blooded,writer,writer,Black Thought,False
 Cold Blooded,writer,writer,Rahzel,False
-Cold Blooded,writer,writer,Questlove,False
+Cold Blooded,writer,writer,?uestlove,False
 Cold Blooded,instrumentalist,lead_vocals,Common,True
 Cold Blooded,instrumentalist,background_vocals,Black Thought,True
 Cold Blooded,instrumentalist,background_vocals,Rahzel,False
-Cold Blooded,instrumentalist,drums,Questlove,True
+Cold Blooded,instrumentalist,drums,?uestlove,True
 Cold Blooded,instrumentalist,trumpet,Roy Hargrove,True
 Cold Blooded,instrumentalist,handclaps,Common,True
 Cold Blooded,instrumentalist,handclaps,James Poyser,False
@@ -73,7 +73,7 @@ Cold Blooded,instrumentalist,claves,D'Angelo,True
 Cold Blooded,recorder,recorders,Kelo Saunders,True
 Cold Blooded,recorder,recorders,Russell Elevado,False
 Cold Blooded,mixer,mixers,Russell Elevado,True
-Cold Blooded,mixer,mixers,Questlove,False
+Cold Blooded,mixer,mixers,?uestlove,False
 Cold Blooded,mixer,assistant_mixer,Steve Mandel,True
 Funky for You,producer,producer,J Dilla,True
 Funky for You,producer,producer,James Poyser,False
@@ -105,10 +105,10 @@ A Film Called (Pimp),recorder,recorders,Todd Fairall,False
 A Film Called (Pimp),recorder,assistant_recorders,Nick Hura,True
 A Film Called (Pimp),recorder,assistant_recorders,Terry Baily,False
 A Film Called (Pimp),recorder,assistant_recorders,Mike Tocci,False
-A Film Called (Pimp),mixer,mixers,?Uestlove,True
+A Film Called (Pimp),mixer,mixers,?uestlove,True
 A Film Called (Pimp),mixer,mixers,Russell Elevado,False
 A Film Called (Pimp),mixer,assistant_mixer,Steve Mandel,True
-Geto Heaven,producer,producer,Questlove,True
+Geto Heaven,producer,producer,?uestlove,True
 Geto Heaven,producer,producer,D'Angelo,False
 Geto Heaven,producer,producer,James Poyser,False
 Geto Heaven,writer,writer,D'Angelo,True
@@ -117,17 +117,17 @@ Geto Heaven,writer,writer,V. J. Smith,False
 Geto Heaven,writer,writer,Sandra St. Victor,False
 Geto Heaven,writer,writer,Peter Lord,False
 Geto Heaven,writer,writer,James Poyser,False
-Geto Heaven,writer,writer,Questlove,False
+Geto Heaven,writer,writer,?uestlove,False
 Geto Heaven,instrumentalist,lead_vocals,Common,True
 Geto Heaven,instrumentalist,lead_vocals,D'Angelo,False
 Geto Heaven,instrumentalist,bass_guitar,Pino Palladino,True
-Geto Heaven,instrumentalist,drums,Questlove,True
+Geto Heaven,instrumentalist,drums,?uestlove,True
 Geto Heaven,instrumentalist,harp,James Poyser,True
 Geto Heaven,instrumentalist,flute,Antonio Hart,True
 Geto Heaven,instrumentalist,piano,D'Angelo,True
 Geto Heaven,recorder,recorder,Russell Elevado,True
 Geto Heaven,recorder,assistant_recorder,Mike Tocci,True
-Geto Heaven,mixer,mixers,Questlove,True
+Geto Heaven,mixer,mixers,?uestlove,True
 Geto Heaven,mixer,mixers,Russell Elevado,False
 Geto Heaven,mixer,assistant_mixer,Steve Mandel,True
 Pops Rap III... All My Children,producer,producer,Karriem Riggins,True

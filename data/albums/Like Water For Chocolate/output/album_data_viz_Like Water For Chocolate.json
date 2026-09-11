@@ -92,13 +92,13 @@
       "valence": 0.456,
       "tempo": 98.829
     },
-    "primary_producer": "Questlove",
+    "primary_producer": "?uestlove",
     "primary_mixer": "Russell Elevado",
     "credits": [
       {
         "role": "producer",
         "role_detail": "producer",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
@@ -158,7 +158,7 @@
       {
         "role": "writer",
         "role_detail": "writer",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": false
       },
       {
@@ -182,7 +182,7 @@
       {
         "role": "instrumentalist",
         "role_detail": "drums",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
@@ -236,7 +236,7 @@
       {
         "role": "mixer",
         "role_detail": "mixers",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": false
       },
       {
@@ -721,7 +721,7 @@
       "tempo": 78.294
     },
     "primary_producer": "J Dilla",
-    "primary_mixer": "?Uestlove",
+    "primary_mixer": "?uestlove",
     "credits": [
       {
         "role": "producer",
@@ -804,7 +804,7 @@
       {
         "role": "mixer",
         "role_detail": "mixers",
-        "person": "?Uestlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
@@ -1035,19 +1035,19 @@
       "valence": 0.38,
       "tempo": 90.714
     },
-    "primary_producer": "Jay Dee",
+    "primary_producer": "J Dilla",
     "primary_mixer": "Bob Power",
     "credits": [
       {
         "role": "producer",
         "role_detail": "producer",
-        "person": "Jay Dee",
+        "person": "J Dilla",
         "is_primary": true
       },
       {
         "role": "writer",
         "role_detail": "writer",
-        "person": "Jay Dee",
+        "person": "J Dilla",
         "is_primary": true
       },
       {
@@ -1130,13 +1130,13 @@
       "valence": 0.625,
       "tempo": 99.523
     },
-    "primary_producer": "Questlove",
-    "primary_mixer": "Questlove",
+    "primary_producer": "?uestlove",
+    "primary_mixer": "?uestlove",
     "credits": [
       {
         "role": "producer",
         "role_detail": "producer",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
@@ -1190,7 +1190,7 @@
       {
         "role": "writer",
         "role_detail": "writer",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": false
       },
       {
@@ -1214,7 +1214,7 @@
       {
         "role": "instrumentalist",
         "role_detail": "drums",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
@@ -1250,7 +1250,7 @@
       {
         "role": "mixer",
         "role_detail": "mixers",
-        "person": "Questlove",
+        "person": "?uestlove",
         "is_primary": true
       },
       {
