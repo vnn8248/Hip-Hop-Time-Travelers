@@ -1,0 +1,188 @@
+track_name,role,role_detail,person,is_primary
+The Questions,producer,producer,J Dilla,True
+The Questions,producer,producer,James Poyser,False
+The Questions,writer,writer,James Poyser,True
+The Questions,writer,writer,Common,False
+The Questions,writer,writer,Mos Def,False
+The Questions,writer,writer,J Dilla,False
+The Questions,instrumentalist,lead_vocals,Common,True
+The Questions,instrumentalist,background_vocals,Monie Love,True
+The Questions,recorder,recorder,Todd Fairall,True
+The Questions,recorder,assistant_recorder,Dylan Koski-Budabin,True
+The Questions,mixer,mixer,Bob Power,True
+The Questions,mixer,assistant_mixer,Mike Tocci,True
+The Light,producer,producer,J Dilla,True
+The Light,writer,writer,J Dilla,True
+The Light,writer,writer,Common,False
+The Light,writer,writer,Bruce Malament,False
+The Light,writer,writer,Norman Harris,False
+The Light,writer,writer,Bobby Caldwell,False
+The Light,instrumentalist,lead_vocals,Common,True
+The Light,instrumentalist,other_instruments,James Poyser,True
+The Light,recorder,recorder,Todd Fairall,True
+The Light,recorder,assistant_recorders,Dylan Koski-Budabin,True
+The Light,recorder,assistant_recorders,Nick Hura,False
+The Light,mixer,mixer,Bob Power,True
+Thelonius,producer,producer,J Dilla,True
+Thelonius,writer,writer,Common,True
+Thelonius,writer,writer,T3,False
+Thelonius,writer,writer,Baatin,False
+Thelonius,writer,writer,J Dilla,False
+Thelonius,instrumentalist,lead_vocals,Common,True
+Thelonius,instrumentalist,additional_vocals,T3,True
+Thelonius,instrumentalist,additional_vocals,J Dilla,False
+Thelonius,instrumentalist,additional_vocals,Baatin,False
+Thelonius,recorder,recorders,Mike Tocci,True
+Thelonius,recorder,recorders,Todd Fairall,False
+Thelonius,recorder,assistant_recorder,Dylan Koski-Budabin,True
+Thelonius,mixer,mixer,Bob Power,True
+Thelonius,mixer,assistant_mixer,Mike Tocci,True
+Payback Is a Grandmother,producer,producer,Jay Dee,True
+Payback Is a Grandmother,writer,writer,Jay Dee,True
+Payback Is a Grandmother,writer,writer,Common,False
+Payback Is a Grandmother,writer,writer,John Starks,False
+Payback Is a Grandmother,writer,writer,Fred Wesley,False
+Payback Is a Grandmother,writer,writer,James Brown,False
+Payback Is a Grandmother,instrumentalist,lead_vocals,Common,True
+Payback Is a Grandmother,recorder,recorder,Todd Fairall,True
+Payback Is a Grandmother,recorder,assistant_recorders,John Seymour,True
+Payback Is a Grandmother,recorder,assistant_recorders,Mike Tocci,False
+Payback Is a Grandmother,recorder,assistant_recorders,Dylan Koski-Budabin,False
+Payback Is a Grandmother,mixer,mixer,Bob Power,True
+Payback Is a Grandmother,mixer,assistant_mixer,Mike Tocci,True
+Cold Blooded,producer,producer,Questlove,True
+Cold Blooded,producer,producer,D'Angelo,False
+Cold Blooded,writer,writer,D'Angelo,True
+Cold Blooded,writer,writer,Common,False
+Cold Blooded,writer,writer,Garry Shider,False
+Cold Blooded,writer,writer,Glen Goins,False
+Cold Blooded,writer,writer,George Clinton,False
+Cold Blooded,writer,writer,Kelo Saunders,False
+Cold Blooded,writer,writer,Black Thought,False
+Cold Blooded,writer,writer,Rahzel,False
+Cold Blooded,writer,writer,Questlove,False
+Cold Blooded,instrumentalist,lead_vocals,Common,True
+Cold Blooded,instrumentalist,background_vocals,Black Thought,True
+Cold Blooded,instrumentalist,background_vocals,Rahzel,False
+Cold Blooded,instrumentalist,drums,Questlove,True
+Cold Blooded,instrumentalist,trumpet,Roy Hargrove,True
+Cold Blooded,instrumentalist,handclaps,Common,True
+Cold Blooded,instrumentalist,handclaps,James Poyser,False
+Cold Blooded,instrumentalist,handclaps,Black Thought,False
+Cold Blooded,instrumentalist,claves,D'Angelo,True
+Cold Blooded,recorder,recorders,Kelo Saunders,True
+Cold Blooded,recorder,recorders,Russell Elevado,False
+Cold Blooded,mixer,mixers,Russell Elevado,True
+Cold Blooded,mixer,mixers,Questlove,False
+Cold Blooded,mixer,assistant_mixer,Steve Mandel,True
+Funky for You,producer,producer,J Dilla,True
+Funky for You,producer,producer,James Poyser,False
+Funky for You,writer,writer,J Dilla,True
+Funky for You,writer,writer,Common,False
+Funky for You,writer,writer,Bilal,False
+Funky for You,writer,writer,James Poyser,False
+Funky for You,instrumentalist,lead_vocals,Common,True
+Funky for You,instrumentalist,background_vocals,Bilal,True
+Funky for You,instrumentalist,background_vocals,Jill Scott,False
+Funky for You,instrumentalist,vocoder,James Poyser,True
+Funky for You,recorder,recorders,Todd Fairall,True
+Funky for You,recorder,recorders,Joe Pirrera,False
+Funky for You,recorder,assistant_recorders,Dave Dar,True
+Funky for You,recorder,assistant_recorders,Mike Tocci,False
+Funky for You,recorder,assistant_recorders,Dylan Koski-Budabin,False
+Funky for You,mixer,mixer,Bob Power,True
+Funky for You,mixer,assistant_mixer,Mike Tocci,True
+A Film Called (Pimp),producer,producer,J Dilla,True
+A Film Called (Pimp),writer,writer,Common,True
+A Film Called (Pimp),writer,writer,Bilal,False
+A Film Called (Pimp),writer,writer,J Dilla,False
+A Film Called (Pimp),instrumentalist,lead_vocals,Common,True
+A Film Called (Pimp),instrumentalist,background_vocals,Bilal,True
+A Film Called (Pimp),instrumentalist,additional_vocals,MC Lyte,True
+A Film Called (Pimp),instrumentalist,flute,Antonio Hart,True
+A Film Called (Pimp),recorder,recorders,Andy Haller,True
+A Film Called (Pimp),recorder,recorders,Todd Fairall,False
+A Film Called (Pimp),recorder,assistant_recorders,Nick Hura,True
+A Film Called (Pimp),recorder,assistant_recorders,Terry Baily,False
+A Film Called (Pimp),recorder,assistant_recorders,Mike Tocci,False
+A Film Called (Pimp),mixer,mixers,?Uestlove,True
+A Film Called (Pimp),mixer,mixers,Russell Elevado,False
+A Film Called (Pimp),mixer,assistant_mixer,Steve Mandel,True
+Geto Heaven,producer,producer,Questlove,True
+Geto Heaven,producer,producer,D'Angelo,False
+Geto Heaven,producer,producer,James Poyser,False
+Geto Heaven,writer,writer,D'Angelo,True
+Geto Heaven,writer,writer,Common,False
+Geto Heaven,writer,writer,V. J. Smith,False
+Geto Heaven,writer,writer,Sandra St. Victor,False
+Geto Heaven,writer,writer,Peter Lord,False
+Geto Heaven,writer,writer,James Poyser,False
+Geto Heaven,writer,writer,Questlove,False
+Geto Heaven,instrumentalist,lead_vocals,Common,True
+Geto Heaven,instrumentalist,lead_vocals,D'Angelo,False
+Geto Heaven,instrumentalist,bass_guitar,Pino Palladino,True
+Geto Heaven,instrumentalist,drums,Questlove,True
+Geto Heaven,instrumentalist,harp,James Poyser,True
+Geto Heaven,instrumentalist,flute,Antonio Hart,True
+Geto Heaven,instrumentalist,piano,D'Angelo,True
+Geto Heaven,recorder,recorder,Russell Elevado,True
+Geto Heaven,recorder,assistant_recorder,Mike Tocci,True
+Geto Heaven,mixer,mixers,Questlove,True
+Geto Heaven,mixer,mixers,Russell Elevado,False
+Geto Heaven,mixer,assistant_mixer,Steve Mandel,True
+Pops Rap III... All My Children,producer,producer,Karriem Riggins,True
+Pops Rap III... All My Children,writer,writer,Karriem Riggins,True
+Pops Rap III... All My Children,writer,writer,A. Scott,False
+Pops Rap III... All My Children,writer,writer,Erykah Badu,False
+Pops Rap III... All My Children,writer,writer,"Lonnie ""Pops"" Lynn",False
+Pops Rap III... All My Children,instrumentalist,lead_vocals,"Lonnie ""Pops"" Lynn",True
+Pops Rap III... All My Children,instrumentalist,bass_guitar,Richie Goods,True
+Pops Rap III... All My Children,instrumentalist,drums,Karriem Riggins,True
+Pops Rap III... All My Children,instrumentalist,vibes,Stephon Harris,True
+Pops Rap III... All My Children,instrumentalist,trumpet,Dwight Adams,True
+Pops Rap III... All My Children,instrumentalist,trombone,John Paxton,True
+Pops Rap III... All My Children,instrumentalist,keyboard,Orrin Evans,True
+Pops Rap III... All My Children,recorder,recorder,John Seymour,True
+Pops Rap III... All My Children,mixer,mixer,Bob Power,True
+Pops Rap III... All My Children,mixer,assistant_mixer,Mike Tocci,True
+The 6th Sense,producer,producer,DJ Premier,True
+The 6th Sense,writer,writer,Common,True
+The 6th Sense,writer,writer,Bilal,False
+The 6th Sense,writer,writer,Prodigy,False
+The 6th Sense,writer,writer,Havoc,False
+The 6th Sense,writer,writer,DJ Premier,False
+The 6th Sense,instrumentalist,lead_vocals,Common,True
+The 6th Sense,instrumentalist,background_vocals,Bilal,True
+The 6th Sense,recorder,recorder,Dexter Thibou,True
+The 6th Sense,mixer,mixer,Eddie Sancho,True
+The 6th Sense,mixer,assistant_mixer,Dexter Thibou,True
+Nag Champa (Afrodisiac for the World),producer,producer,J Dilla,True
+Nag Champa (Afrodisiac for the World),writer,writer,Common,True
+Nag Champa (Afrodisiac for the World),writer,writer,J Dilla,False
+Nag Champa (Afrodisiac for the World),instrumentalist,lead_vocals,Common,True
+Nag Champa (Afrodisiac for the World),instrumentalist,background_vocals,J Dilla,True
+Nag Champa (Afrodisiac for the World),instrumentalist,additional_vocals,T3,True
+Nag Champa (Afrodisiac for the World),instrumentalist,additional_vocals,Baatin,False
+Nag Champa (Afrodisiac for the World),instrumentalist,guitar,Jef Lee Johnson,True
+Nag Champa (Afrodisiac for the World),instrumentalist,handclaps,Baatin,True
+Nag Champa (Afrodisiac for the World),instrumentalist,handclaps,T3,False
+Nag Champa (Afrodisiac for the World),recorder,recorder,Todd Fairall,True
+Nag Champa (Afrodisiac for the World),recorder,assistant_recorders,Dylan Koski-Budabin,True
+Nag Champa (Afrodisiac for the World),recorder,assistant_recorders,Nick Hura,False
+Nag Champa (Afrodisiac for the World),mixer,mixer,Bob Power,True
+Heat,producer,producer,J Dilla,True
+Heat,instrumentalist,lead_vocals,J Dilla,True
+Heat,instrumentalist,lead_vocals,Common,False
+Heat,instrumentalist,additional_vocals,J Dilla,True
+Heat,recorder,recorder,Todd Fairall,True
+Heat,recorder,assistant_recorder,Jason Hofer,True
+Heat,mixer,mixer,Bob Power,True
+Heat,mixer,assistant_mixer,Steve Mandel,True
+Dooinit,producer,producer,J Dilla,True
+Dooinit,writer,writer,Common,True
+Dooinit,writer,writer,J Dilla,False
+Dooinit,instrumentalist,lead_vocals,Common,True
+Dooinit,recorder,recorder,Todd Fairall,True
+Dooinit,recorder,assistant_recorder,Nick Hura,True
+Dooinit,mixer,mixer,Bob Power,True
+Dooinit,mixer,assistant_mixer,Steve Mandel,True
