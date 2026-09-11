@@ -6,7 +6,8 @@
     "sample_artist": "Tony Allen",
     "sample_year": 1999,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Heat",
@@ -15,7 +16,8 @@
     "sample_artist": "Eyedea & Abilities",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Cold Blooded",
@@ -24,7 +26,8 @@
     "sample_artist": "Fred Wesley and The J.B.'s",
     "sample_year": 1973,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Cold Blooded",
@@ -33,7 +36,8 @@
     "sample_artist": "Parliament",
     "sample_year": 1976,
     "direction": "sampled",
-    "element": "Hook / Riff"
+    "element": "Hook / Riff",
+    "release_year": 2000
   },
   {
     "track_name": "Cold Blooded",
@@ -42,7 +46,8 @@
     "sample_artist": "Steve Miller Band",
     "sample_year": 1976,
     "direction": "sampled",
-    "element": "Sound FX / Other"
+    "element": "Sound FX / Other",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -51,7 +56,8 @@
     "sample_artist": "Rick James",
     "sample_year": 1981,
     "direction": "sampled",
-    "element": "Bass"
+    "element": "Bass",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -60,7 +66,8 @@
     "sample_artist": "Common and The 45 King",
     "sample_year": 1999,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -69,7 +76,8 @@
     "sample_artist": "Kan Kick feat. Kombo and Wildchild",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -78,7 +86,8 @@
     "sample_artist": "Jay Dee",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -87,7 +96,8 @@
     "sample_artist": "Talib Kweli",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -96,7 +106,8 @@
     "sample_artist": "Dwele feat. Slum Village",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -105,7 +116,8 @@
     "sample_artist": "Lil Supa",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -114,7 +126,8 @@
     "sample_artist": "DJ Revolution feat. DJ Spinbad",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -123,7 +136,8 @@
     "sample_artist": "Strong Arm Steady feat. Planet Asia and Chace Infinite",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -132,7 +146,8 @@
     "sample_artist": "J Dilla feat. Amp Fiddler",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -141,7 +156,8 @@
     "sample_artist": "Moods",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -150,7 +166,8 @@
     "sample_artist": "Elaquent feat. Octavio Santos",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -159,7 +176,8 @@
     "sample_artist": "Black Milk",
     "sample_year": 2014,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -168,7 +186,8 @@
     "sample_artist": "Freddie Joachim",
     "sample_year": 2014,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -177,7 +196,8 @@
     "sample_artist": "Karriem Riggins",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -186,7 +206,8 @@
     "sample_artist": "Crypt and Galv feat. Tesla Alset and Tunafleur",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -195,7 +216,8 @@
     "sample_artist": "The Beatknitter",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -204,7 +226,8 @@
     "sample_artist": "Eric Lau",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -213,7 +236,8 @@
     "sample_artist": "Pete Rock",
     "sample_year": 2019,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -222,7 +246,8 @@
     "sample_artist": "Azad",
     "sample_year": 2019,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -231,7 +256,8 @@
     "sample_artist": "Donwill",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Dooinit",
@@ -240,7 +266,8 @@
     "sample_artist": "Common and Pete Rock",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -249,7 +276,8 @@
     "sample_artist": "Detroit Emeralds",
     "sample_year": 1973,
     "direction": "sampled",
-    "element": "Drums"
+    "element": "Drums",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -258,7 +286,8 @@
     "sample_artist": "Bobby Caldwell",
     "sample_year": 1980,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -267,7 +296,8 @@
     "sample_artist": "J Dilla",
     "sample_year": 1998,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -276,7 +306,8 @@
     "sample_artist": "J Dilla",
     "sample_year": 2000,
     "direction": "remixed in",
-    "element": "Hip-Hop / Rap / R&B"
+    "element": "Hip-Hop / Rap / R&B",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -285,7 +316,8 @@
     "sample_artist": "Unwrapped",
     "sample_year": 2001,
     "direction": "covered in",
-    "element": "Jazz / Blues"
+    "element": "Jazz / Blues",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -294,7 +326,8 @@
     "sample_artist": "Beginner feat. Max Herre",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -303,7 +336,8 @@
     "sample_artist": "Royce Da 5'9''",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -312,7 +346,8 @@
     "sample_artist": "Hocus Pocus",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -321,7 +356,8 @@
     "sample_artist": "Joe Ferry and Eric Helmuth",
     "sample_year": 2006,
     "direction": "covered in",
-    "element": "Jazz / Blues"
+    "element": "Jazz / Blues",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -330,7 +366,8 @@
     "sample_artist": "Natasha Bedingfield and Sean Kingston",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -339,7 +376,8 @@
     "sample_artist": "Freddie Joachim",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -348,7 +386,8 @@
     "sample_artist": "Kero One",
     "sample_year": 2007,
     "direction": "remixed in",
-    "element": "Hip-Hop / Rap / R&B"
+    "element": "Hip-Hop / Rap / R&B",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -357,7 +396,8 @@
     "sample_artist": "Crooked I",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -366,7 +406,8 @@
     "sample_artist": "Just Blaze",
     "sample_year": 2008,
     "direction": "remixed in",
-    "element": "Hip-Hop / Rap / R&B"
+    "element": "Hip-Hop / Rap / R&B",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -375,7 +416,8 @@
     "sample_artist": "Kooley High",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -384,7 +426,8 @@
     "sample_artist": "Bob Da Rage Sense",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -393,7 +436,8 @@
     "sample_artist": "The Nextmen feat. Dynamite MC",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -402,7 +446,8 @@
     "sample_artist": "Something Good (Hip-hop)",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -411,7 +456,8 @@
     "sample_artist": "DJ Drama feat. Wale and Talia Coles",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -420,7 +466,8 @@
     "sample_artist": "Muzeone",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -429,7 +476,8 @@
     "sample_artist": "Dumbfoundead",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -438,7 +486,8 @@
     "sample_artist": "Terrace Martin feat. Musiq Soulchild",
     "sample_year": 2013,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -447,7 +496,8 @@
     "sample_artist": "Grand Groove feat. Vito (David Rebollo)",
     "sample_year": 2013,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -456,7 +506,8 @@
     "sample_artist": "Phife Dawg",
     "sample_year": 2014,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -465,7 +516,8 @@
     "sample_artist": "Fredfades and Ivan Ave",
     "sample_year": 2014,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -474,7 +526,8 @@
     "sample_artist": "Blu",
     "sample_year": 2014,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -483,7 +536,8 @@
     "sample_artist": "Dr. Bene, Fenbeatz and DJ Perez",
     "sample_year": 2015,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -492,7 +546,8 @@
     "sample_artist": "Fuse",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -501,7 +556,8 @@
     "sample_artist": "Lecrae",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -510,7 +566,8 @@
     "sample_artist": "Wale feat. Chris Brown",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -519,7 +576,8 @@
     "sample_artist": "Amerigo Gazaway",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -528,7 +586,8 @@
     "sample_artist": "The Hood Internet",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -537,7 +596,8 @@
     "sample_artist": "The Carters",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -546,7 +606,8 @@
     "sample_artist": "Nick Grant",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -555,7 +616,8 @@
     "sample_artist": "Bugoy Na Koykoy",
     "sample_year": 2019,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -564,7 +626,8 @@
     "sample_artist": "Liston",
     "sample_year": 2020,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -573,7 +636,8 @@
     "sample_artist": "G-Eazy feat. Kiana Led\u00e9",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -582,7 +646,8 @@
     "sample_artist": "Abstract Mindstate",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -591,7 +656,8 @@
     "sample_artist": "Cassper Nyovest and RAYE",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -600,7 +666,8 @@
     "sample_artist": "Kendrick Lamar",
     "sample_year": 2022,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -609,7 +676,8 @@
     "sample_artist": "The Hood Internet",
     "sample_year": 2022,
     "direction": "was sampled in",
-    "element": "Drums"
+    "element": "Drums",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -618,7 +686,8 @@
     "sample_artist": "The Game feat. Chris Brown, Chl\u00f6e and Cassie",
     "sample_year": 2022,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -627,7 +696,8 @@
     "sample_artist": "Ana Tijoux feat. Talib Kweli and Posdnuos",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -636,7 +706,8 @@
     "sample_artist": "Baby Keem feat. Kendrick Lamar and Momo Boyd",
     "sample_year": 2026,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -645,7 +716,8 @@
     "sample_artist": "J. Cole",
     "sample_year": 2026,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Light",
@@ -654,7 +726,8 @@
     "sample_artist": "Indie Tribe, Nobigdyl., Jon Keith and Torey D'Shaun",
     "sample_year": 2026,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Funky For You",
@@ -663,7 +736,8 @@
     "sample_artist": "Deodato",
     "sample_year": 1972,
     "direction": "sampled",
-    "element": "Sound FX / Other"
+    "element": "Sound FX / Other",
+    "release_year": 2000
   },
   {
     "track_name": "Funky For You",
@@ -672,7 +746,8 @@
     "sample_artist": "The S.O.S. Band",
     "sample_year": 1980,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Funky For You",
@@ -681,7 +756,8 @@
     "sample_artist": "N.W.A",
     "sample_year": 1988,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Funky For You",
@@ -690,7 +766,8 @@
     "sample_artist": "KRS-One",
     "sample_year": 1993,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Questions",
@@ -699,7 +776,8 @@
     "sample_artist": "Janet Jackson feat. Q-Tip and Joni Mitchell",
     "sample_year": 1997,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The Questions",
@@ -708,7 +786,8 @@
     "sample_artist": "\u570b\u86cb GorDoN",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -717,7 +796,8 @@
     "sample_artist": "Gil Scott-Heron",
     "sample_year": 1971,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -726,7 +806,8 @@
     "sample_artist": "The Intruders",
     "sample_year": 1973,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -735,7 +816,8 @@
     "sample_artist": "Mobb Deep",
     "sample_year": 1999,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -744,7 +826,8 @@
     "sample_artist": "Tony Touch feat. Gang Starr",
     "sample_year": 2000,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -753,7 +836,8 @@
     "sample_artist": "Styly Cee feat. Karizma (2) and Midnyte",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -762,7 +846,8 @@
     "sample_artist": "Square One",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -771,7 +856,8 @@
     "sample_artist": "Chiens De Paille",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -780,7 +866,8 @@
     "sample_artist": "Square One",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -789,7 +876,8 @@
     "sample_artist": "Square One",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -798,7 +886,8 @@
     "sample_artist": "Def Kev, TimXtreme and Karibik Frank",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -807,7 +896,8 @@
     "sample_artist": "X-Ecutioners feat. DJ Premier",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -816,7 +906,8 @@
     "sample_artist": "9th Wonder",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -825,7 +916,8 @@
     "sample_artist": "X-Ecutioners",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -834,7 +926,8 @@
     "sample_artist": "Zion I",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -843,7 +936,8 @@
     "sample_artist": "Menteroja",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -852,7 +946,8 @@
     "sample_artist": "Move.Meant",
     "sample_year": 2002,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -861,7 +956,8 @@
     "sample_artist": "Madlib",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -870,7 +966,8 @@
     "sample_artist": "Epik High",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -879,7 +976,8 @@
     "sample_artist": "Bassi Maestro feat. Ape and Zampa",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -888,7 +986,8 @@
     "sample_artist": "Hand Held Aspects",
     "sample_year": 2003,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -897,7 +996,8 @@
     "sample_artist": "Dynamic Duo feat. Tiger JK, Sean2Slow and DJ Tukutz",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -906,7 +1006,8 @@
     "sample_artist": "Epik High",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -915,7 +1016,8 @@
     "sample_artist": "LMNO and Mum's the Word",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -924,7 +1026,8 @@
     "sample_artist": "Hocus Pocus",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -933,7 +1036,8 @@
     "sample_artist": "Pumpkinhead",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -942,7 +1046,8 @@
     "sample_artist": "The Insiders",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -951,7 +1056,8 @@
     "sample_artist": "Epik High",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -960,7 +1066,8 @@
     "sample_artist": "P-Type",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -969,7 +1076,8 @@
     "sample_artist": "Doujah Raze",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -978,7 +1086,8 @@
     "sample_artist": "Defcon (Rapper) and Phonte",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -987,7 +1096,8 @@
     "sample_artist": "45RPM",
     "sample_year": 2005,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -996,7 +1106,8 @@
     "sample_artist": "A.G. feat. Aloe Blacc",
     "sample_year": 2006,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1005,7 +1116,8 @@
     "sample_artist": "Blu and Exile",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1014,7 +1126,8 @@
     "sample_artist": "Evidence feat. Planet Asia",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1023,7 +1136,8 @@
     "sample_artist": "Meccano Twins",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1032,7 +1146,8 @@
     "sample_artist": "Salvaje Decibel",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1041,7 +1156,8 @@
     "sample_artist": "Mundo Complexo",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1050,7 +1166,8 @@
     "sample_artist": "Madlib",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1059,7 +1176,8 @@
     "sample_artist": "Dealema",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1068,7 +1186,8 @@
     "sample_artist": "Frainstrumentos feat. De Killtros",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1077,7 +1196,8 @@
     "sample_artist": "Vox Sambou feat. The Narcicyst",
     "sample_year": 2008,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1086,7 +1206,8 @@
     "sample_artist": "Movimiento Original feat. Bubaseta and Portavoz",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1095,7 +1216,8 @@
     "sample_artist": "Noisecontrollers",
     "sample_year": 2009,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1104,7 +1226,8 @@
     "sample_artist": "Soul Square feat. Justis",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1113,7 +1236,8 @@
     "sample_artist": "Slaine feat. Vinnie Paz and Reef the Lost Cauze",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1122,7 +1246,8 @@
     "sample_artist": "Epsilon Project",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1131,7 +1256,8 @@
     "sample_artist": "M-Dot feat. Edo G and Singapore Kane",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1140,7 +1266,8 @@
     "sample_artist": "PackFM",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1149,7 +1276,8 @@
     "sample_artist": "Jack Beats",
     "sample_year": 2010,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1158,7 +1286,8 @@
     "sample_artist": "Nujabes",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1167,7 +1296,8 @@
     "sample_artist": "DC the MIDI Alien feat. Esoteric, Main Flow and King Magnetic",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1176,7 +1306,8 @@
     "sample_artist": "Movimiento Original",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1185,7 +1316,8 @@
     "sample_artist": "Actual Proof",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1194,7 +1326,8 @@
     "sample_artist": "Slums Attack, O.S.T.R. and Jeru the Damaja",
     "sample_year": 2011,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1203,7 +1336,8 @@
     "sample_artist": "Brous One feat. Niko Soprano",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1212,7 +1346,8 @@
     "sample_artist": "Ergo Rap",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1221,7 +1356,8 @@
     "sample_artist": "L'Entourloop and The Architect feat. Skara Mucci",
     "sample_year": 2013,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1230,7 +1366,8 @@
     "sample_artist": "Chelsea Reject feat. Yoh the Shaolin",
     "sample_year": 2013,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1239,7 +1376,8 @@
     "sample_artist": "S\u0142o\u0144",
     "sample_year": 2015,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1248,7 +1386,8 @@
     "sample_artist": "Alien Army",
     "sample_year": 2015,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1257,7 +1396,8 @@
     "sample_artist": "Dil Withers",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1266,7 +1406,8 @@
     "sample_artist": "JUSTHIS",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1275,7 +1416,8 @@
     "sample_artist": "DJ Skizo feat. B. Briscik and Simo G",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1284,7 +1426,8 @@
     "sample_artist": "Ancient Astronauts",
     "sample_year": 2016,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1293,7 +1436,8 @@
     "sample_artist": "Amerigo Gazaway",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1302,7 +1446,8 @@
     "sample_artist": "Amerigo Gazaway",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1311,7 +1456,8 @@
     "sample_artist": "ChanHays feat. Ghettosocks, Homeboy Sandman and John Robinson",
     "sample_year": 2017,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1320,7 +1466,8 @@
     "sample_artist": "Sazetrax",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1329,7 +1476,8 @@
     "sample_artist": "DJ Decks feat. Sarius and Oxon",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1338,7 +1486,8 @@
     "sample_artist": "Boss AC feat. Black Company and DJ Ride",
     "sample_year": 2018,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1347,7 +1496,8 @@
     "sample_artist": "Dj FastCut feat. Zampa and Kiave",
     "sample_year": 2019,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1356,7 +1506,8 @@
     "sample_artist": "Mundo Segundo and Sam the Kid",
     "sample_year": 2020,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1365,7 +1516,8 @@
     "sample_artist": "Rato54",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1374,7 +1526,8 @@
     "sample_artist": "Mundo Segundo",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1383,7 +1536,8 @@
     "sample_artist": "Samra and BOJAN (Rapper)",
     "sample_year": 2021,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1392,7 +1546,8 @@
     "sample_artist": "Chance the Rapper and DJ Premier",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1401,7 +1556,8 @@
     "sample_artist": "Talib Kweli and J. Rawls",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1410,7 +1566,8 @@
     "sample_artist": "Granuja feat. Noiseferatu",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1419,7 +1576,8 @@
     "sample_artist": "Lex and Buck feat. Debonair P",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "The 6th Sense",
@@ -1428,7 +1586,8 @@
     "sample_artist": "Blu and Exile",
     "sample_year": 2026,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "A Film Called (Pimp)",
@@ -1437,7 +1596,8 @@
     "sample_artist": "Bill Summers",
     "sample_year": 1976,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "A Film Called (Pimp)",
@@ -1446,7 +1606,8 @@
     "sample_artist": "Macy Gray",
     "sample_year": 1999,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1455,7 +1616,8 @@
     "sample_artist": "Roy Ayers Ubiquity",
     "sample_year": 1977,
     "direction": "sampled",
-    "element": "Hook / Riff"
+    "element": "Hook / Riff",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1464,7 +1626,8 @@
     "sample_artist": "Hugh Hopper and Alan Gowen",
     "sample_year": 1980,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1473,7 +1636,8 @@
     "sample_artist": "Beogradski Sindikat",
     "sample_year": 2001,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1482,7 +1646,8 @@
     "sample_artist": "JoJo",
     "sample_year": 2004,
     "direction": "was sampled in",
-    "element": "Sound FX / Other"
+    "element": "Sound FX / Other",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1491,7 +1656,8 @@
     "sample_artist": "DJ Spinna feat. Phonte",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Nag Champa (Afrodisiac For The World)",
@@ -1500,7 +1666,8 @@
     "sample_artist": "Blu",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1509,7 +1676,8 @@
     "sample_artist": "The Singers Unlimited",
     "sample_year": 1972,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1518,7 +1686,8 @@
     "sample_artist": "Steve Miller Band",
     "sample_year": 1976,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1527,7 +1696,8 @@
     "sample_artist": "George Duke",
     "sample_year": 1982,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1536,7 +1706,8 @@
     "sample_artist": "Median",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1545,7 +1716,8 @@
     "sample_artist": "Robert Glasper Trio",
     "sample_year": 2007,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1554,7 +1726,8 @@
     "sample_artist": "Home Brew feat. Hollie Smith and Tyna Keelan",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Thelonius",
@@ -1563,7 +1736,8 @@
     "sample_artist": "Igmar Thomas' Revive Big Band feat. Talib Kweli",
     "sample_year": 2024,
     "direction": "was sampled in",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Payback Is A Grandmother",
@@ -1572,7 +1746,8 @@
     "sample_artist": "James Brown",
     "sample_year": 1973,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Payback Is A Grandmother",
@@ -1581,7 +1756,8 @@
     "sample_artist": "Placebo (Jazz Band)",
     "sample_year": 1974,
     "direction": "sampled",
-    "element": "Multiple Elements"
+    "element": "Multiple Elements",
+    "release_year": 2000
   },
   {
     "track_name": "Payback Is A Grandmother",
@@ -1590,7 +1766,8 @@
     "sample_artist": "Maze Featuring Frankie Beverly",
     "sample_year": 1983,
     "direction": "sampled",
-    "element": "Hook / Riff"
+    "element": "Hook / Riff",
+    "release_year": 2000
   },
   {
     "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
@@ -1599,7 +1776,8 @@
     "sample_artist": "The Family Stand",
     "sample_year": 1990,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
@@ -1608,7 +1786,8 @@
     "sample_artist": "The Soulquarians",
     "sample_year": 2001,
     "direction": "remixed in",
-    "element": "Hip-Hop / Rap / R&B"
+    "element": "Hip-Hop / Rap / R&B",
+    "release_year": 2000
   },
   {
     "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
@@ -1617,7 +1796,8 @@
     "sample_artist": "Billy Woods",
     "sample_year": 2012,
     "direction": "was sampled in",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   },
   {
     "track_name": "Pops Rap III....All My Children",
@@ -1626,7 +1806,8 @@
     "sample_artist": "Fela Kuti",
     "sample_year": 1975,
     "direction": "sampled",
-    "element": "Hook / Riff"
+    "element": "Hook / Riff",
+    "release_year": 2000
   },
   {
     "track_name": "Pops Rap III....All My Children",
@@ -1635,6 +1816,7 @@
     "sample_artist": "Erykah Badu",
     "sample_year": 1997,
     "direction": "sampled",
-    "element": "Vocals / Lyrics"
+    "element": "Vocals / Lyrics",
+    "release_year": 2000
   }
 ]

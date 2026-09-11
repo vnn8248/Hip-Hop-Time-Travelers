@@ -1,193 +1,19 @@
 [
   {
-    "spotify_track_id": "12DQLP0EURlKcwguEJM5oY",
-    "track_name": "The Questions",
-    "track_number": 7,
-    "play_count": 3180740,
+    "spotify_track_id": "2AaB2ZDeJXu6j4Csos4gZH",
+    "track_name": "Time Travelin' (A Tribute To Fela)",
+    "track_number": 1,
+    "play_count": 1541599,
     "play_count_last_updated": "2026-08-16",
     "audio_features": {
-      "energy": 0.388,
-      "danceability": 0.828,
-      "valence": 0.82,
-      "tempo": 90.742
+      "energy": 0.551,
+      "danceability": 0.83,
+      "valence": 0.434,
+      "tempo": 104.179
     },
-    "primary_producer": "J Dilla",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "James Poyser",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "James Poyser",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Mos Def",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "J Dilla",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "background_vocals",
-        "person": "Monie Love",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "Todd Fairall",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorder",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Mike Tocci",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "1N3L38TqNXFhlK5noHC3R3",
-    "track_name": "Nag Champa (Afrodisiac For The World)",
-    "track_number": 11,
-    "play_count": 3016796,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.514,
-      "danceability": 0.827,
-      "valence": 0.785,
-      "tempo": 90.963
-    },
-    "primary_producer": "J Dilla",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "J Dilla",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "background_vocals",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "additional_vocals",
-        "person": "T3",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "additional_vocals",
-        "person": "Baatin",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "guitar",
-        "person": "Jef Lee Johnson",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "handclaps",
-        "person": "Baatin",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "handclaps",
-        "person": "T3",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "Todd Fairall",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Nick Hura",
-        "is_primary": false
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      }
-    ]
+    "primary_producer": null,
+    "primary_mixer": null,
+    "credits": []
   },
   {
     "spotify_track_id": "1ZD3CMagZCxFyrc2zPyvBl",
@@ -245,571 +71,6 @@
         "role_detail": "mixer",
         "person": "Bob Power",
         "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Steve Mandel",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "3aoSjb0bYD2pR2h7R4UzAj",
-    "track_name": "Funky For You",
-    "track_number": 6,
-    "play_count": 4959181,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.706,
-      "danceability": 0.542,
-      "valence": 0.689,
-      "tempo": 98.674
-    },
-    "primary_producer": "J Dilla",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "James Poyser",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Bilal",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "James Poyser",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "background_vocals",
-        "person": "Bilal",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "background_vocals",
-        "person": "Jill Scott",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "vocoder",
-        "person": "James Poyser",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorders",
-        "person": "Todd Fairall",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorders",
-        "person": "Joe Pirrera",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Dave Dar",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Mike Tocci",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": false
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Mike Tocci",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "53fLqlcY0rOoWcDfFJvNhO",
-    "track_name": "Pops Rap III....All My Children",
-    "track_number": 16,
-    "play_count": 602469,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.523,
-      "danceability": 0.815,
-      "valence": 0.301,
-      "tempo": 91.64
-    },
-    "primary_producer": "Karriem Riggins",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "Karriem Riggins",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Karriem Riggins",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "A. Scott",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Erykah Badu",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Lonnie \"Pops\" Lynn",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Lonnie \"Pops\" Lynn",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "bass_guitar",
-        "person": "Richie Goods",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "drums",
-        "person": "Karriem Riggins",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "vibes",
-        "person": "Stephon Harris",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "trumpet",
-        "person": "Dwight Adams",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "trombone",
-        "person": "John Paxton",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "keyboard",
-        "person": "Orrin Evans",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "John Seymour",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Mike Tocci",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "5NiUrZVKyLpsyj62Roq5FW",
-    "track_name": "The Light",
-    "track_number": 5,
-    "play_count": 31665641,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.727,
-      "danceability": 0.939,
-      "valence": 0.66,
-      "tempo": 96.968
-    },
-    "primary_producer": "J Dilla",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Bruce Malament",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Norman Harris",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Bobby Caldwell",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "other_instruments",
-        "person": "James Poyser",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "Todd Fairall",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Nick Hura",
-        "is_primary": false
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "5eFXWt41pZquFAyD1bs9ln",
-    "track_name": "Thelonius",
-    "track_number": 12,
-    "play_count": 2815593,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.544,
-      "danceability": 0.845,
-      "valence": 0.858,
-      "tempo": 95.175
-    },
-    "primary_producer": "J Dilla",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "J Dilla",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "T3",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Baatin",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "J Dilla",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "additional_vocals",
-        "person": "T3",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "additional_vocals",
-        "person": "J Dilla",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "additional_vocals",
-        "person": "Baatin",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorders",
-        "person": "Mike Tocci",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorders",
-        "person": "Todd Fairall",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorder",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Mike Tocci",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "5hNEhuOVHybsY92mye6z83",
-    "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
-    "track_number": 14,
-    "play_count": 1652456,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.543,
-      "danceability": 0.789,
-      "valence": 0.625,
-      "tempo": 99.523
-    },
-    "primary_producer": "Questlove",
-    "primary_mixer": "Questlove",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "Questlove",
-        "is_primary": true
-      },
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "D'Angelo",
-        "is_primary": false
-      },
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "James Poyser",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "D'Angelo",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "V. J. Smith",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Sandra St. Victor",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Peter Lord",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "James Poyser",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Questlove",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "D'Angelo",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "bass_guitar",
-        "person": "Pino Palladino",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "drums",
-        "person": "Questlove",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "harp",
-        "person": "James Poyser",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "flute",
-        "person": "Antonio Hart",
-        "is_primary": true
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "piano",
-        "person": "D'Angelo",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "Russell Elevado",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorder",
-        "person": "Mike Tocci",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixers",
-        "person": "Questlove",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixers",
-        "person": "Russell Elevado",
-        "is_primary": false
       },
       {
         "role": "mixer",
@@ -987,6 +248,384 @@
     ]
   },
   {
+    "spotify_track_id": "7bEEzWWgJS4HhzYtNLCXfa",
+    "track_name": "Dooinit",
+    "track_number": 4,
+    "play_count": 2289770,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.637,
+      "danceability": 0.85,
+      "valence": 0.76,
+      "tempo": 92.859
+    },
+    "primary_producer": "J Dilla",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "J Dilla",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Todd Fairall",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorder",
+        "person": "Nick Hura",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Steve Mandel",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "5NiUrZVKyLpsyj62Roq5FW",
+    "track_name": "The Light",
+    "track_number": 5,
+    "play_count": 31665641,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.727,
+      "danceability": 0.939,
+      "valence": 0.66,
+      "tempo": 96.968
+    },
+    "primary_producer": "J Dilla",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Bruce Malament",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Norman Harris",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Bobby Caldwell",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "other_instruments",
+        "person": "James Poyser",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Todd Fairall",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Dylan Koski-Budabin",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Nick Hura",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "3aoSjb0bYD2pR2h7R4UzAj",
+    "track_name": "Funky For You",
+    "track_number": 6,
+    "play_count": 4959181,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.706,
+      "danceability": 0.542,
+      "valence": 0.689,
+      "tempo": 98.674
+    },
+    "primary_producer": "J Dilla",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Bilal",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "background_vocals",
+        "person": "Bilal",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "background_vocals",
+        "person": "Jill Scott",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "vocoder",
+        "person": "James Poyser",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorders",
+        "person": "Todd Fairall",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorders",
+        "person": "Joe Pirrera",
+        "is_primary": false
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Dave Dar",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Mike Tocci",
+        "is_primary": false
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Dylan Koski-Budabin",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "12DQLP0EURlKcwguEJM5oY",
+    "track_name": "The Questions",
+    "track_number": 7,
+    "play_count": 3180740,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.388,
+      "danceability": 0.828,
+      "valence": 0.82,
+      "tempo": 90.742
+    },
+    "primary_producer": "J Dilla",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "James Poyser",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Mos Def",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "J Dilla",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "background_vocals",
+        "person": "Monie Love",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Todd Fairall",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorder",
+        "person": "Dylan Koski-Budabin",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "3cwWEfm58FQbdJBM4BLI43",
+    "track_name": "Time Travelin Reprise",
+    "track_number": 8,
+    "play_count": 816925,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.332,
+      "danceability": 0.904,
+      "valence": 0.69,
+      "tempo": 104.232
+    },
+    "primary_producer": null,
+    "primary_mixer": null,
+    "credits": []
+  },
+  {
     "spotify_track_id": "6OE9S6XF0U1lNfeaUNSjYl",
     "track_name": "The 6th Sense",
     "track_number": 9,
@@ -1065,101 +704,6 @@
         "role": "mixer",
         "role_detail": "assistant_mixer",
         "person": "Dexter Thibou",
-        "is_primary": true
-      }
-    ]
-  },
-  {
-    "spotify_track_id": "71Mx2CX2AtIV5MiEZDTXMJ",
-    "track_name": "Payback Is A Grandmother",
-    "track_number": 13,
-    "play_count": 810577,
-    "play_count_last_updated": "2026-08-16",
-    "audio_features": {
-      "energy": 0.826,
-      "danceability": 0.769,
-      "valence": 0.38,
-      "tempo": 90.714
-    },
-    "primary_producer": "Jay Dee",
-    "primary_mixer": "Bob Power",
-    "credits": [
-      {
-        "role": "producer",
-        "role_detail": "producer",
-        "person": "Jay Dee",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Jay Dee",
-        "is_primary": true
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Common",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "John Starks",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "Fred Wesley",
-        "is_primary": false
-      },
-      {
-        "role": "writer",
-        "role_detail": "writer",
-        "person": "James Brown",
-        "is_primary": false
-      },
-      {
-        "role": "instrumentalist",
-        "role_detail": "lead_vocals",
-        "person": "Common",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "recorder",
-        "person": "Todd Fairall",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "John Seymour",
-        "is_primary": true
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Mike Tocci",
-        "is_primary": false
-      },
-      {
-        "role": "recorder",
-        "role_detail": "assistant_recorders",
-        "person": "Dylan Koski-Budabin",
-        "is_primary": false
-      },
-      {
-        "role": "mixer",
-        "role_detail": "mixer",
-        "person": "Bob Power",
-        "is_primary": true
-      },
-      {
-        "role": "mixer",
-        "role_detail": "assistant_mixer",
-        "person": "Mike Tocci",
         "is_primary": true
       }
     ]
@@ -1278,16 +822,16 @@
     ]
   },
   {
-    "spotify_track_id": "7bEEzWWgJS4HhzYtNLCXfa",
-    "track_name": "Dooinit",
-    "track_number": 4,
-    "play_count": 2289770,
+    "spotify_track_id": "1N3L38TqNXFhlK5noHC3R3",
+    "track_name": "Nag Champa (Afrodisiac For The World)",
+    "track_number": 11,
+    "play_count": 3016796,
     "play_count_last_updated": "2026-08-16",
     "audio_features": {
-      "energy": 0.637,
-      "danceability": 0.85,
-      "valence": 0.76,
-      "tempo": 92.859
+      "energy": 0.514,
+      "danceability": 0.827,
+      "valence": 0.785,
+      "tempo": 90.963
     },
     "primary_producer": "J Dilla",
     "primary_mixer": "Bob Power",
@@ -1317,6 +861,42 @@
         "is_primary": true
       },
       {
+        "role": "instrumentalist",
+        "role_detail": "background_vocals",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "additional_vocals",
+        "person": "T3",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "additional_vocals",
+        "person": "Baatin",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "guitar",
+        "person": "Jef Lee Johnson",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "handclaps",
+        "person": "Baatin",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "handclaps",
+        "person": "T3",
+        "is_primary": false
+      },
+      {
         "role": "recorder",
         "role_detail": "recorder",
         "person": "Todd Fairall",
@@ -1324,8 +904,109 @@
       },
       {
         "role": "recorder",
-        "role_detail": "assistant_recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Dylan Koski-Budabin",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
         "person": "Nick Hura",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "5eFXWt41pZquFAyD1bs9ln",
+    "track_name": "Thelonius",
+    "track_number": 12,
+    "play_count": 2815593,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.544,
+      "danceability": 0.845,
+      "valence": 0.858,
+      "tempo": 95.175
+    },
+    "primary_producer": "J Dilla",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "J Dilla",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "T3",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Baatin",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "J Dilla",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "additional_vocals",
+        "person": "T3",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "additional_vocals",
+        "person": "J Dilla",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "additional_vocals",
+        "person": "Baatin",
+        "is_primary": false
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorders",
+        "person": "Mike Tocci",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorders",
+        "person": "Todd Fairall",
+        "is_primary": false
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorder",
+        "person": "Dylan Koski-Budabin",
         "is_primary": true
       },
       {
@@ -1337,7 +1018,374 @@
       {
         "role": "mixer",
         "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "71Mx2CX2AtIV5MiEZDTXMJ",
+    "track_name": "Payback Is A Grandmother",
+    "track_number": 13,
+    "play_count": 810577,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.826,
+      "danceability": 0.769,
+      "valence": 0.38,
+      "tempo": 90.714
+    },
+    "primary_producer": "Jay Dee",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "Jay Dee",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Jay Dee",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "John Starks",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Fred Wesley",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "James Brown",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Todd Fairall",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "John Seymour",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Mike Tocci",
+        "is_primary": false
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorders",
+        "person": "Dylan Koski-Budabin",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "5hNEhuOVHybsY92mye6z83",
+    "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
+    "track_number": 14,
+    "play_count": 1652456,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.543,
+      "danceability": 0.789,
+      "valence": 0.625,
+      "tempo": 99.523
+    },
+    "primary_producer": "Questlove",
+    "primary_mixer": "Questlove",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "D'Angelo",
+        "is_primary": false
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "D'Angelo",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "V. J. Smith",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Sandra St. Victor",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Peter Lord",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Questlove",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "D'Angelo",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "bass_guitar",
+        "person": "Pino Palladino",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "drums",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "harp",
+        "person": "James Poyser",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "flute",
+        "person": "Antonio Hart",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "piano",
+        "person": "D'Angelo",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Russell Elevado",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorder",
+        "person": "Mike Tocci",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixers",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixers",
+        "person": "Russell Elevado",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
         "person": "Steve Mandel",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "6dhfqStWHETvJWNhhLO1Qc",
+    "track_name": "A Song For Assata",
+    "track_number": 15,
+    "play_count": 1252842,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.562,
+      "danceability": 0.529,
+      "valence": 0.5,
+      "tempo": 89.085
+    },
+    "primary_producer": null,
+    "primary_mixer": null,
+    "credits": []
+  },
+  {
+    "spotify_track_id": "53fLqlcY0rOoWcDfFJvNhO",
+    "track_name": "Pops Rap III....All My Children",
+    "track_number": 16,
+    "play_count": 602469,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.523,
+      "danceability": 0.815,
+      "valence": 0.301,
+      "tempo": 91.64
+    },
+    "primary_producer": "Karriem Riggins",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "A. Scott",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Erykah Badu",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Lonnie \"Pops\" Lynn",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Lonnie \"Pops\" Lynn",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "bass_guitar",
+        "person": "Richie Goods",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "drums",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "vibes",
+        "person": "Stephon Harris",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "trumpet",
+        "person": "Dwight Adams",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "trombone",
+        "person": "John Paxton",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "keyboard",
+        "person": "Orrin Evans",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "John Seymour",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
         "is_primary": true
       }
     ]
