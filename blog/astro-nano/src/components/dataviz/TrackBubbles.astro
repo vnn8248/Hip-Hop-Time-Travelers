@@ -1,0 +1,310 @@
+---
+import "@styles/dataviz.css";
+
+export interface Props {
+  album: string;
+}
+
+const { album } = Astro.props;
+---
+
+<div class="dataviz not-prose" data-component="track-bubbles" data-album={album}>
+  <div class="dv-controls" role="group" aria-label="Group tracks by">
+    <button type="button" data-mode="none" class="active">All Tracks</button>
+    <button type="button" data-mode="producer">By Producer</button>
+    <button type="button" data-mode="mixer">By Mixer</button>
+  </div>
+
+  <div class="dv-panel">
+    <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
+  </div>
+
+  <div class="dv-legend"></div>
+  <p class="dv-hint">Hover a circle for a quick read, click it for the full credit list.</p>
+
+  <div class="dv-credits" hidden>
+    <button type="button" class="dv-credits-close" aria-label="Close credits">&times;</button>
+    <div class="dv-credits-body"></div>
+  </div>
+
+  <div class="dv-tooltip" role="tooltip"></div>
+</div>
+
+<script>
+  import * as d3 from "d3";
+
+  const W = 900;
+  const H = 560;
+
+  // Fixed categorical order, anchored to the album-cover palette (brand
+  // sage green first). "Unknown" always gets the neutral, never a hue.
+  const SERIES = ["#597E5D", "#4A8FD6", "#B87F1C", "#29A67D", "#8860E0"];
+  const NEUTRAL = "#96A69A";
+
+  type Credit = {
+    role: string;
+    role_detail: string;
+    person: string;
+    is_primary: boolean;
+  };
+
+  type Track = {
+    id: string;
+    name: string;
+    producer: string;
+    mixer: string;
+    playCount: number;
+    credits: Credit[];
+    x?: number;
+    y?: number;
+  };
+
+  function humanize(s: string) {
+    return s
+      .split("_")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  }
+
+  function buildPalette(tracks: Track[], key: "producer" | "mixer") {
+    const names = [...new Set(tracks.map((d) => d[key]))];
+    const named = names.filter((n) => n !== "Unknown");
+    const p: Record<string, string> = {};
+    named.forEach((n, i) => (p[n] = SERIES[i % SERIES.length]));
+    if (names.includes("Unknown")) p["Unknown"] = NEUTRAL;
+    return p;
+  }
+
+  function renderCredits(root: HTMLElement, track: Track) {
+    const panel = root.querySelector<HTMLDivElement>(".dv-credits")!;
+    const body = panel.querySelector<HTMLDivElement>(".dv-credits-body")!;
+
+    const roleOrder = ["producer", "writer", "instrumentalist", "recorder", "mixer"];
+    const grouped = d3.group(track.credits, (c) => c.role);
+    const roles = [...grouped.keys()].sort(
+      (a, b) => roleOrder.indexOf(a) - roleOrder.indexOf(b),
+    );
+
+    let html = `<p class="dv-credits-title">${track.name}</p>`;
+    if (roles.length === 0) {
+      html += `<p class="dv-empty">No credit data available.</p>`;
+    }
+    for (const role of roles) {
+      html += `<h4>${humanize(role)}</h4><ul>`;
+      for (const c of grouped.get(role) ?? []) {
+        const detail =
+          c.role_detail && c.role_detail !== role
+            ? ` <span class="dv-role-detail">(${humanize(c.role_detail)})</span>`
+            : "";
+        html += `<li>${c.person}${detail}</li>`;
+      }
+      html += `</ul>`;
+    }
+    body.innerHTML = html;
+    panel.hidden = false;
+  }
+
+  function initTrackBubbles(root: HTMLElement) {
+    const album = root.dataset.album;
+    const svg = d3.select(root.querySelector<SVGSVGElement>(".dv-chart")!);
+    const nodesG = svg.append("g");
+    const labelsG = svg.append("g");
+    const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
+    const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
+    const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
+
+    creditsClose.addEventListener("click", () => (creditsPanel.hidden = true));
+
+    let currentMode: "none" | "producer" | "mixer" = "none";
+    let tracks: Track[] = [];
+    let radius: d3.ScaleSqrt<number, number> | null = null;
+    let palette: Record<string, Record<string, string>> = {};
+
+    fetch(`/data/${album}/output/album_data_viz_${album}.json`)
+      .then((res) => res.json())
+      .then((recs) => {
+        tracks = recs.map((d: any) => ({
+          id: d.spotify_track_id,
+          name: d.track_name,
+          producer: d.primary_producer || "Unknown",
+          mixer: d.primary_mixer || "Unknown",
+          playCount: d.play_count,
+          credits: d.credits,
+        }));
+
+        radius = d3
+          .scaleSqrt()
+          .domain(d3.extent(tracks, (d) => d.playCount) as [number, number])
+          .range([6, 55]);
+
+        palette = {
+          producer: buildPalette(tracks, "producer"),
+          mixer: buildPalette(tracks, "mixer"),
+          none: { all: SERIES[0] },
+        };
+
+        render(currentMode);
+      })
+      .catch((err) => {
+        console.error(err);
+        root.querySelector(".dv-panel")!.innerHTML =
+          '<p class="dv-error">Couldn\'t load track data.</p>';
+      });
+
+    function computeLayout(mode: "none" | "producer" | "mixer") {
+      if (mode === "none") {
+        const size = 420;
+        const offsetX = (W - size) / 2;
+        const offsetY = (H - size) / 2;
+        const pack = d3.pack<Track>().size([size, size]).padding(3);
+        const root = d3
+          .hierarchy<{ children: Track[] }>({ children: tracks })
+          .sum((d: any) => radius!(d.playCount) ** 2);
+        pack(root as any);
+        return {
+          nodes: (root as any)
+            .leaves()
+            .map((l: any) => ({ ...l.data, x: l.x + offsetX, y: l.y + offsetY })),
+          groups: [] as string[],
+          cols: 1,
+          cellW: W,
+          cellH: H,
+        };
+      }
+      const groups = d3.groups(tracks, (d) => d[mode]);
+      const cols = Math.ceil(Math.sqrt(groups.length));
+      const rows = Math.ceil(groups.length / cols);
+      const cellW = W / cols;
+      const cellH = (H - 30) / rows;
+      const out: Track[] = [];
+      groups.forEach(([, items], i) => {
+        const cx = (i % cols) * cellW + cellW / 2;
+        const cy = 30 + Math.floor(i / cols) * cellH + cellH / 2;
+        const pack = d3
+          .pack<Track>()
+          .size([cellW - 20, cellH - 30])
+          .padding(5);
+        const packRoot = d3
+          .hierarchy<{ children: Track[] }>({ children: items as Track[] })
+          .sum((d: any) => radius!(d.playCount) ** 2);
+        pack(packRoot as any);
+        (packRoot as any).leaves().forEach((l: any) => {
+          out.push({
+            ...l.data,
+            x: cx - (cellW - 20) / 2 + l.x,
+            y: cy - (cellH - 30) / 2 + l.y + 10,
+          });
+        });
+      });
+      return { nodes: out, groups: groups.map((g) => g[0] as string), cols, cellW, cellH };
+    }
+
+    function render(mode: "none" | "producer" | "mixer") {
+      const layout = computeLayout(mode);
+      const nodes = layout.nodes;
+
+      labelsG.selectAll(".dv-group-label").remove();
+      if (mode !== "none") {
+        layout.groups.forEach((g, i) => {
+          const row = Math.floor(i / layout.cols);
+          const cx = (i % layout.cols) * layout.cellW + layout.cellW / 2;
+          const cy = 30 + row * layout.cellH + 12;
+          labelsG
+            .append("text")
+            .attr("class", "dv-group-label")
+            .attr("x", cx)
+            .attr("y", cy)
+            .attr("text-anchor", "middle")
+            .text(g);
+        });
+      }
+
+      const sel = nodesG.selectAll<SVGGElement, Track>("g.dv-node-g").data(nodes, (d: any) => d.id);
+
+      const enter = sel
+        .enter()
+        .append("g")
+        .attr("class", "dv-node-g")
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+      enter
+        .append("circle")
+        .attr("class", "dv-node")
+        .attr("r", (d) => radius!(d.playCount))
+        .attr("fill", (d) => palette[mode][(d as any)[mode] ?? "all"] || "#5B564A");
+
+      const merged = enter.merge(sel as any);
+
+      merged
+        .on("mousemove", (event, d) => {
+          tooltip
+            .style("opacity", 1)
+            .style("left", event.clientX + 14 + "px")
+            .style("top", event.clientY + 14 + "px")
+            .html(
+              `<b>${d.name}</b><br>Producer: ${d.producer}<br>Mixer: ${d.mixer}<br>Play Count: ${d.playCount.toLocaleString()}`,
+            );
+        })
+        .on("mouseleave", () => tooltip.style("opacity", 0))
+        .on("click", (_event, d) => renderCredits(root, d))
+        .transition()
+        .duration(750)
+        .ease(d3.easeCubicInOut)
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+      merged
+        .select("circle")
+        .transition()
+        .duration(750)
+        .ease(d3.easeCubicInOut)
+        .attr("r", (d) => radius!(d.playCount))
+        .attr("fill", (d) => palette[mode][(d as any)[mode] ?? "all"] || "#5B564A");
+
+      sel.exit().remove();
+      renderLegend(mode);
+    }
+
+    function renderLegend(mode: "none" | "producer" | "mixer") {
+      const entries = Object.entries(palette[mode] || {});
+      const legend = root.querySelector<HTMLDivElement>(".dv-legend")!;
+      legend.innerHTML = "";
+      entries.forEach(([key, color]) => {
+        const item = document.createElement("span");
+        const swatch = document.createElement("span");
+        swatch.className = "dv-swatch";
+        swatch.style.background = color;
+        item.appendChild(swatch);
+        item.append(key === "all" ? "All tracks" : key);
+        legend.appendChild(item);
+      });
+    }
+
+    root.querySelectorAll<HTMLButtonElement>(".dv-controls button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.mode as "none" | "producer" | "mixer";
+        currentMode = mode;
+        root
+          .querySelectorAll(".dv-controls button")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        creditsPanel.hidden = true;
+        render(mode);
+      });
+    });
+  }
+
+  function setup() {
+    document
+      .querySelectorAll<HTMLElement>('[data-component="track-bubbles"]')
+      .forEach((root) => {
+        if (root.dataset.initialized) return;
+        root.dataset.initialized = "true";
+        initTrackBubbles(root);
+      });
+  }
+
+  // Astro's <ClientRouter /> swaps page content without a full reload, so a
+  // script that only runs at parse time won't fire again after a client-side
+  // navigation. astro:page-load fires on the initial load AND every swap.
+  document.addEventListener("astro:page-load", setup);
+</script>

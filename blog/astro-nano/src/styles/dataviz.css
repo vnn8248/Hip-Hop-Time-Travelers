@@ -1,0 +1,362 @@
+/* Shared look for the album data-viz widgets (src/components/dataviz/*).
+   Scoped under .dataviz so it never leaks into the blog's own tailwind theme.
+
+   Palette anchored to the album cover: brand sage #597E5D, deep forest
+   #234F30, near-black green #121C15, white. Categorical data-series colors
+   (--dv-series-*) live alongside the chrome tokens below and are mirrored in
+   each component's JS (D3 needs literal hex, not custom properties). */
+
+.dataviz {
+  --dv-bg: #121c15;
+  --dv-panel: #1b2a20;
+  --dv-forest: #234f30;
+  --dv-paper: #ffffff;
+  --dv-paper-dim: #ffffff;
+  --dv-brand: #597e5d;
+  --dv-brick: #b4482e;
+  --dv-grid: #2c3f31;
+
+  /* Categorical series - keep in sync with the JS SERIES/DIRECTION_COLOR
+     constants in each component. */
+  --dv-series-green: #597e5d;
+  --dv-series-blue: #4a8fd6;
+  --dv-series-gold: #b87f1c;
+  --dv-series-teal: #29a67d;
+  --dv-series-violet: #8860e0;
+
+  background: var(--dv-bg);
+  color: var(--dv-paper);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  border-radius: 6px;
+  padding: 20px clamp(16px, 4vw, 48px);
+  margin: 2rem 0;
+  position: relative;
+
+  /* Full-bleed: break out of the article's centered prose column to span
+     the viewport, regardless of how narrow the parent content column is. */
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+
+  /* Fit the whole widget (controls + chart + legend) within one screen:
+     .dataviz gets a real height budget, .dv-panel flexes to fill whatever
+     the controls/legend/hint don't use, and the chart scales to that. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: min(90vh, 760px);
+  min-height: 420px;
+}
+.dataviz *,
+.dataviz *::before,
+.dataviz *::after {
+  box-sizing: border-box;
+}
+
+.dv-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  flex: 0 0 auto;
+}
+.dv-controls button {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--dv-paper-dim);
+  border: 1px solid var(--dv-grid);
+  border-radius: 2px;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.dv-controls button:hover {
+  color: var(--dv-paper);
+  border-color: var(--dv-paper-dim);
+}
+.dv-controls button.active {
+  color: var(--dv-bg);
+  background: var(--dv-brand);
+  border-color: var(--dv-brand);
+}
+
+.dv-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dv-panel);
+  border: 1px solid var(--dv-grid);
+  border-radius: 3px;
+  padding: 8px;
+  overflow: auto;
+}
+.dv-chart {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.dv-group-label {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dv-paper-dim);
+}
+
+.dv-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--dv-paper-dim);
+  margin: 12px 0 4px;
+  flex: 0 0 auto;
+}
+.dv-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dv-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dv-swatch.dv-swatch-hollow {
+  background: transparent !important;
+  border: 1.5px dashed var(--dv-paper-dim);
+}
+
+.dv-hint {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--dv-paper-dim);
+  margin: 8px 0 0;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+/* Follows the cursor - only its content and visibility change on hover. */
+.dv-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--dv-paper);
+  color: var(--dv-bg);
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  padding: 8px 10px;
+  border-radius: 2px;
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.1s;
+  white-space: nowrap;
+  width: max-content;
+  max-width: min(320px, 60vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 30;
+}
+.dv-tooltip b {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.dv-credits {
+  margin-top: 14px;
+  background: var(--dv-panel);
+  border: 1px solid var(--dv-grid);
+  border-radius: 3px;
+  padding: 14px 40px 14px 16px;
+  position: relative;
+  width: 100%;
+  flex: 0 0 auto;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+.dv-credits-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--dv-paper-dim);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.dv-credits-close:hover {
+  color: var(--dv-paper);
+}
+.dv-credits-title {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 0 2px;
+  color: var(--dv-paper);
+}
+.dv-credits-body h4 {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dv-brand);
+  margin: 12px 0 4px;
+}
+.dv-credits-body h4:first-child {
+  margin-top: 0;
+}
+.dv-credits-body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+.dv-credits-body li {
+  padding: 2px 0;
+  color: var(--dv-paper);
+}
+.dv-credits-body .dv-role-detail {
+  color: var(--dv-paper-dim);
+}
+.dv-credits-body .dv-empty {
+  color: var(--dv-paper-dim);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Small multiples, now a one-at-a-time carousel */
+.dv-carousel-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.dv-carousel-chart {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dv-carousel-chart .dv-chart {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+.dv-carousel-nav {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 1px solid var(--dv-grid);
+  color: var(--dv-paper);
+  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.dv-carousel-nav:hover {
+  border-color: var(--dv-brand);
+  background: rgba(89, 126, 93, 0.25);
+}
+.dv-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  flex: 0 0 auto;
+}
+.dv-carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--dv-paper-dim);
+  background: transparent;
+  cursor: pointer;
+}
+.dv-carousel-dot.active {
+  background: var(--dv-brand);
+  border-color: var(--dv-brand);
+}
+.dv-sm-title {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--dv-brand);
+  margin: 0 0 6px;
+  flex: 0 0 auto;
+}
+
+.dv-axis path,
+.dv-axis line {
+  stroke: var(--dv-grid);
+}
+.dv-axis text {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 10px;
+  fill: var(--dv-paper-dim);
+}
+
+.dv-axis-label {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 10px;
+  fill: var(--dv-paper-dim);
+}
+.dv-decade-gridline {
+  stroke: var(--dv-grid);
+  stroke-width: 1;
+}
+.dv-anchor-row rect {
+  fill: rgba(89, 126, 93, 0.16);
+}
+.dv-track-label {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 9px;
+  fill: var(--dv-paper-dim);
+}
+.dv-stem {
+  fill: none;
+  stroke-width: 1.25px;
+}
+.dv-node {
+  stroke: var(--dv-bg);
+  stroke-width: 1px;
+  cursor: pointer;
+}
+.dv-node-nodata {
+  fill: none;
+  stroke: var(--dv-paper-dim);
+  stroke-width: 1.5px;
+  stroke-dasharray: 2.5 2;
+}
+
+.dv-error {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--dv-brick);
+}

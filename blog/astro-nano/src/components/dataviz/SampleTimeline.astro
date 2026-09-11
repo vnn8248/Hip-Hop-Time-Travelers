@@ -1,0 +1,268 @@
+---
+import "@styles/dataviz.css";
+
+export interface Props {
+  album: string;
+}
+
+const { album } = Astro.props;
+---
+
+<div class="dataviz not-prose" data-component="sample-timeline" data-album={album}>
+  <div class="dv-panel">
+    <svg class="dv-chart dv-timeline-chart" aria-label="Samples pulled from the past and songs influenced afterward, by track"></svg>
+  </div>
+  <div class="dv-legend"></div>
+  <p class="dv-hint">
+    Each column is a track. Above the release row: what it sampled. Below: what
+    later sampled, remixed, or covered it. Hover a dot for details.
+  </p>
+  <div class="dv-tooltip" role="tooltip"></div>
+</div>
+
+<script>
+  import * as d3 from "d3";
+
+  type SampleRecord = {
+    track_name: string;
+    track_number: number;
+    sample_title: string;
+    sample_artist: string;
+    sample_year: number;
+    direction: "sampled" | "was sampled in" | "remixed in" | "covered in";
+    element: string;
+    release_year: number;
+  };
+
+  type TrackMeta = { track_number: number; track_name: string };
+
+  const PAST_DIRECTIONS = new Set(["sampled"]);
+  // Fixed categorical order, anchored to the album-cover palette (brand sage
+  // green first, matching "sampled" - what the track pulled from the past).
+  const DIRECTION_COLOR: Record<string, string> = {
+    sampled: "#597E5D",
+    "was sampled in": "#4A8FD6",
+    "remixed in": "#B87F1C",
+    "covered in": "#29A67D",
+  };
+  const NO_DATA_LABEL = "No sample data available";
+
+  const decadeOf = (year: number) => Math.floor(year / 10) * 10;
+  const ANCHOR = Symbol("anchor");
+
+  function initSampleTimeline(root: HTMLElement) {
+    const album = root.dataset.album;
+    const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
+    const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
+
+    Promise.all([
+      fetch(`/data/${album}/output/album_data_viz_${album}.json`).then((res) => res.json()),
+      fetch(`/data/${album}/output/samples_data_viz_${album}.json`).then((res) => res.json()),
+    ])
+      .then(([albumTracks, records]: [any[], SampleRecord[]]) => {
+        const tracks: TrackMeta[] = albumTracks
+          .map((t) => ({ track_number: t.track_number, track_name: t.track_name }))
+          .sort((a, b) => a.track_number - b.track_number);
+        render(tracks, records);
+      })
+      .catch((err) => {
+        console.error(err);
+        root.querySelector(".dv-panel")!.innerHTML =
+          '<p class="dv-error">Couldn\'t load sample data.</p>';
+      });
+
+    function render(tracks: TrackMeta[], records: SampleRecord[]) {
+      const releaseYear = records[0]?.release_year ?? d3.min(records, (d) => d.sample_year)!;
+      const hasData = new Set(records.map((d) => d.track_number));
+
+      const pastDecades = [
+        ...new Set(
+          records.filter((d) => PAST_DIRECTIONS.has(d.direction)).map((d) => decadeOf(d.sample_year)),
+        ),
+      ].sort((a, b) => a - b);
+      const futureDecades = [
+        ...new Set(
+          records
+            .filter((d) => !PAST_DIRECTIONS.has(d.direction))
+            .map((d) => decadeOf(d.sample_year)),
+        ),
+      ].sort((a, b) => a - b);
+
+      const rows: (number | typeof ANCHOR)[] = [...pastDecades, ANCHOR, ...futureDecades];
+      const rowIndex = new Map(rows.map((r, i) => [r, i]));
+
+      const colWidth = 70;
+      const rowHeight = 64;
+      const margin = { top: 16, right: 16, bottom: 120, left: 56 };
+      const plotW = colWidth * tracks.length;
+      const plotH = rowHeight * rows.length;
+      const W = margin.left + plotW + margin.right;
+      const H = margin.top + plotH + margin.bottom;
+
+      const trackX = new Map(
+        tracks.map((t, i) => [t.track_number, margin.left + colWidth * i + colWidth / 2]),
+      );
+      const rowY = (r: number | typeof ANCHOR) =>
+        margin.top + (rowIndex.get(r) ?? 0) * rowHeight + rowHeight / 2;
+
+      function nodeX(track_number: number, year: number) {
+        const decade = decadeOf(year);
+        const cx = trackX.get(track_number)!;
+        const within = (year - decade) / 9 - 0.5; // -0.5..0.5 across the decade
+        return cx + within * (colWidth * 0.7);
+      }
+
+      const svg = d3.select(svgEl).attr("viewBox", `0 0 ${W} ${H}`);
+      svg.selectAll("*").remove();
+
+      // decade row bands + labels
+      const rowsG = svg.append("g");
+      rows.forEach((r) => {
+        const y = rowY(r) - rowHeight / 2;
+        const g = rowsG.append("g").attr("class", r === ANCHOR ? "dv-anchor-row" : undefined);
+        g.append("rect")
+          .attr("x", margin.left)
+          .attr("y", y)
+          .attr("width", plotW)
+          .attr("height", rowHeight)
+          .attr("fill", r === ANCHOR ? undefined : "none");
+        g.append("line")
+          .attr("class", "dv-decade-gridline")
+          .attr("x1", margin.left)
+          .attr("x2", margin.left + plotW)
+          .attr("y1", y + rowHeight)
+          .attr("y2", y + rowHeight);
+        g.append("text")
+          .attr("class", "dv-axis-label")
+          .attr("x", margin.left - 10)
+          .attr("y", rowY(r))
+          .attr("text-anchor", "end")
+          .attr("dominant-baseline", "middle")
+          .text(r === ANCHOR ? `${releaseYear} · Release` : `${r}s`);
+      });
+
+      // track column labels
+      const labelsG = svg.append("g");
+      tracks.forEach((t) => {
+        const cx = trackX.get(t.track_number)!;
+        labelsG
+          .append("text")
+          .attr("class", "dv-track-label")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("transform", `translate(${cx},${margin.top + plotH + 14}) rotate(-40)`)
+          .attr("text-anchor", "end")
+          .text(t.track_name);
+      });
+
+      // stems + nodes
+      const plot = svg.append("g");
+      const stacked = new Map<string, number>();
+
+      records.forEach((d) => {
+        const trackCenter = trackX.get(d.track_number)!;
+        const anchorY = rowY(ANCHOR);
+        const decade = decadeOf(d.sample_year);
+        const x = nodeX(d.track_number, d.sample_year);
+        let y = rowY(decade);
+
+        // stagger exact duplicates (same track, same year) so they stay visible
+        const stackKey = `${d.track_number}-${d.sample_year}`;
+        const n = stacked.get(stackKey) ?? 0;
+        stacked.set(stackKey, n + 1);
+        const JITTER = [0, -9, 9, -18, 18, -27, 27];
+        y += JITTER[n % JITTER.length];
+
+        const color = DIRECTION_COLOR[d.direction] ?? "#5B564A";
+
+        plot
+          .append("path")
+          .attr("class", "dv-stem")
+          .attr("stroke", color)
+          .attr("stroke-opacity", 0.75)
+          .attr("d", `M${trackCenter},${anchorY} L${x},${y}`);
+
+        plot
+          .append("circle")
+          .attr("class", "dv-node")
+          .attr("cx", x)
+          .attr("cy", y)
+          .attr("r", 4.5)
+          .attr("fill", color)
+          .on("mousemove", (event) => {
+            tooltip
+              .style("opacity", 1)
+              .style("left", event.clientX + 14 + "px")
+              .style("top", event.clientY + 14 + "px")
+              .html(
+                `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+              );
+          })
+          .on("mouseleave", () => tooltip.style("opacity", 0));
+      });
+
+      // one node per track at the release row - hollow/dashed for tracks
+      // whosampled.com had nothing recorded for, so they still show up.
+      tracks.forEach((t) => {
+        const trackHasData = hasData.has(t.track_number);
+        plot
+          .append("circle")
+          .attr("class", trackHasData ? "dv-node" : "dv-node dv-node-nodata")
+          .attr("cx", trackX.get(t.track_number)!)
+          .attr("cy", rowY(ANCHOR))
+          .attr("r", trackHasData ? 7 : 6)
+          .attr("fill", trackHasData ? "#FFFFFF" : "none")
+          .on("mousemove", (event) => {
+            tooltip
+              .style("opacity", 1)
+              .style("left", event.clientX + 14 + "px")
+              .style("top", event.clientY + 14 + "px")
+              .html(
+                trackHasData
+                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
+                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
+              );
+          })
+          .on("mouseleave", () => tooltip.style("opacity", 0));
+      });
+
+      renderLegend();
+    }
+
+    function renderLegend() {
+      const legend = root.querySelector<HTMLDivElement>(".dv-legend")!;
+      legend.innerHTML = "";
+      Object.entries(DIRECTION_COLOR).forEach(([key, color]) => {
+        const item = document.createElement("span");
+        const swatch = document.createElement("span");
+        swatch.className = "dv-swatch";
+        swatch.style.background = color;
+        item.appendChild(swatch);
+        item.append(key);
+        legend.appendChild(item);
+      });
+
+      const noDataItem = document.createElement("span");
+      const noDataSwatch = document.createElement("span");
+      noDataSwatch.className = "dv-swatch dv-swatch-hollow";
+      noDataItem.appendChild(noDataSwatch);
+      noDataItem.append(NO_DATA_LABEL);
+      legend.appendChild(noDataItem);
+    }
+  }
+
+  function setup() {
+    document
+      .querySelectorAll<HTMLElement>('[data-component="sample-timeline"]')
+      .forEach((root) => {
+        if (root.dataset.initialized) return;
+        root.dataset.initialized = "true";
+        initSampleTimeline(root);
+      });
+  }
+
+  // Astro's <ClientRouter /> swaps page content without a full reload, so a
+  // script that only runs at parse time won't fire again after a client-side
+  // navigation. astro:page-load fires on the initial load AND every swap.
+  document.addEventListener("astro:page-load", setup);
+</script>
