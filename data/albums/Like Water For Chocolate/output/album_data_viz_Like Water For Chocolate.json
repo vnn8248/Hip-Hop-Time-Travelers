@@ -374,6 +374,113 @@
     ]
   },
   {
+    "spotify_track_id": "53fLqlcY0rOoWcDfFJvNhO",
+    "track_name": "Pops Rap III....All My Children",
+    "track_number": 16,
+    "play_count": 602469,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.523,
+      "danceability": 0.815,
+      "valence": 0.301,
+      "tempo": 91.64
+    },
+    "primary_producer": "Karriem Riggins",
+    "primary_mixer": "Bob Power",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "A. Scott",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Erykah Badu",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Lonnie \"Pops\" Lynn",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Lonnie \"Pops\" Lynn",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "bass_guitar",
+        "person": "Richie Goods",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "drums",
+        "person": "Karriem Riggins",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "vibes",
+        "person": "Stephon Harris",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "trumpet",
+        "person": "Dwight Adams",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "trombone",
+        "person": "John Paxton",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "keyboard",
+        "person": "Orrin Evans",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "John Seymour",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixer",
+        "person": "Bob Power",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
     "spotify_track_id": "5NiUrZVKyLpsyj62Roq5FW",
     "track_name": "The Light",
     "track_number": 5,
@@ -559,6 +666,155 @@
         "role": "mixer",
         "role_detail": "assistant_mixer",
         "person": "Mike Tocci",
+        "is_primary": true
+      }
+    ]
+  },
+  {
+    "spotify_track_id": "5hNEhuOVHybsY92mye6z83",
+    "track_name": "Geto Heaven (Remix T.S.O.I. - The Sound Of Illadelph)",
+    "track_number": 14,
+    "play_count": 1652456,
+    "play_count_last_updated": "2026-08-16",
+    "audio_features": {
+      "energy": 0.543,
+      "danceability": 0.789,
+      "valence": 0.625,
+      "tempo": 99.523
+    },
+    "primary_producer": "Questlove",
+    "primary_mixer": "Questlove",
+    "credits": [
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "D'Angelo",
+        "is_primary": false
+      },
+      {
+        "role": "producer",
+        "role_detail": "producer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "D'Angelo",
+        "is_primary": true
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Common",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "V. J. Smith",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Sandra St. Victor",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Peter Lord",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "James Poyser",
+        "is_primary": false
+      },
+      {
+        "role": "writer",
+        "role_detail": "writer",
+        "person": "Questlove",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "Common",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "lead_vocals",
+        "person": "D'Angelo",
+        "is_primary": false
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "bass_guitar",
+        "person": "Pino Palladino",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "drums",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "harp",
+        "person": "James Poyser",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "flute",
+        "person": "Antonio Hart",
+        "is_primary": true
+      },
+      {
+        "role": "instrumentalist",
+        "role_detail": "piano",
+        "person": "D'Angelo",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "recorder",
+        "person": "Russell Elevado",
+        "is_primary": true
+      },
+      {
+        "role": "recorder",
+        "role_detail": "assistant_recorder",
+        "person": "Mike Tocci",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixers",
+        "person": "Questlove",
+        "is_primary": true
+      },
+      {
+        "role": "mixer",
+        "role_detail": "mixers",
+        "person": "Russell Elevado",
+        "is_primary": false
+      },
+      {
+        "role": "mixer",
+        "role_detail": "assistant_mixer",
+        "person": "Steve Mandel",
         "is_primary": true
       }
     ]
