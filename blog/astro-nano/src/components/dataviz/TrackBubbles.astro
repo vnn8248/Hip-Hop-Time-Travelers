@@ -165,7 +165,7 @@ const { album, artist } = Astro.props;
       revealed.add(track.id);
       row.classList.add("revealed");
       row.querySelector(".dv-track-slot")!.outerHTML =
-        `<span class="dv-track-slot"><b>${track.name}</b><br>Play Count: ${track.playCount.toLocaleString()}</span>`;
+        `<span class="dv-track-slot"><b>${track.name}</b><br>Plays: ${track.playCount.toLocaleString()}</span>`;
     }
 
     function highlightTrack(track: Track, on: boolean) {
