@@ -20,7 +20,8 @@ const { album, artist } = Astro.props;
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
     <div class="dv-hover-info">
-      <p class="dv-hover-info-hint">{artist} — {album}</p>
+      <p class="dv-hover-info-hint">{album} — {artist}</p>
+      <p class="dv-hover-info-updated"></p>
       <div class="dv-track-list"></div>
     </div>
 
@@ -59,6 +60,7 @@ const { album, artist } = Astro.props;
     producer: string;
     mixer: string;
     playCount: number;
+    playCountLastUpdated: string;
     credits: Credit[];
     x?: number;
     y?: number;
@@ -184,10 +186,17 @@ const { album, artist } = Astro.props;
           producer: d.primary_producer || "Unknown",
           mixer: d.primary_mixer || "Unknown",
           playCount: d.play_count,
+          playCountLastUpdated: d.play_count_last_updated,
           credits: d.credits,
         }));
 
         initTrackList(tracks);
+
+        const updatedEl = root.querySelector<HTMLParagraphElement>(".dv-hover-info-updated")!;
+        const lastUpdated = tracks[0]?.playCountLastUpdated;
+        if (lastUpdated) {
+          updatedEl.textContent = `Spotify play count last updated: ${lastUpdated}`;
+        }
 
         radius = d3
           .scaleSqrt()
