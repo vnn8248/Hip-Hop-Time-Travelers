@@ -177,6 +177,40 @@
   font-weight: 600;
 }
 
+/* Always-present readout docked to the top-left of .dv-panel - shows a
+   default hint until a bubble is hovered, then swaps to that track's info.
+   Never affects .dv-panel's size (position: absolute, content-sized). */
+.dv-hover-info {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  max-width: min(280px, 42%);
+  background: var(--dv-panel);
+  border: 1px solid var(--dv-grid);
+  border-radius: 3px;
+  padding: 10px 14px;
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.45);
+  z-index: 10;
+}
+.dv-hover-info-body {
+  margin: 0;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--dv-paper-dim);
+}
+.dv-hover-info-body b {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--dv-paper);
+}
+@media (max-width: 640px) {
+  .dv-hover-info {
+    right: 8px;
+    max-width: none;
+  }
+}
+
 /* Overlays the right side of .dv-panel instead of sitting in normal flow,
    so opening it never resizes/shrinks the chart itself. */
 .dv-credits {

@@ -18,6 +18,10 @@ const { album } = Astro.props;
   <div class="dv-panel">
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
+    <div class="dv-hover-info">
+      <p class="dv-hover-info-body">Hover over the track to reveal it's play count on Spotify.</p>
+    </div>
+
     <div class="dv-credits" hidden>
       <button type="button" class="dv-credits-close" aria-label="Close credits">&times;</button>
       <div class="dv-credits-body"></div>
@@ -26,8 +30,6 @@ const { album } = Astro.props;
 
   <div class="dv-legend"></div>
   <p class="dv-hint">Hover a circle for a quick read, click it for the full credit list.</p>
-
-  <div class="dv-tooltip" role="tooltip"></div>
 </div>
 
 <script>
@@ -109,7 +111,8 @@ const { album } = Astro.props;
     const svg = d3.select(root.querySelector<SVGSVGElement>(".dv-chart")!);
     const nodesG = svg.append("g");
     const labelsG = svg.append("g");
-    const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
+    const hoverInfo = root.querySelector<HTMLParagraphElement>(".dv-hover-info-body")!;
+    const HOVER_DEFAULT = hoverInfo.textContent ?? "";
     const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
     const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
 
@@ -240,16 +243,12 @@ const { album } = Astro.props;
       const merged = enter.merge(sel as any);
 
       merged
-        .on("mousemove", (event, d) => {
-          tooltip
-            .style("opacity", 1)
-            .style("left", event.clientX + 14 + "px")
-            .style("top", event.clientY + 14 + "px")
-            .html(
-              `<b>${d.name}</b><br>Producer: ${d.producer}<br>Mixer: ${d.mixer}<br>Play Count: ${d.playCount.toLocaleString()}`,
-            );
+        .on("mouseenter", (_event, d) => {
+          hoverInfo.innerHTML = `<b>${d.name}</b><br>Play Count: ${d.playCount.toLocaleString()}`;
         })
-        .on("mouseleave", () => tooltip.style("opacity", 0))
+        .on("mouseleave", () => {
+          hoverInfo.textContent = HOVER_DEFAULT;
+        })
         .on("click", (_event, d) => renderCredits(root, d))
         .transition()
         .duration(750)
