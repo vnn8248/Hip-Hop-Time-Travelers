@@ -3,13 +3,12 @@ import "@styles/dataviz.css";
 
 export interface Props {
   album: string;
-  artist: string;
 }
 
-const { album, artist } = Astro.props;
+const { album } = Astro.props;
 ---
 
-<div class="dataviz not-prose" data-component="sample-timeline" data-album={album} data-artist={artist}>
+<div class="dataviz not-prose" data-component="sample-timeline" data-album={album}>
   <div class="dv-panel">
     <svg class="dv-chart dv-timeline-chart" aria-label="Samples pulled from the past and songs influenced afterward, by track"></svg>
   </div>
@@ -33,40 +32,7 @@ const { album, artist } = Astro.props;
     direction: "sampled" | "was sampled in" | "remixed in" | "covered in";
     element: string;
     release_year: number;
-    image_url: string | null;
   };
-
-  // A shared card layout for both hover targets: the sample dots (artist,
-  // track, year, direction, art - all always applicable) and the album's
-  // own track nodes (artist/track/year only - direction and art don't
-  // apply to the album's own track, so those rows are just left out).
-  function popupHtml(opts: {
-    artist: string;
-    track: string;
-    year: number;
-    type?: string;
-    imageUrl?: string | null;
-    footer?: string;
-  }) {
-    const img = opts.imageUrl
-      ? `<img class="dv-tooltip-art" src="${opts.imageUrl}" alt="" onerror="this.remove()" />`
-      : "";
-    const typeRow = opts.type ? `<div class="dv-tooltip-type">${opts.type}</div>` : "";
-    const footerRow = opts.footer
-      ? `<div class="dv-tooltip-footer">${opts.footer}</div>`
-      : "";
-    return (
-      `<div class="dv-tooltip-row">` +
-      img +
-      `<div class="dv-tooltip-body">` +
-      `<b>${opts.track}</b>` +
-      `<div>${opts.artist} · ${opts.year}</div>` +
-      typeRow +
-      `</div>` +
-      `</div>` +
-      footerRow
-    );
-  }
 
   type TrackMeta = { track_number: number; track_name: string };
 
@@ -86,7 +52,6 @@ const { album, artist } = Astro.props;
 
   function initSampleTimeline(root: HTMLElement) {
     const album = root.dataset.album;
-    const artist = root.dataset.artist ?? "";
     const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
     const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
 
@@ -223,33 +188,14 @@ const { album, artist } = Astro.props;
           .attr("cx", x)
           .attr("cy", y)
           .attr("r", 4.5)
-          .attr("fill", color);
-
-        // The visible dot is tiny (4.5px radius) - a real mouse can't
-        // reliably land on it once the chart is scaled down to fit the
-        // page. A larger invisible circle on top carries the actual hover
-        // handlers instead, same standard D3 "small mark, bigger hit
-        // target" pattern used for the track nodes below.
-        plot
-          .append("circle")
-          .attr("class", "dv-node-hit")
-          .attr("cx", x)
-          .attr("cy", y)
-          .attr("r", 18)
-          .on("mouseenter", (event) => {
+          .attr("fill", color)
+          .on("mousemove", (event) => {
             tooltip
               .style("opacity", 1)
               .style("left", event.clientX + 14 + "px")
               .style("top", event.clientY + 14 + "px")
               .html(
-                popupHtml({
-                  artist: d.sample_artist,
-                  track: d.sample_title,
-                  year: d.sample_year,
-                  type: `${d.direction} · ${d.element}`,
-                  imageUrl: d.image_url,
-                  footer: `From "${d.track_name}"`,
-                }),
+                `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
               );
           })
           .on("mouseleave", () => tooltip.style("opacity", 0));
@@ -259,34 +205,22 @@ const { album, artist } = Astro.props;
       // whosampled.com had nothing recorded for, so they still show up.
       tracks.forEach((t) => {
         const trackHasData = hasData.has(t.track_number);
-        const cx = trackX.get(t.track_number)!;
-        const cy = rowY(ANCHOR);
         plot
           .append("circle")
           .attr("class", trackHasData ? "dv-node" : "dv-node dv-node-nodata")
-          .attr("cx", cx)
-          .attr("cy", cy)
+          .attr("cx", trackX.get(t.track_number)!)
+          .attr("cy", rowY(ANCHOR))
           .attr("r", trackHasData ? 7 : 6)
-          .attr("fill", trackHasData ? "#FFFFFF" : "none");
-
-        plot
-          .append("circle")
-          .attr("class", "dv-node-hit")
-          .attr("cx", cx)
-          .attr("cy", cy)
-          .attr("r", 22)
-          .on("mouseenter", (event) => {
+          .attr("fill", trackHasData ? "#FFFFFF" : "none")
+          .on("mousemove", (event) => {
             tooltip
               .style("opacity", 1)
               .style("left", event.clientX + 14 + "px")
               .style("top", event.clientY + 14 + "px")
               .html(
-                popupHtml({
-                  artist,
-                  track: t.track_name,
-                  year: releaseYear,
-                  footer: trackHasData ? undefined : NO_DATA_LABEL,
-                }),
+                trackHasData
+                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
+                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
               );
           })
           .on("mouseleave", () => tooltip.style("opacity", 0));

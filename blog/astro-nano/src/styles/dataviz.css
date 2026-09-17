@@ -169,10 +169,7 @@
   z-index: 10;
 }
 
-/* Follows the cursor - only its content and visibility change on hover.
-   A small card: album art (when available) beside artist/track/year/type,
-   with an optional footer line (which album track it connects to, or a
-   "no data" note). */
+/* Follows the cursor - only its content and visibility change on hover. */
 .dv-tooltip {
   position: fixed;
   pointer-events: none;
@@ -182,42 +179,19 @@
   font-size: 11px;
   padding: 8px 10px;
   border-radius: 2px;
-  line-height: 1.5;
+  line-height: 1.6;
   opacity: 0;
   transition: opacity 0.1s;
+  white-space: nowrap;
   width: max-content;
-  max-width: min(260px, 60vw);
+  max-width: min(320px, 60vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
   z-index: 30;
 }
 .dv-tooltip b {
   font-family: ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
-  display: block;
-}
-.dv-tooltip-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.dv-tooltip-art {
-  flex: 0 0 auto;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 2px;
-}
-.dv-tooltip-body {
-  min-width: 0;
-}
-.dv-tooltip-type {
-  opacity: 0.7;
-  text-transform: capitalize;
-}
-.dv-tooltip-footer {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(18, 16, 13, 0.15);
-  opacity: 0.7;
 }
 
 /* Docked to the top-left of .dv-panel: a "reveal the tracklist" mini-game -
@@ -505,16 +479,6 @@
 .dv-node {
   stroke: var(--dv-bg);
   stroke-width: 1px;
-  cursor: pointer;
-}
-/* Invisible but still hit-testable - a bigger, easier-to-hit target layered
-   over a small visible dot (see SampleTimeline). opacity: 0 + explicit
-   pointer-events is more reliably hit-testable across browsers than relying
-   on fill: transparent counting as "painted". */
-.dv-node-hit {
-  fill: #000;
-  opacity: 0;
-  pointer-events: all;
   cursor: pointer;
 }
 .dv-node-nodata {
