@@ -3,12 +3,13 @@ import "@styles/dataviz.css";
 
 export interface Props {
   album: string;
+  artist: string;
 }
 
-const { album } = Astro.props;
+const { album, artist } = Astro.props;
 ---
 
-<div class="dataviz not-prose" data-component="sample-timeline" data-album={album}>
+<div class="dataviz not-prose" data-component="sample-timeline" data-album={album} data-artist={artist}>
   <div class="dv-panel">
     <svg class="dv-chart dv-timeline-chart" aria-label="Samples pulled from the past and songs influenced afterward, by track"></svg>
   </div>
@@ -32,7 +33,40 @@ const { album } = Astro.props;
     direction: "sampled" | "was sampled in" | "remixed in" | "covered in";
     element: string;
     release_year: number;
+    image_url: string | null;
   };
+
+  // A shared card layout for both hover targets: the sample dots (artist,
+  // track, year, direction, art - all always applicable) and the album's
+  // own track nodes (artist/track/year only - direction and art don't
+  // apply to the album's own track, so those rows are just left out).
+  function popupHtml(opts: {
+    artist: string;
+    track: string;
+    year: number;
+    type?: string;
+    imageUrl?: string | null;
+    footer?: string;
+  }) {
+    const img = opts.imageUrl
+      ? `<img class="dv-tooltip-art" src="${opts.imageUrl}" alt="" onerror="this.remove()" />`
+      : "";
+    const typeRow = opts.type ? `<div class="dv-tooltip-type">${opts.type}</div>` : "";
+    const footerRow = opts.footer
+      ? `<div class="dv-tooltip-footer">${opts.footer}</div>`
+      : "";
+    return (
+      `<div class="dv-tooltip-row">` +
+      img +
+      `<div class="dv-tooltip-body">` +
+      `<b>${opts.track}</b>` +
+      `<div>${opts.artist} · ${opts.year}</div>` +
+      typeRow +
+      `</div>` +
+      `</div>` +
+      footerRow
+    );
+  }
 
   type TrackMeta = { track_number: number; track_name: string };
 
@@ -52,6 +86,7 @@ const { album } = Astro.props;
 
   function initSampleTimeline(root: HTMLElement) {
     const album = root.dataset.album;
+    const artist = root.dataset.artist ?? "";
     const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
     const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
 
@@ -195,7 +230,14 @@ const { album } = Astro.props;
               .style("left", event.clientX + 14 + "px")
               .style("top", event.clientY + 14 + "px")
               .html(
-                `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+                popupHtml({
+                  artist: d.sample_artist,
+                  track: d.sample_title,
+                  year: d.sample_year,
+                  type: `${d.direction} · ${d.element}`,
+                  imageUrl: d.image_url,
+                  footer: `From "${d.track_name}"`,
+                }),
               );
           })
           .on("mouseleave", () => tooltip.style("opacity", 0));
@@ -218,9 +260,12 @@ const { album } = Astro.props;
               .style("left", event.clientX + 14 + "px")
               .style("top", event.clientY + 14 + "px")
               .html(
-                trackHasData
-                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
-                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
+                popupHtml({
+                  artist,
+                  track: t.track_name,
+                  year: releaseYear,
+                  footer: trackHasData ? undefined : NO_DATA_LABEL,
+                }),
               );
           })
           .on("mouseleave", () => tooltip.style("opacity", 0));
