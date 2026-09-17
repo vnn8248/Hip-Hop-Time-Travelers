@@ -118,13 +118,31 @@ const { album, artist } = Astro.props;
     const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
     const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
 
-    creditsClose.addEventListener("click", () => (creditsPanel.hidden = true));
-
     let currentMode: "none" | "producer" | "mixer" = "none";
     let tracks: Track[] = [];
     let radius: d3.ScaleSqrt<number, number> | null = null;
     let palette: Record<string, Record<string, string>> = {};
     const revealed = new Set<string>();
+    let activeCreditsId: string | null = null;
+
+    function closeCredits() {
+      creditsPanel.hidden = true;
+      nodesG.selectAll("circle.dv-node-active").classed("dv-node-active", false);
+      activeCreditsId = null;
+    }
+
+    function toggleCredits(circleEl: Element, track: Track) {
+      if (activeCreditsId === track.id) {
+        closeCredits();
+        return;
+      }
+      nodesG.selectAll("circle.dv-node-active").classed("dv-node-active", false);
+      renderCredits(root, track);
+      d3.select(circleEl).classed("dv-node-active", true);
+      activeCreditsId = track.id;
+    }
+
+    creditsClose.addEventListener("click", closeCredits);
 
     // A "reveal the tracklist" mini-game: one row per track, in album order,
     // blank until that track's bubble has been hovered at least once.
@@ -292,7 +310,10 @@ const { album, artist } = Astro.props;
           d3.select(event.currentTarget).select("circle").classed("dv-node-revealed", true);
         })
         .on("mouseleave", (_event, d) => highlightTrack(d, false))
-        .on("click", (_event, d) => renderCredits(root, d))
+        .on("click", (event, d) => {
+          const circle = d3.select(event.currentTarget).select("circle").node() as Element;
+          toggleCredits(circle, d);
+        })
         .transition()
         .duration(750)
         .ease(d3.easeCubicInOut)
@@ -333,7 +354,7 @@ const { album, artist } = Astro.props;
           .querySelectorAll(".dv-controls button")
           .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        creditsPanel.hidden = true;
+        closeCredits();
         render(mode);
       });
     });

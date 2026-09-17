@@ -472,6 +472,15 @@
   filter: drop-shadow(0 0 6px var(--dv-paper)) drop-shadow(0 0 14px var(--dv-brand));
 }
 
+/* The bubble whose credits panel is currently open - brighter/wider than the
+   plain "revealed" glow so it's obviously the one that's active. Click it
+   again (or another bubble, or close the panel) to clear this. */
+.dataviz[data-component="track-bubbles"] .dv-node-active {
+  stroke: var(--dv-paper);
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 0 6px var(--dv-paper)) drop-shadow(0 0 18px var(--dv-brand));
+}
+
 .dv-error {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 12px;
