@@ -19,7 +19,8 @@ const { album } = Astro.props;
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
     <div class="dv-hover-info">
-      <p class="dv-hover-info-body">Hover over the track to reveal it's play count on Spotify.</p>
+      <p class="dv-hover-info-hint">Hover over a track to reveal it on the list below.</p>
+      <div class="dv-track-list"></div>
     </div>
 
     <div class="dv-credits" hidden>
@@ -29,7 +30,7 @@ const { album } = Astro.props;
   </div>
 
   <div class="dv-legend"></div>
-  <p class="dv-hint">Hover a circle for a quick read, click it for the full credit list.</p>
+  <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
 </div>
 
 <script>
@@ -53,6 +54,7 @@ const { album } = Astro.props;
   type Track = {
     id: string;
     name: string;
+    trackNumber: number;
     producer: string;
     mixer: string;
     playCount: number;
@@ -111,8 +113,7 @@ const { album } = Astro.props;
     const svg = d3.select(root.querySelector<SVGSVGElement>(".dv-chart")!);
     const nodesG = svg.append("g");
     const labelsG = svg.append("g");
-    const hoverInfo = root.querySelector<HTMLParagraphElement>(".dv-hover-info-body")!;
-    const HOVER_DEFAULT = hoverInfo.textContent ?? "";
+    const trackListEl = root.querySelector<HTMLDivElement>(".dv-track-list")!;
     const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
     const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
 
@@ -122,6 +123,37 @@ const { album } = Astro.props;
     let tracks: Track[] = [];
     let radius: d3.ScaleSqrt<number, number> | null = null;
     let palette: Record<string, Record<string, string>> = {};
+    const revealed = new Set<string>();
+
+    // A "reveal the tracklist" mini-game: one row per track, in album order,
+    // blank until that track's bubble has been hovered at least once.
+    function initTrackList(allTracks: Track[]) {
+      const ordered = [...allTracks].sort((a, b) => a.trackNumber - b.trackNumber);
+      trackListEl.innerHTML = "";
+      ordered.forEach((t) => {
+        const row = document.createElement("div");
+        row.className = "dv-track-row";
+        row.dataset.trackId = t.id;
+        row.innerHTML = `<span class="dv-track-num">${String(t.trackNumber).padStart(2, "0")}</span><span class="dv-track-slot">···</span>`;
+        trackListEl.appendChild(row);
+      });
+    }
+
+    function revealTrack(track: Track) {
+      if (revealed.has(track.id)) return;
+      const row = trackListEl.querySelector<HTMLDivElement>(`[data-track-id="${track.id}"]`);
+      if (!row) return;
+      revealed.add(track.id);
+      row.classList.add("revealed");
+      row.querySelector(".dv-track-slot")!.outerHTML =
+        `<span class="dv-track-slot"><b>${track.name}</b><br>Play Count: ${track.playCount.toLocaleString()}</span>`;
+    }
+
+    function highlightTrack(track: Track, on: boolean) {
+      const row = trackListEl.querySelector<HTMLDivElement>(`[data-track-id="${track.id}"]`);
+      row?.classList.toggle("current", on);
+      if (on) row?.scrollIntoView({ block: "nearest" });
+    }
 
     fetch(`/data/${album}/output/album_data_viz_${album}.json`)
       .then((res) => res.json())
@@ -129,11 +161,14 @@ const { album } = Astro.props;
         tracks = recs.map((d: any) => ({
           id: d.spotify_track_id,
           name: d.track_name,
+          trackNumber: d.track_number,
           producer: d.primary_producer || "Unknown",
           mixer: d.primary_mixer || "Unknown",
           playCount: d.play_count,
           credits: d.credits,
         }));
+
+        initTrackList(tracks);
 
         radius = d3
           .scaleSqrt()
@@ -244,11 +279,10 @@ const { album } = Astro.props;
 
       merged
         .on("mouseenter", (_event, d) => {
-          hoverInfo.innerHTML = `<b>${d.name}</b><br>Play Count: ${d.playCount.toLocaleString()}`;
+          revealTrack(d);
+          highlightTrack(d, true);
         })
-        .on("mouseleave", () => {
-          hoverInfo.textContent = HOVER_DEFAULT;
-        })
+        .on("mouseleave", (_event, d) => highlightTrack(d, false))
         .on("click", (_event, d) => renderCredits(root, d))
         .transition()
         .duration(750)

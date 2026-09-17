@@ -177,14 +177,19 @@
   font-weight: 600;
 }
 
-/* Always-present readout docked to the top-left of .dv-panel - shows a
-   default hint until a bubble is hovered, then swaps to that track's info.
-   Never affects .dv-panel's size (position: absolute, content-sized). */
+/* Docked to the top-left of .dv-panel: a "reveal the tracklist" mini-game -
+   one row per track in album order, blank until its bubble has been
+   hovered at least once. Never affects .dv-panel's size (position: absolute,
+   stretched height with its own internal scroll, mirroring .dv-credits on
+   the right). */
 .dv-hover-info {
   position: absolute;
   top: 8px;
   left: 8px;
-  max-width: min(280px, 42%);
+  bottom: 8px;
+  width: min(240px, 42%);
+  display: flex;
+  flex-direction: column;
   background: var(--dv-panel);
   border: 1px solid var(--dv-grid);
   border-radius: 3px;
@@ -192,14 +197,47 @@
   box-shadow: 8px 0 24px rgba(0, 0, 0, 0.45);
   z-index: 10;
 }
-.dv-hover-info-body {
-  margin: 0;
+.dv-hover-info-hint {
+  margin: 0 0 8px;
+  flex: 0 0 auto;
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 11px;
-  line-height: 1.6;
+  font-size: 10px;
+  line-height: 1.5;
   color: var(--dv-paper-dim);
 }
-.dv-hover-info-body b {
+.dv-track-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+.dv-track-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--dv-grid);
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  transition: background-color 0.15s;
+}
+.dv-track-row:last-child {
+  border-bottom: none;
+}
+.dv-track-row.current {
+  background: rgba(89, 126, 93, 0.2);
+}
+.dv-track-num {
+  flex: 0 0 auto;
+  color: var(--dv-brand);
+}
+.dv-track-slot {
+  color: var(--dv-paper-dim);
+}
+.dv-track-row.revealed .dv-track-slot {
+  color: var(--dv-paper-dim);
+}
+.dv-track-row.revealed .dv-track-slot b {
   font-family: ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   color: var(--dv-paper);
@@ -207,7 +245,7 @@
 @media (max-width: 640px) {
   .dv-hover-info {
     right: 8px;
-    max-width: none;
+    width: auto;
   }
 }
 
