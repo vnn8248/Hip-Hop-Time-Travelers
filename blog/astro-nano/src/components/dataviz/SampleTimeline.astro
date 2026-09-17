@@ -18,11 +18,17 @@ const { album } = Astro.props;
 
   <div class="dv-panel">
     <svg class="dv-chart dv-timeline-chart" aria-label="Samples pulled from the past and songs influenced afterward, by track"></svg>
+
+    <div class="dv-credits" hidden>
+      <button type="button" class="dv-credits-close" aria-label="Close track details">&times;</button>
+      <div class="dv-credits-body"></div>
+    </div>
   </div>
   <div class="dv-legend"></div>
   <p class="dv-hint">
     Each column is a track. Above the release row: what it sampled. Below: what
-    later sampled, remixed, or covered it. Hover a dot for details.
+    later sampled, remixed, or covered it. Hover a dot for details, click a
+    release-row dot for the full breakdown.
   </p>
   <div class="dv-tooltip" role="tooltip"></div>
 </div>
@@ -41,7 +47,12 @@ const { album } = Astro.props;
     release_year: number;
   };
 
-  type TrackMeta = { track_number: number; track_name: string };
+  type TrackMeta = {
+    track_number: number;
+    track_name: string;
+    primary_producer: string;
+    primary_mixer: string;
+  };
 
   const PAST_DIRECTIONS = new Set(["sampled"]);
   // Fixed categorical order, anchored to the album-cover palette (brand sage
@@ -68,7 +79,12 @@ const { album } = Astro.props;
     ])
       .then(([albumTracks, records]: [any[], SampleRecord[]]) => {
         const tracks: TrackMeta[] = albumTracks
-          .map((t) => ({ track_number: t.track_number, track_name: t.track_name }))
+          .map((t) => ({
+            track_number: t.track_number,
+            track_name: t.track_name,
+            primary_producer: t.primary_producer || "Unknown",
+            primary_mixer: t.primary_mixer || "Unknown",
+          }))
           .sort((a, b) => a.track_number - b.track_number);
         render(tracks, records);
       })
@@ -243,6 +259,85 @@ const { album } = Astro.props;
 
       renderLegend();
       setupControls(plot, records);
+      setupTrackDetails(plot, tracks, records);
+    }
+
+    function setupTrackDetails(
+      plot: d3.Selection<SVGGElement, unknown, null, undefined>,
+      tracks: TrackMeta[],
+      records: SampleRecord[],
+    ) {
+      const panel = root.querySelector<HTMLDivElement>(".dv-credits")!;
+      const body = panel.querySelector<HTMLDivElement>(".dv-credits-body")!;
+      const closeBtn = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
+      const trackByNumber = new Map(tracks.map((t) => [t.track_number, t]));
+      const recordsByTrack = d3.group(records, (d) => d.track_number);
+      let activeTrackNumber: number | null = null;
+
+      function closeDetails() {
+        panel.hidden = true;
+        plot.selectAll(".dv-node-track").classed("dv-node-active", false);
+        activeTrackNumber = null;
+      }
+
+      function renderDetails(track: TrackMeta) {
+        const trackRecords = recordsByTrack.get(track.track_number) ?? [];
+        const sampled = trackRecords.filter((r) => PAST_DIRECTIONS.has(r.direction));
+        const influence = trackRecords.filter((r) => !PAST_DIRECTIONS.has(r.direction));
+        const influenceCounts = d3.rollups(
+          influence,
+          (v) => v.length,
+          (d) => d.direction,
+        );
+
+        const sampleItem = (s: SampleRecord) =>
+          `<li><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.element}</span></li>`;
+        const influenceItem = (s: SampleRecord) =>
+          `<li><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.direction} · ${s.element}</span></li>`;
+
+        let html = `<p class="dv-credits-title">${track.track_name}</p>`;
+
+        html += `<h4>Producer</h4><ul><li>${track.primary_producer}</li></ul>`;
+        html += `<h4>Mixer</h4><ul><li>${track.primary_mixer}</li></ul>`;
+
+        html += `<h4>Samples</h4>`;
+        html += `<p class="dv-credits-count">${sampled.length} song${sampled.length === 1 ? "" : "s"} sampled</p>`;
+        if (sampled.length) {
+          html += `<ul>${sampled.map(sampleItem).join("")}</ul>`;
+        }
+
+        html += `<h4>Influence</h4>`;
+        if (influenceCounts.length) {
+          html += `<p class="dv-credits-count">${influenceCounts
+            .map(([direction, count]) => `${count} ${direction}`)
+            .join(" · ")}</p>`;
+          html += `<ul>${influence.map(influenceItem).join("")}</ul>`;
+        } else {
+          html += `<p class="dv-empty">Nothing has sampled, remixed, or covered this track yet.</p>`;
+        }
+
+        body.innerHTML = html;
+        panel.hidden = false;
+      }
+
+      function toggleDetails(el: Element, track: TrackMeta) {
+        if (activeTrackNumber === track.track_number) {
+          closeDetails();
+          return;
+        }
+        plot.selectAll(".dv-node-track").classed("dv-node-active", false);
+        renderDetails(track);
+        d3.select(el).classed("dv-node-active", true);
+        activeTrackNumber = track.track_number;
+      }
+
+      closeBtn.addEventListener("click", closeDetails);
+
+      plot.selectAll<SVGCircleElement, unknown>(".dv-node-track").on("click", function () {
+        const trackNumber = Number(this.getAttribute("data-track"));
+        const track = trackByNumber.get(trackNumber);
+        if (track) toggleDetails(this, track);
+      });
     }
 
     function setupControls(plot: d3.Selection<SVGGElement, unknown, null, undefined>, records: SampleRecord[]) {

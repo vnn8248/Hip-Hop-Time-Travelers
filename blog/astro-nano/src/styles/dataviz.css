@@ -379,6 +379,12 @@
   font-size: 13px;
   font-style: italic;
 }
+.dv-credits-body .dv-credits-count {
+  margin: 0 0 6px;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--dv-paper-dim);
+}
 
 /* Small multiples, now a one-at-a-time carousel */
 .dv-carousel-panel {
@@ -494,6 +500,9 @@
   stroke: var(--dv-paper-dim);
   stroke-width: 1.5px;
   stroke-dasharray: 2.5 2;
+  /* fill:none only hit-tests the stroke by default - force the whole
+     circle (not just its dashed ring) to catch hover/click. */
+  pointer-events: all;
 }
 
 /* Sample-type controls: clicking a type glows its stems/nodes (and the
@@ -508,6 +517,14 @@
 .dataviz[data-component="sample-timeline"] .dv-node.dv-glow {
   stroke: var(--dv-paper);
   filter: drop-shadow(0 0 4px var(--dv-paper)) drop-shadow(0 0 9px var(--dv-brand));
+}
+
+/* The release-row track node whose details panel is currently open -
+   brighter/wider than the type-filter glow so it reads as the active one. */
+.dataviz[data-component="sample-timeline"] .dv-node-active {
+  stroke: var(--dv-paper);
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 0 6px var(--dv-paper)) drop-shadow(0 0 18px var(--dv-brand));
 }
 
 /* Bubble chart only: a small continuous pulse per circle, like a bass
