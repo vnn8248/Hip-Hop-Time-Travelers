@@ -251,13 +251,6 @@
   font-weight: 600;
   color: var(--dv-paper);
 }
-@media (max-width: 640px) {
-  .dv-hover-info {
-    right: 8px;
-    width: auto;
-  }
-}
-
 /* Overlays the right side of .dv-panel instead of sitting in normal flow,
    so opening it never resizes/shrinks the chart itself. */
 .dv-credits {
@@ -274,10 +267,41 @@
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.45);
   z-index: 10;
 }
+
+/* Mobile bubble chart: hover doesn't really exist on touch, so drop the
+   hint text and the hover-reveal tracklist entirely (it would otherwise
+   cover the whole chart at this width anyway). Credits now open as a
+   normal-flow block below the bubbles instead of an overlay - .dataviz and
+   .dv-panel give up their fixed/fit-to-viewport height here so the widget
+   can grow with the page instead of clipping the popped-open credits. */
 @media (max-width: 640px) {
-  .dv-credits {
-    left: 8px;
-    width: auto;
+  .dataviz[data-component="track-bubbles"] {
+    height: auto;
+    min-height: 0;
+  }
+  .dataviz[data-component="track-bubbles"] .dv-hint,
+  .dataviz[data-component="track-bubbles"] .dv-hover-info {
+    display: none;
+  }
+  .dataviz[data-component="track-bubbles"] .dv-panel {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    overflow: visible;
+  }
+  .dataviz[data-component="track-bubbles"] .dv-chart {
+    width: 100%;
+    height: auto;
+  }
+  .dataviz[data-component="track-bubbles"] .dv-credits {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: 12px;
+    box-shadow: none;
   }
 }
 .dv-credits-close {
