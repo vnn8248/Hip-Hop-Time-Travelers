@@ -488,6 +488,20 @@
   stroke-dasharray: 2.5 2;
 }
 
+/* Sample-type controls: clicking a type glows its stems/nodes (and the
+   album-track anchors that connect to it) and fades everything else. */
+.dataviz[data-component="sample-timeline"] .dv-stem,
+.dataviz[data-component="sample-timeline"] .dv-node {
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+.dataviz[data-component="sample-timeline"] .dv-dim {
+  opacity: 0.15;
+}
+.dataviz[data-component="sample-timeline"] .dv-node.dv-glow {
+  stroke: var(--dv-paper);
+  filter: drop-shadow(0 0 4px var(--dv-paper)) drop-shadow(0 0 9px var(--dv-brand));
+}
+
 /* Bubble chart only: a small continuous pulse per circle, like a bass
    vibration - timing/delay is randomized per node in JS so they don't move
    in lockstep. */

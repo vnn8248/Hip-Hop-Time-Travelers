@@ -9,6 +9,13 @@ const { album } = Astro.props;
 ---
 
 <div class="dataviz not-prose" data-component="sample-timeline" data-album={album}>
+  <div class="dv-controls" role="group" aria-label="Highlight by sample type">
+    <button type="button" data-type="sampled">Sampled</button>
+    <button type="button" data-type="was sampled in">Was Sampled In</button>
+    <button type="button" data-type="remixed in">Remixed In</button>
+    <button type="button" data-type="covered in">Covered In</button>
+  </div>
+
   <div class="dv-panel">
     <svg class="dv-chart dv-timeline-chart" aria-label="Samples pulled from the past and songs influenced afterward, by track"></svg>
   </div>
@@ -178,13 +185,17 @@ const { album } = Astro.props;
         plot
           .append("path")
           .attr("class", "dv-stem")
+          .attr("data-direction", d.direction)
+          .attr("data-track", d.track_number)
           .attr("stroke", color)
           .attr("stroke-opacity", 0.75)
           .attr("d", `M${trackCenter},${anchorY} L${x},${y}`);
 
         plot
           .append("circle")
-          .attr("class", "dv-node")
+          .attr("class", "dv-node dv-node-sample")
+          .attr("data-direction", d.direction)
+          .attr("data-track", d.track_number)
           .attr("cx", x)
           .attr("cy", y)
           .attr("r", 4.5)
@@ -207,7 +218,11 @@ const { album } = Astro.props;
         const trackHasData = hasData.has(t.track_number);
         plot
           .append("circle")
-          .attr("class", trackHasData ? "dv-node" : "dv-node dv-node-nodata")
+          .attr(
+            "class",
+            trackHasData ? "dv-node dv-node-track" : "dv-node dv-node-track dv-node-nodata",
+          )
+          .attr("data-track", t.track_number)
           .attr("cx", trackX.get(t.track_number)!)
           .attr("cy", rowY(ANCHOR))
           .attr("r", trackHasData ? 7 : 6)
@@ -227,6 +242,53 @@ const { album } = Astro.props;
       });
 
       renderLegend();
+      setupControls(plot, records);
+    }
+
+    function setupControls(plot: d3.Selection<SVGGElement, unknown, null, undefined>, records: SampleRecord[]) {
+      const buttons = root.querySelectorAll<HTMLButtonElement>(".dv-controls button[data-type]");
+      let activeType: string | null = null;
+
+      function applyTypeFilter(type: string | null) {
+        activeType = type;
+
+        const tracksWithType = new Set(
+          type === null ? [] : records.filter((d) => d.direction === type).map((d) => d.track_number),
+        );
+
+        plot.selectAll<SVGPathElement, unknown>(".dv-stem").each(function () {
+          const dir = this.getAttribute("data-direction");
+          const match = type === null || dir === type;
+          d3.select(this).classed("dv-dim", type !== null && !match);
+        });
+
+        plot.selectAll<SVGCircleElement, unknown>(".dv-node-sample").each(function () {
+          const dir = this.getAttribute("data-direction");
+          const match = type === null || dir === type;
+          d3.select(this)
+            .classed("dv-dim", type !== null && !match)
+            .classed("dv-glow", type !== null && match);
+        });
+
+        plot.selectAll<SVGCircleElement, unknown>(".dv-node-track").each(function () {
+          const trackNumber = Number(this.getAttribute("data-track"));
+          const match = type === null || tracksWithType.has(trackNumber);
+          d3.select(this)
+            .classed("dv-dim", type !== null && !match)
+            .classed("dv-glow", type !== null && match);
+        });
+
+        buttons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.type === type);
+        });
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const type = btn.dataset.type!;
+          applyTypeFilter(activeType === type ? null : type);
+        });
+      });
     }
 
     function renderLegend() {
