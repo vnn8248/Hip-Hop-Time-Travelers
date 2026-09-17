@@ -27,8 +27,9 @@ const { album } = Astro.props;
   <div class="dv-legend"></div>
   <p class="dv-hint">
     Each column is a track. Above the release row: what it sampled. Below: what
-    later sampled, remixed, or covered it. Hover a dot for details, click a
-    release-row dot for the full breakdown.
+    later sampled, remixed, or covered it. Hover a release-row dot to light up
+    its name and lineage; click it to zoom in with the full breakdown. Click
+    the background to reset.
   </p>
   <div class="dv-tooltip" role="tooltip"></div>
 </div>
@@ -96,7 +97,6 @@ const { album } = Astro.props;
 
     function render(tracks: TrackMeta[], records: SampleRecord[]) {
       const releaseYear = records[0]?.release_year ?? d3.min(records, (d) => d.sample_year)!;
-      const hasData = new Set(records.map((d) => d.track_number));
 
       const pastDecades = [
         ...new Set(
@@ -116,7 +116,7 @@ const { album } = Astro.props;
 
       const colWidth = 70;
       const rowHeight = 64;
-      const margin = { top: 16, right: 16, bottom: 120, left: 56 };
+      const margin = { top: 16, right: 16, bottom: 40, left: 56 };
       const plotW = colWidth * tracks.length;
       const plotH = rowHeight * rows.length;
       const W = margin.left + plotW + margin.right;
@@ -137,6 +137,17 @@ const { album } = Astro.props;
 
       const svg = d3.select(svgEl).attr("viewBox", `0 0 ${W} ${H}`);
       svg.selectAll("*").remove();
+
+      // Invisible full-size backdrop - clicking empty chart space resets
+      // whatever track is currently focused, same as the panel's close (x).
+      svg
+        .append("rect")
+        .attr("class", "dv-chart-bg-rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", W)
+        .attr("height", H)
+        .attr("fill", "transparent");
 
       // decade row bands + labels
       const rowsG = svg.append("g");
@@ -164,120 +175,81 @@ const { album } = Astro.props;
           .text(r === ANCHOR ? `${releaseYear} · Release` : `${r}s`);
       });
 
-      // track column labels
+      // Track column labels - dark by default so a full horizontal row of
+      // them can overlap without reading as clutter; a label only lights up
+      // (white) while its track is hovered or its details panel is open.
       const labelsG = svg.append("g");
       tracks.forEach((t) => {
         const cx = trackX.get(t.track_number)!;
         labelsG
           .append("text")
           .attr("class", "dv-track-label")
-          .attr("x", 0)
-          .attr("y", 0)
-          .attr("transform", `translate(${cx},${margin.top + plotH + 14}) rotate(-40)`)
-          .attr("text-anchor", "end")
+          .attr("data-track", t.track_number)
+          .attr("x", cx)
+          .attr("y", margin.top + plotH + 22)
+          .attr("text-anchor", "middle")
           .text(t.track_name);
       });
 
-      // stems + nodes
+      // Sample lineage - one <g> per track holding its stems, sample nodes,
+      // and its own release-row anchor. Grouping them lets hover/click glow,
+      // blur, and 3x-scale exactly one track's lineage without touching any
+      // other track's markup.
       const plot = svg.append("g");
       const stacked = new Map<string, number>();
-
-      records.forEach((d) => {
-        const trackCenter = trackX.get(d.track_number)!;
-        const anchorY = rowY(ANCHOR);
-        const decade = decadeOf(d.sample_year);
-        const x = nodeX(d.track_number, d.sample_year);
-        let y = rowY(decade);
-
-        // stagger exact duplicates (same track, same year) so they stay visible
-        const stackKey = `${d.track_number}-${d.sample_year}`;
-        const n = stacked.get(stackKey) ?? 0;
-        stacked.set(stackKey, n + 1);
-        const JITTER = [0, -9, 9, -18, 18, -27, 27];
-        y += JITTER[n % JITTER.length];
-
-        const color = DIRECTION_COLOR[d.direction] ?? "#5B564A";
-
-        plot
-          .append("path")
-          .attr("class", "dv-stem")
-          .attr("data-direction", d.direction)
-          .attr("data-track", d.track_number)
-          .attr("stroke", color)
-          .attr("stroke-opacity", 0.75)
-          .attr("d", `M${trackCenter},${anchorY} L${x},${y}`);
-
-        plot
-          .append("circle")
-          .attr("class", "dv-node dv-node-sample")
-          .attr("data-direction", d.direction)
-          .attr("data-track", d.track_number)
-          .attr("cx", x)
-          .attr("cy", y)
-          .attr("r", 4.5)
-          .attr("fill", color)
-          .on("mousemove", (event) => {
-            tooltip
-              .style("opacity", 1)
-              .style("left", event.clientX + 14 + "px")
-              .style("top", event.clientY + 14 + "px")
-              .html(
-                `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
-              );
-          })
-          .on("mouseleave", () => tooltip.style("opacity", 0));
-      });
-
-      // one node per track at the release row - hollow/dashed for tracks
-      // whosampled.com had nothing recorded for, so they still show up.
-      tracks.forEach((t) => {
-        const trackHasData = hasData.has(t.track_number);
-        plot
-          .append("circle")
-          .attr(
-            "class",
-            trackHasData ? "dv-node dv-node-track" : "dv-node dv-node-track dv-node-nodata",
-          )
-          .attr("data-track", t.track_number)
-          .attr("cx", trackX.get(t.track_number)!)
-          .attr("cy", rowY(ANCHOR))
-          .attr("r", trackHasData ? 7 : 6)
-          .attr("fill", trackHasData ? "#FFFFFF" : "none")
-          .on("mousemove", (event) => {
-            tooltip
-              .style("opacity", 1)
-              .style("left", event.clientX + 14 + "px")
-              .style("top", event.clientY + 14 + "px")
-              .html(
-                trackHasData
-                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
-                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
-              );
-          })
-          .on("mouseleave", () => tooltip.style("opacity", 0));
-      });
-
-      renderLegend();
-      setupControls(plot, records);
-      setupTrackDetails(plot, tracks, records);
-    }
-
-    function setupTrackDetails(
-      plot: d3.Selection<SVGGElement, unknown, null, undefined>,
-      tracks: TrackMeta[],
-      records: SampleRecord[],
-    ) {
-      const panel = root.querySelector<HTMLDivElement>(".dv-credits")!;
-      const body = panel.querySelector<HTMLDivElement>(".dv-credits-body")!;
-      const closeBtn = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
-      const trackByNumber = new Map(tracks.map((t) => [t.track_number, t]));
       const recordsByTrack = d3.group(records, (d) => d.track_number);
+      const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
+      const creditsBody = creditsPanel.querySelector<HTMLDivElement>(".dv-credits-body")!;
+      const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
       let activeTrackNumber: number | null = null;
 
-      function closeDetails() {
-        panel.hidden = true;
+      function setLineageHover(trackNumber: number, on: boolean) {
+        if (!on && activeTrackNumber === trackNumber) return; // stays lit while its panel is open
+        plot
+          .select<SVGGElement>(`.dv-track-lineage[data-track="${trackNumber}"]`)
+          .classed("dv-lineage-hover", on);
+        labelsG
+          .select<SVGTextElement>(`.dv-track-label[data-track="${trackNumber}"]`)
+          .classed("dv-track-label-active", on);
+      }
+
+      function focusTrack(trackNumber: number) {
+        const cx = trackX.get(trackNumber)!;
+        const cy = rowY(ANCHOR);
+
+        plot.selectAll<SVGGElement, unknown>(".dv-track-lineage").each(function () {
+          const isActive = this.getAttribute("data-track") === String(trackNumber);
+          d3.select(this)
+            .classed("dv-lineage-focus", isActive)
+            .classed("dv-lineage-hover", isActive)
+            .classed("dv-lineage-blurred", !isActive);
+          if (isActive) {
+            this.style.transformOrigin = `${cx}px ${cy}px`;
+            d3.select(this).raise();
+          }
+        });
+
+        rowsG.classed("dv-lineage-blurred", true);
+        labelsG.selectAll<SVGTextElement, unknown>(".dv-track-label").each(function () {
+          const isActive = this.getAttribute("data-track") === String(trackNumber);
+          d3.select(this)
+            .classed("dv-track-label-active", isActive)
+            .classed("dv-lineage-blurred", !isActive);
+        });
+      }
+
+      function unfocusAll() {
+        plot
+          .selectAll(".dv-track-lineage")
+          .classed("dv-lineage-focus", false)
+          .classed("dv-lineage-hover", false)
+          .classed("dv-lineage-blurred", false);
         plot.selectAll(".dv-node-track").classed("dv-node-active", false);
-        activeTrackNumber = null;
+        rowsG.classed("dv-lineage-blurred", false);
+        labelsG
+          .selectAll(".dv-track-label")
+          .classed("dv-track-label-active", false)
+          .classed("dv-lineage-blurred", false);
       }
 
       function renderDetails(track: TrackMeta) {
@@ -316,28 +288,121 @@ const { album } = Astro.props;
           html += `<p class="dv-empty">Nothing has sampled, remixed, or covered this track yet.</p>`;
         }
 
-        body.innerHTML = html;
-        panel.hidden = false;
+        creditsBody.innerHTML = html;
+        creditsPanel.hidden = false;
       }
 
-      function toggleDetails(el: Element, track: TrackMeta) {
+      function closeDetails() {
+        creditsPanel.hidden = true;
+        unfocusAll();
+        activeTrackNumber = null;
+      }
+
+      function toggleDetails(track: TrackMeta) {
         if (activeTrackNumber === track.track_number) {
           closeDetails();
           return;
         }
-        plot.selectAll(".dv-node-track").classed("dv-node-active", false);
-        renderDetails(track);
-        d3.select(el).classed("dv-node-active", true);
         activeTrackNumber = track.track_number;
+        renderDetails(track);
+        focusTrack(track.track_number);
+        plot.selectAll(".dv-node-track").classed("dv-node-active", false);
+        plot
+          .select(`.dv-track-lineage[data-track="${track.track_number}"] .dv-node-track`)
+          .classed("dv-node-active", true);
       }
 
-      closeBtn.addEventListener("click", closeDetails);
+      creditsClose.addEventListener("click", closeDetails);
+      svg.select(".dv-chart-bg-rect").on("click", closeDetails);
 
-      plot.selectAll<SVGCircleElement, unknown>(".dv-node-track").on("click", function () {
-        const trackNumber = Number(this.getAttribute("data-track"));
-        const track = trackByNumber.get(trackNumber);
-        if (track) toggleDetails(this, track);
+      tracks.forEach((t) => {
+        const trackRecords = recordsByTrack.get(t.track_number) ?? [];
+        const trackHasData = trackRecords.length > 0;
+        const g = plot
+          .append("g")
+          .attr("class", "dv-track-lineage")
+          .attr("data-track", t.track_number);
+
+        trackRecords.forEach((d) => {
+          const trackCenter = trackX.get(d.track_number)!;
+          const anchorY = rowY(ANCHOR);
+          const decade = decadeOf(d.sample_year);
+          const x = nodeX(d.track_number, d.sample_year);
+          let y = rowY(decade);
+
+          // stagger exact duplicates (same track, same year) so they stay visible
+          const stackKey = `${d.track_number}-${d.sample_year}`;
+          const n = stacked.get(stackKey) ?? 0;
+          stacked.set(stackKey, n + 1);
+          const JITTER = [0, -9, 9, -18, 18, -27, 27];
+          y += JITTER[n % JITTER.length];
+
+          const color = DIRECTION_COLOR[d.direction] ?? "#5B564A";
+
+          g.append("path")
+            .attr("class", "dv-stem")
+            .attr("data-direction", d.direction)
+            .attr("data-track", d.track_number)
+            .attr("stroke", color)
+            .attr("stroke-opacity", 0.75)
+            .attr("d", `M${trackCenter},${anchorY} L${x},${y}`);
+
+          g.append("circle")
+            .attr("class", "dv-node dv-node-sample")
+            .attr("data-direction", d.direction)
+            .attr("data-track", d.track_number)
+            .attr("cx", x)
+            .attr("cy", y)
+            .attr("r", 4.5)
+            .attr("fill", color)
+            .on("mousemove", (event) => {
+              tooltip
+                .style("opacity", 1)
+                .style("left", event.clientX + 14 + "px")
+                .style("top", event.clientY + 14 + "px")
+                .html(
+                  `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+                );
+            })
+            .on("mouseleave", () => tooltip.style("opacity", 0));
+        });
+
+        // the track's own node at the release row - hollow/dashed if
+        // whosampled.com had nothing recorded for it, so it still shows up.
+        g.append("circle")
+          .attr(
+            "class",
+            trackHasData ? "dv-node dv-node-track" : "dv-node dv-node-track dv-node-nodata",
+          )
+          .attr("data-track", t.track_number)
+          .attr("cx", trackX.get(t.track_number)!)
+          .attr("cy", rowY(ANCHOR))
+          .attr("r", trackHasData ? 7 : 6)
+          .attr("fill", trackHasData ? "#FFFFFF" : "none")
+          .on("mousemove", (event) => {
+            tooltip
+              .style("opacity", 1)
+              .style("left", event.clientX + 14 + "px")
+              .style("top", event.clientY + 14 + "px")
+              .html(
+                trackHasData
+                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
+                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
+              );
+          })
+          .on("mouseenter", () => setLineageHover(t.track_number, true))
+          .on("mouseleave", () => {
+            tooltip.style("opacity", 0);
+            setLineageHover(t.track_number, false);
+          })
+          .on("click", (event) => {
+            event.stopPropagation();
+            toggleDetails(t);
+          });
       });
+
+      renderLegend();
+      setupControls(plot, records);
     }
 
     function setupControls(plot: d3.Selection<SVGGElement, unknown, null, undefined>, records: SampleRecord[]) {

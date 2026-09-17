@@ -484,7 +484,17 @@
 .dv-track-label {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 9px;
-  fill: var(--dv-paper-dim);
+  /* Dark by default so a full row of horizontal labels can overlap without
+     reading as clutter - a track's name only surfaces on hover/click. */
+  fill: var(--dv-grid);
+  transition: fill 0.2s ease;
+  pointer-events: none;
+}
+.dv-track-label.dv-track-label-active {
+  fill: var(--dv-paper);
+}
+.dv-chart-bg-rect {
+  pointer-events: all;
 }
 .dv-stem {
   fill: none;
@@ -525,6 +535,40 @@
   stroke: var(--dv-paper);
   stroke-width: 2.5px;
   filter: drop-shadow(0 0 6px var(--dv-paper)) drop-shadow(0 0 18px var(--dv-brand));
+}
+
+/* One <g> per track (stems + sample nodes + its own release-row anchor).
+   Hovering the anchor, or opening its details panel, lights up this whole
+   group; opening details also blows it up 3x around the anchor point while
+   every other track's lineage (and the row grid + other labels) blurs out,
+   so the one lineage reads as the sole focus of the chart. */
+.dataviz[data-component="sample-timeline"] .dv-track-lineage {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-focus {
+  transform: scale(3);
+}
+.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-hover .dv-node,
+.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-focus .dv-node {
+  stroke: var(--dv-paper);
+  filter: drop-shadow(0 0 4px var(--dv-paper)) drop-shadow(0 0 9px var(--dv-brand));
+}
+.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-hover .dv-stem,
+.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-focus .dv-stem {
+  stroke-opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55));
+}
+.dataviz[data-component="sample-timeline"] .dv-lineage-blurred,
+.dataviz[data-component="sample-timeline"] .dv-track-label.dv-lineage-blurred {
+  filter: blur(4px);
+  opacity: 0.5;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+/* The scaled-up lineage can spill past the chart's own viewBox - let it, so
+   the zoom isn't hard-clipped at the SVG edge. .dv-panel still scrolls if it
+   overflows further than that. */
+.dataviz[data-component="sample-timeline"] .dv-chart {
+  overflow: visible;
 }
 
 /* Bubble chart only: a small continuous pulse per circle, like a bass
