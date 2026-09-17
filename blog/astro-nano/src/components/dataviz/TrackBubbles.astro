@@ -17,6 +17,7 @@ const { album, artist } = Astro.props;
   </div>
 
   <div class="dv-legend"></div>
+  <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
 
   <div class="dv-panel">
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
@@ -32,8 +33,6 @@ const { album, artist } = Astro.props;
       <div class="dv-credits-body"></div>
     </div>
   </div>
-
-  <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
 </div>
 
 <script>

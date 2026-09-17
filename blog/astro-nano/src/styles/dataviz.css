@@ -147,7 +147,7 @@
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 11px;
   color: var(--dv-paper-dim);
-  margin: 8px 0 0;
+  margin: 4px 0 12px;
   text-align: center;
   flex: 0 0 auto;
 }
