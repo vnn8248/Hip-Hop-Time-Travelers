@@ -88,6 +88,7 @@
 }
 
 .dv-panel {
+  position: relative;
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
@@ -176,17 +177,27 @@
   font-weight: 600;
 }
 
+/* Overlays the right side of .dv-panel instead of sitting in normal flow,
+   so opening it never resizes/shrinks the chart itself. */
 .dv-credits {
-  margin-top: 14px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  width: min(320px, 42%);
   background: var(--dv-panel);
   border: 1px solid var(--dv-grid);
   border-radius: 3px;
   padding: 14px 40px 14px 16px;
-  position: relative;
-  width: 100%;
-  flex: 0 0 auto;
-  max-height: 40vh;
   overflow-y: auto;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.45);
+  z-index: 10;
+}
+@media (max-width: 640px) {
+  .dv-credits {
+    left: 8px;
+    width: auto;
+  }
 }
 .dv-credits-close {
   position: absolute;
@@ -353,6 +364,29 @@
   stroke: var(--dv-paper-dim);
   stroke-width: 1.5px;
   stroke-dasharray: 2.5 2;
+}
+
+/* Bubble chart only: a small continuous pulse per circle, like a bass
+   vibration - timing/delay is randomized per node in JS so they don't move
+   in lockstep. */
+@keyframes dv-wobble {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  20% { transform: scale(1.05) translate(0.8px, -0.6px); }
+  45% { transform: scale(0.96) translate(-0.7px, 0.5px); }
+  70% { transform: scale(1.03) translate(0.5px, 0.7px); }
+  90% { transform: scale(0.98) translate(-0.4px, -0.3px); }
+}
+.dataviz[data-component="track-bubbles"] .dv-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-name: dv-wobble;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dataviz[data-component="track-bubbles"] .dv-node {
+    animation: none;
+  }
 }
 
 .dv-error {

@@ -17,15 +17,15 @@ const { album } = Astro.props;
 
   <div class="dv-panel">
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
+
+    <div class="dv-credits" hidden>
+      <button type="button" class="dv-credits-close" aria-label="Close credits">&times;</button>
+      <div class="dv-credits-body"></div>
+    </div>
   </div>
 
   <div class="dv-legend"></div>
   <p class="dv-hint">Hover a circle for a quick read, click it for the full credit list.</p>
-
-  <div class="dv-credits" hidden>
-    <button type="button" class="dv-credits-close" aria-label="Close credits">&times;</button>
-    <div class="dv-credits-body"></div>
-  </div>
 
   <div class="dv-tooltip" role="tooltip"></div>
 </div>
@@ -231,7 +231,11 @@ const { album } = Astro.props;
         .append("circle")
         .attr("class", "dv-node")
         .attr("r", (d) => radius!(d.playCount))
-        .attr("fill", (d) => palette[mode][(d as any)[mode] ?? "all"] || "#5B564A");
+        .attr("fill", (d) => palette[mode][(d as any)[mode] ?? "all"] || "#5B564A")
+        // stagger the wobble per-bubble (keyed to track id, stable across
+        // mode switches) so the cluster pulses like it's alive, not in lockstep
+        .style("animation-delay", () => `-${(Math.random() * 2.6).toFixed(2)}s`)
+        .style("animation-duration", () => `${(1.8 + Math.random() * 1.4).toFixed(2)}s`);
 
       const merged = enter.merge(sel as any);
 
