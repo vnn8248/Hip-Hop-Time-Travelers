@@ -10,8 +10,6 @@ const { album, artist } = Astro.props;
 ---
 
 <div class="dataviz not-prose" data-component="track-bubbles" data-album={album}>
-  <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
-
   <div class="dv-controls" role="group" aria-label="Group tracks by">
     <button type="button" data-mode="none" class="active">All Tracks</button>
     <button type="button" data-mode="producer">By Producer</button>
@@ -19,6 +17,8 @@ const { album, artist } = Astro.props;
   </div>
 
   <div class="dv-panel">
+    <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
+
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
     <div class="dv-hover-info">

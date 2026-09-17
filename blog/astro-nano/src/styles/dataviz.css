@@ -152,6 +152,23 @@
   flex: 0 0 auto;
 }
 
+/* Bubble chart only: the hint lives inside .dv-panel, pinned to the top
+   like the tracklist/credits overlays either side of it - a small chip
+   over the chart instead of a line of text above it. */
+.dataviz[data-component="track-bubbles"] .dv-panel > .dv-hint {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  max-width: min(480px, 90%);
+  background: var(--dv-panel);
+  border: 1px solid var(--dv-grid);
+  border-radius: 3px;
+  padding: 4px 12px;
+  z-index: 10;
+}
+
 /* Follows the cursor - only its content and visibility change on hover. */
 .dv-tooltip {
   position: fixed;
