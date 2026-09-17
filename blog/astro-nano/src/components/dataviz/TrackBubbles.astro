@@ -3,9 +3,10 @@ import "@styles/dataviz.css";
 
 export interface Props {
   album: string;
+  artist: string;
 }
 
-const { album } = Astro.props;
+const { album, artist } = Astro.props;
 ---
 
 <div class="dataviz not-prose" data-component="track-bubbles" data-album={album}>
@@ -19,7 +20,7 @@ const { album } = Astro.props;
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
     <div class="dv-hover-info">
-      <p class="dv-hover-info-hint">Hover over a track to reveal it on the list below.</p>
+      <p class="dv-hover-info-hint">{artist} — {album}</p>
       <div class="dv-track-list"></div>
     </div>
 
@@ -173,7 +174,7 @@ const { album } = Astro.props;
         radius = d3
           .scaleSqrt()
           .domain(d3.extent(tracks, (d) => d.playCount) as [number, number])
-          .range([6, 55]);
+          .range([12, 110]);
 
         palette = {
           producer: buildPalette(tracks, "producer"),
@@ -189,18 +190,32 @@ const { album } = Astro.props;
           '<p class="dv-error">Couldn\'t load track data.</p>';
       });
 
+    // Circles are drawn at their exact radius() value (see render() below),
+    // not a value/sum-derived one, so the pack layout has to be told the
+    // real radii via .radius() - otherwise it spaces nodes for whatever
+    // radius its own sum-based math would produce, which no longer matches
+    // what actually gets drawn once bubbles are sized independently, and
+    // they'd overlap. .radius() packs don't force-fit to .size(); center the
+    // result using the pack's own computed enclosing circle instead.
+    function packCluster(items: Track[], boxW: number, boxH: number, padding: number) {
+      const pack = d3
+        .pack<Track>()
+        .size([boxW, boxH])
+        .padding(padding)
+        .radius((d: any) => radius!(d.data.playCount));
+      const root = d3.hierarchy<{ children: Track[] }>({ children: items });
+      pack(root as any);
+      return root as any;
+    }
+
     function computeLayout(mode: "none" | "producer" | "mixer") {
       if (mode === "none") {
-        const size = 420;
-        const offsetX = (W - size) / 2;
-        const offsetY = (H - size) / 2;
-        const pack = d3.pack<Track>().size([size, size]).padding(3);
-        const root = d3
-          .hierarchy<{ children: Track[] }>({ children: tracks })
-          .sum((d: any) => radius!(d.playCount) ** 2);
-        pack(root as any);
+        const box = Math.min(W, H) - 40;
+        const root = packCluster(tracks, box, box, 4);
+        const offsetX = W / 2 - root.x;
+        const offsetY = H / 2 - root.y;
         return {
-          nodes: (root as any)
+          nodes: root
             .leaves()
             .map((l: any) => ({ ...l.data, x: l.x + offsetX, y: l.y + offsetY })),
           groups: [] as string[],
@@ -218,20 +233,11 @@ const { album } = Astro.props;
       groups.forEach(([, items], i) => {
         const cx = (i % cols) * cellW + cellW / 2;
         const cy = 30 + Math.floor(i / cols) * cellH + cellH / 2;
-        const pack = d3
-          .pack<Track>()
-          .size([cellW - 20, cellH - 30])
-          .padding(5);
-        const packRoot = d3
-          .hierarchy<{ children: Track[] }>({ children: items as Track[] })
-          .sum((d: any) => radius!(d.playCount) ** 2);
-        pack(packRoot as any);
-        (packRoot as any).leaves().forEach((l: any) => {
-          out.push({
-            ...l.data,
-            x: cx - (cellW - 20) / 2 + l.x,
-            y: cy - (cellH - 30) / 2 + l.y + 10,
-          });
+        const root = packCluster(items as Track[], cellW - 20, cellH - 30, 4);
+        const offsetX = cx - root.x;
+        const offsetY = cy - root.y;
+        root.leaves().forEach((l: any) => {
+          out.push({ ...l.data, x: l.x + offsetX, y: l.y + offsetY });
         });
       });
       return { nodes: out, groups: groups.map((g) => g[0] as string), cols, cellW, cellH };
