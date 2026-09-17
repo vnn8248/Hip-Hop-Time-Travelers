@@ -16,7 +16,6 @@ const { album, artist } = Astro.props;
     <button type="button" data-mode="mixer">By Mixer</button>
   </div>
 
-  <div class="dv-legend"></div>
   <p class="dv-hint">Hover a circle to reveal it on the tracklist, click it for the full credit list.</p>
 
   <div class="dv-panel">
@@ -33,6 +32,8 @@ const { album, artist } = Astro.props;
       <div class="dv-credits-body"></div>
     </div>
   </div>
+
+  <div class="dv-legend"></div>
 </div>
 
 <script>
