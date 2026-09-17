@@ -236,10 +236,19 @@ const { album, artist } = Astro.props;
       return root as any;
     }
 
+    // On mobile the SVG is scaled way down to fit the screen width, so the
+    // same internal padding shrinks to a sliver on-screen - a couple pixels
+    // isn't enough gap for a finger to reliably tap one bubble and not its
+    // neighbor. Pack with a much larger gap there instead.
+    function packPadding() {
+      return window.matchMedia("(max-width: 640px)").matches ? 24 : 4;
+    }
+
     function computeLayout(mode: "none" | "producer" | "mixer") {
+      const padding = packPadding();
       if (mode === "none") {
         const box = Math.min(W, H) - 40;
-        const root = packCluster(tracks, box, box, 4);
+        const root = packCluster(tracks, box, box, padding);
         const offsetX = W / 2 - root.x;
         const offsetY = H / 2 - root.y;
         return {
@@ -261,7 +270,7 @@ const { album, artist } = Astro.props;
       groups.forEach(([, items], i) => {
         const cx = (i % cols) * cellW + cellW / 2;
         const cy = 30 + Math.floor(i / cols) * cellH + cellH / 2;
-        const root = packCluster(items as Track[], cellW - 20, cellH - 30, 4);
+        const root = packCluster(items as Track[], cellW - 20, cellH - 30, padding);
         const offsetX = cx - root.x;
         const offsetY = cy - root.y;
         root.leaves().forEach((l: any) => {
