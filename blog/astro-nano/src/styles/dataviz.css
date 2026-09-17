@@ -507,6 +507,12 @@
   stroke-width: 1px;
   cursor: pointer;
 }
+/* Invisible but still paints (so it's hit-testable) - a bigger, easier-to-hit
+   target layered over a small visible dot. See SampleTimeline. */
+.dv-node-hit {
+  fill: transparent;
+  cursor: pointer;
+}
 .dv-node-nodata {
   fill: none;
   stroke: var(--dv-paper-dim);

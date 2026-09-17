@@ -223,8 +223,20 @@ const { album, artist } = Astro.props;
           .attr("cx", x)
           .attr("cy", y)
           .attr("r", 4.5)
-          .attr("fill", color)
-          .on("mousemove", (event) => {
+          .attr("fill", color);
+
+        // The visible dot is tiny (4.5px radius) - a real mouse can't
+        // reliably land on it once the chart is scaled down to fit the
+        // page. A larger invisible circle on top carries the actual hover
+        // handlers instead, same standard D3 "small mark, bigger hit
+        // target" pattern used for the track nodes below.
+        plot
+          .append("circle")
+          .attr("class", "dv-node-hit")
+          .attr("cx", x)
+          .attr("cy", y)
+          .attr("r", 11)
+          .on("mouseenter", (event) => {
             tooltip
               .style("opacity", 1)
               .style("left", event.clientX + 14 + "px")
@@ -247,14 +259,23 @@ const { album, artist } = Astro.props;
       // whosampled.com had nothing recorded for, so they still show up.
       tracks.forEach((t) => {
         const trackHasData = hasData.has(t.track_number);
+        const cx = trackX.get(t.track_number)!;
+        const cy = rowY(ANCHOR);
         plot
           .append("circle")
           .attr("class", trackHasData ? "dv-node" : "dv-node dv-node-nodata")
-          .attr("cx", trackX.get(t.track_number)!)
-          .attr("cy", rowY(ANCHOR))
+          .attr("cx", cx)
+          .attr("cy", cy)
           .attr("r", trackHasData ? 7 : 6)
-          .attr("fill", trackHasData ? "#FFFFFF" : "none")
-          .on("mousemove", (event) => {
+          .attr("fill", trackHasData ? "#FFFFFF" : "none");
+
+        plot
+          .append("circle")
+          .attr("class", "dv-node-hit")
+          .attr("cx", cx)
+          .attr("cy", cy)
+          .attr("r", 14)
+          .on("mouseenter", (event) => {
             tooltip
               .style("opacity", 1)
               .style("left", event.clientX + 14 + "px")
