@@ -201,7 +201,7 @@ const { album, artist } = Astro.props;
         radius = d3
           .scaleSqrt()
           .domain(d3.extent(tracks, (d) => d.playCount) as [number, number])
-          .range([9, 82.5]);
+          .range([10.5, 96.25]);
 
         palette = {
           producer: buildPalette(tracks, "producer"),
