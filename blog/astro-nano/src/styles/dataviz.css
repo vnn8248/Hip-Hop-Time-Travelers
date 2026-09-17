@@ -87,6 +87,14 @@
   border-color: var(--dv-brand);
 }
 
+/* Sample-timeline controls: each button's active color matches the
+   direction's node color (set as --dv-type-color inline by the JS, from
+   the same DIRECTION_COLOR map the nodes are painted with). */
+.dataviz[data-component="sample-timeline"] .dv-controls button.active {
+  background: var(--dv-type-color, var(--dv-brand));
+  border-color: var(--dv-type-color, var(--dv-brand));
+}
+
 .dv-panel {
   position: relative;
   flex: 1 1 auto;

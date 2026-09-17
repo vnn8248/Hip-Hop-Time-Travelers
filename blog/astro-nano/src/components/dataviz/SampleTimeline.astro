@@ -249,6 +249,11 @@ const { album } = Astro.props;
       const buttons = root.querySelectorAll<HTMLButtonElement>(".dv-controls button[data-type]");
       let activeType: string | null = null;
 
+      buttons.forEach((btn) => {
+        const color = DIRECTION_COLOR[btn.dataset.type!];
+        if (color) btn.style.setProperty("--dv-type-color", color);
+      });
+
       function applyTypeFilter(type: string | null) {
         activeType = type;
 
