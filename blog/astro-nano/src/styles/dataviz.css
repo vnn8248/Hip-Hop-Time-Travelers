@@ -507,10 +507,14 @@
   stroke-width: 1px;
   cursor: pointer;
 }
-/* Invisible but still paints (so it's hit-testable) - a bigger, easier-to-hit
-   target layered over a small visible dot. See SampleTimeline. */
+/* Invisible but still hit-testable - a bigger, easier-to-hit target layered
+   over a small visible dot (see SampleTimeline). opacity: 0 + explicit
+   pointer-events is more reliably hit-testable across browsers than relying
+   on fill: transparent counting as "painted". */
 .dv-node-hit {
-  fill: transparent;
+  fill: #000;
+  opacity: 0;
+  pointer-events: all;
   cursor: pointer;
 }
 .dv-node-nodata {
