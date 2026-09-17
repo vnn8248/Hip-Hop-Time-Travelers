@@ -278,9 +278,12 @@ const { album } = Astro.props;
       const merged = enter.merge(sel as any);
 
       merged
-        .on("mouseenter", (_event, d) => {
+        .on("mouseenter", (event, d) => {
           revealTrack(d);
           highlightTrack(d, true);
+          // permanent glow so the user can see, at a glance, which bubbles
+          // they've already hovered (revealed on the tracklist to the left)
+          d3.select(event.currentTarget).select("circle").classed("dv-node-revealed", true);
         })
         .on("mouseleave", (_event, d) => highlightTrack(d, false))
         .on("click", (_event, d) => renderCredits(root, d))

@@ -461,6 +461,17 @@
   }
 }
 
+/* Marks a bubble as already hovered/revealed on the tracklist - a soft
+   permanent glow, brighter on top of it while the cursor is still there. */
+.dataviz[data-component="track-bubbles"] .dv-node-revealed {
+  stroke: var(--dv-paper);
+  filter: drop-shadow(0 0 4px var(--dv-brand)) drop-shadow(0 0 9px var(--dv-brand));
+  transition: filter 0.25s ease, stroke 0.25s ease;
+}
+.dataviz[data-component="track-bubbles"] .dv-node-revealed:hover {
+  filter: drop-shadow(0 0 6px var(--dv-paper)) drop-shadow(0 0 14px var(--dv-brand));
+}
+
 .dv-error {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 12px;
