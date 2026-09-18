@@ -118,7 +118,7 @@
 
 .dv-group-label {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   fill: var(--dv-paper-dim);
@@ -130,7 +130,7 @@
   gap: 16px;
   flex-wrap: wrap;
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--dv-paper-dim);
   margin: 12px 0 4px;
   flex: 0 0 auto;
@@ -153,7 +153,7 @@
 
 .dv-hint {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--dv-paper-dim);
   margin: 4px 0 12px;
   text-align: center;
@@ -465,13 +465,13 @@
 }
 .dv-axis text {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 10px;
+  font-size: 12px;
   fill: var(--dv-paper-dim);
 }
 
 .dv-axis-label {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 10px;
+  font-size: 12px;
   fill: var(--dv-paper-dim);
 }
 .dv-decade-gridline {
@@ -483,7 +483,7 @@
 }
 .dv-track-label {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 9px;
+  font-size: 11px;
   /* Dark by default so a full row of horizontal labels can overlap without
      reading as clutter - a track's name only surfaces on hover/click. */
   fill: var(--dv-grid);
