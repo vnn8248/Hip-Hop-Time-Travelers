@@ -273,11 +273,10 @@
   padding: 8px 10px;
   border-radius: 2px;
   line-height: 1.6;
-  white-space: nowrap;
+  white-space: normal;
   width: max-content;
   max-width: min(320px, 60vw);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
   z-index: 30;
 }
 /* Background is set inline per-instance to that sample's direction color

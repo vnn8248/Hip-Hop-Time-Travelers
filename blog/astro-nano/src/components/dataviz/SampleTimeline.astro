@@ -479,7 +479,7 @@ const { album } = Astro.props;
           .style("left", event.clientX + 14 + "px")
           .style("top", event.clientY + 14 + "px")
           .html(
-            `${d.track_name}<br><span class="dv-tooltip-type" style="background:${DIRECTION_COLOR[d.direction] ?? "#5B564A"}">${d.direction}</span><br>${d.sample_year}<br>${d.sample_title}<br>${d.sample_artist}`,
+            `${d.track_name}<br><span class="dv-tooltip-type" style="background:${DIRECTION_COLOR[d.direction] ?? "#5B564A"}">${d.direction}</span><br>${d.sample_year}<br>${d.sample_title}<br>by ${d.sample_artist}`,
           )
           .attr("hidden", null);
       }
