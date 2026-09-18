@@ -275,6 +275,17 @@ const { album } = Astro.props;
         if (on) label.raise();
       }
 
+      // Hovering (or having clicked open) one sample dot (a song that isn't
+      // on this album) glows just that dot and the album track it's
+      // connected to - not every other sample in that track's lineage,
+      // unlike hovering the track's own node (which previews the whole
+      // lineage via setLineageHover).
+      function setSampleGlow(nodeEl: Element, trackNumber: number, on: boolean) {
+        d3.select(nodeEl).classed("dv-glow", on);
+        const group = (nodeEl as SVGGraphicsElement).parentNode as SVGGElement;
+        d3.select(group).select(".dv-node-track").classed("dv-glow", on);
+      }
+
       // Largest scale a track's lineage can take, anchored at its
       // release-row point, before any of its own nodes would spill past the
       // chart's edges - capped at 3x, but backed off below that whenever a
@@ -478,10 +489,10 @@ const { album } = Astro.props;
                   `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
                 );
             })
-            .on("mouseenter", () => setLineageHover(t.track_number, true))
-            .on("mouseleave", () => {
+            .on("mouseenter", (event) => setSampleGlow(event.currentTarget as Element, t.track_number, true))
+            .on("mouseleave", (event) => {
               tooltip.style("opacity", 0);
-              setLineageHover(t.track_number, false);
+              setSampleGlow(event.currentTarget as Element, t.track_number, false);
             });
         });
 
