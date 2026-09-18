@@ -481,6 +481,7 @@
 .dv-half-decade-gridline {
   stroke: var(--dv-grid);
   stroke-width: 1;
+  stroke-dasharray: 4 3;
 }
 .dv-anchor-row rect {
   fill: rgba(89, 126, 93, 0.16);
