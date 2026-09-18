@@ -395,6 +395,7 @@ const { album } = Astro.props;
 
         creditsBody.innerHTML = html;
         creditsPanel.hidden = false;
+        creditsPanel.scrollTop = 0; // start at the top for every new track, not wherever the last one left off
         // The panel defaults to the right side, which otherwise sits right
         // on top of a focus-zoomed track from the right half of the chart
         // (the last track most of all). Flip it to the left for those.

@@ -118,6 +118,7 @@ const { album, artist } = Astro.props;
     }
     body.innerHTML = html;
     panel.hidden = false;
+    panel.scrollTop = 0; // start at the top for every new track, not wherever the last one left off
   }
 
   // The hint text only shows as a popover off the small "?" icon now (an
