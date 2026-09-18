@@ -484,6 +484,7 @@
 .dv-track-label {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 11px;
+  font-weight: 700;
   /* Dark by default so a full row of horizontal labels can overlap without
      reading as clutter - a track's name only surfaces on hover/click. */
   fill: var(--dv-grid);

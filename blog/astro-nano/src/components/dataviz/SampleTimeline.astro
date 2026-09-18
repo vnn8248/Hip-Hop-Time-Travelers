@@ -208,9 +208,15 @@ const { album } = Astro.props;
         plot
           .select<SVGGElement>(`.dv-track-lineage[data-track="${trackNumber}"]`)
           .classed("dv-lineage-hover", on);
-        labelsG
-          .select<SVGTextElement>(`.dv-track-label[data-track="${trackNumber}"]`)
-          .classed("dv-track-label-active", on);
+        const label = labelsG.select<SVGTextElement>(
+          `.dv-track-label[data-track="${trackNumber}"]`,
+        );
+        label.classed("dv-track-label-active", on);
+        // SVG paints in DOM order, not by class/z-index - a still-dark label
+        // appended after this one can otherwise paint over its now-white
+        // glyphs wherever the two overlap. Bring it to the front so it's
+        // always fully legible while lit.
+        if (on) label.raise();
       }
 
       function focusTrack(trackNumber: number) {
@@ -235,6 +241,7 @@ const { album } = Astro.props;
           d3.select(this)
             .classed("dv-track-label-active", isActive)
             .classed("dv-lineage-blurred", !isActive);
+          if (isActive) d3.select(this).raise();
         });
       }
 
