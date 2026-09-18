@@ -179,12 +179,32 @@
   line-height: 1;
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
+  /* Same wobble as the bubbles, just slower - a quiet "click me" until the
+     first click, then it settles down like any other button. */
+  animation: dv-wobble 4.2s ease-in-out infinite, dv-hint-glow 4.2s ease-in-out infinite;
 }
 .dv-hint-toggle:hover,
 .dv-hint-toggle:focus-visible,
 .dv-hint-wrap.dv-hint-open .dv-hint-toggle {
   color: var(--dv-paper);
   border-color: var(--dv-paper-dim);
+}
+.dv-hint-toggle.dv-hint-seen {
+  animation: none;
+  box-shadow: none;
+}
+@keyframes dv-hint-glow {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.55), 0 0 12px 3px rgba(89, 126, 93, 0.85);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.85), 0 0 20px 6px rgba(89, 126, 93, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dv-hint-toggle {
+    animation: none;
+  }
 }
 .dv-hint-wrap .dv-hint {
   position: absolute;

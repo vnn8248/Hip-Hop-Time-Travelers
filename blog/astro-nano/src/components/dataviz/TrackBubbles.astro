@@ -126,6 +126,7 @@ const { album, artist } = Astro.props;
     toggle.addEventListener("click", (event) => {
       event.stopPropagation();
       wrap.classList.toggle("dv-hint-open");
+      toggle.classList.add("dv-hint-seen"); // stop wobbling/glowing once noticed
     });
     document.addEventListener("click", (event) => {
       if (!wrap.contains(event.target as Node)) wrap.classList.remove("dv-hint-open");
