@@ -3,12 +3,13 @@ import "@styles/dataviz.css";
 
 export interface Props {
   album: string;
+  artist: string;
 }
 
-const { album } = Astro.props;
+const { album, artist } = Astro.props;
 ---
 
-<div class="dataviz not-prose" data-component="sample-timeline" data-album={album}>
+<div class="dataviz not-prose" data-component="sample-timeline" data-album={album} data-artist={artist}>
   <div class="dv-controls" role="group" aria-label="Highlight by sample type">
     <button type="button" data-type="sampled">Sampled</button>
     <button type="button" data-type="was sampled in">Was Sampled In</button>
@@ -51,6 +52,9 @@ const { album } = Astro.props;
     direction: "sampled" | "was sampled in" | "remixed in" | "covered in";
     element: string;
     release_year: number;
+    // Not in the pipeline yet for any album - once a sample gets one, the
+    // tooltip picks it up automatically, nothing else to wire up.
+    image_url?: string;
   };
 
   type TrackMeta = {
@@ -58,7 +62,25 @@ const { album } = Astro.props;
     track_name: string;
     primary_producer: string;
     primary_mixer: string;
+    image_url?: string;
   };
+
+  // Same "title / artist · year / type" shape for every node's tooltip -
+  // image and type are each left out when there's nothing to show.
+  function tooltipHtml(opts: {
+    title: string;
+    artist: string;
+    year: number;
+    type?: string;
+    imageUrl?: string;
+  }) {
+    const img = opts.imageUrl
+      ? `<img class="dv-tooltip-art" src="${opts.imageUrl}" alt="" />`
+      : "";
+    const subline = [opts.artist, String(opts.year)].filter(Boolean).join(" · ");
+    const typeLine = opts.type ? `<br><span class="dv-tooltip-type">${opts.type}</span>` : "";
+    return `${img}<div class="dv-tooltip-body"><b>${opts.title}</b><br>${subline}${typeLine}</div>`;
+  }
 
   const PAST_DIRECTIONS = new Set(["sampled"]);
   // Fixed categorical order, anchored to the album-cover palette (brand sage
@@ -94,6 +116,7 @@ const { album } = Astro.props;
 
   function initSampleTimeline(root: HTMLElement) {
     const album = root.dataset.album;
+    const artist = root.dataset.artist ?? "";
     const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
     const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
     setupHintToggle(root);
@@ -109,6 +132,7 @@ const { album } = Astro.props;
             track_name: t.track_name,
             primary_producer: t.primary_producer || "Unknown",
             primary_mixer: t.primary_mixer || "Unknown",
+            image_url: t.image_url || undefined,
           }))
           .sort((a, b) => a.track_number - b.track_number);
         render(tracks, records);
@@ -475,7 +499,13 @@ const { album } = Astro.props;
                 .style("left", event.clientX + 14 + "px")
                 .style("top", event.clientY + 14 + "px")
                 .html(
-                  `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+                  tooltipHtml({
+                    title: d.sample_title,
+                    artist: d.sample_artist,
+                    year: d.sample_year,
+                    type: d.direction,
+                    imageUrl: d.image_url,
+                  }),
                 );
             })
             .on("mouseleave", () => tooltip.style("opacity", 0));
@@ -499,9 +529,13 @@ const { album } = Astro.props;
               .style("left", event.clientX + 14 + "px")
               .style("top", event.clientY + 14 + "px")
               .html(
-                trackHasData
-                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
-                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
+                tooltipHtml({
+                  title: t.track_name,
+                  artist,
+                  year: releaseYear,
+                  type: trackHasData ? undefined : NO_DATA_LABEL,
+                  imageUrl: t.image_url,
+                }),
               );
           })
           .on("mouseenter", () => setLineageHover(t.track_number, true))
