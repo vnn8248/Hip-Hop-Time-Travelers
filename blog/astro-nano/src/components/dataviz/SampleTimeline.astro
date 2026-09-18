@@ -493,7 +493,12 @@ const { album, artist } = Astro.props;
             .attr("cy", y)
             .attr("r", 4.5)
             .attr("fill", color)
-            .on("mousemove", (event) => {
+            // mousemove requires the cursor to already be inside the
+            // target and only fires on movement sampled while it's there -
+            // on a 4.5px-radius circle the cursor can cross it between
+            // sampled events and never trigger anything. mouseenter fires
+            // on the boundary crossing itself, so it doesn't have that gap.
+            .on("mouseenter", (event) => {
               tooltip
                 .style("opacity", 1)
                 .style("left", event.clientX + 14 + "px")
@@ -523,7 +528,10 @@ const { album, artist } = Astro.props;
           .attr("cy", rowY(ANCHOR))
           .attr("r", trackHasData ? 7 : 6)
           .attr("fill", trackHasData ? "#FFFFFF" : "none")
-          .on("mousemove", (event) => {
+          // Same mouseenter-over-mousemove fix as the sample dots above,
+          // combined here with the existing lineage-hover trigger since d3
+          // only keeps one handler per event type on a selection.
+          .on("mouseenter", (event) => {
             tooltip
               .style("opacity", 1)
               .style("left", event.clientX + 14 + "px")
@@ -537,8 +545,8 @@ const { album, artist } = Astro.props;
                   imageUrl: t.image_url,
                 }),
               );
+            setLineageHover(t.track_number, true);
           })
-          .on("mouseenter", () => setLineageHover(t.track_number, true))
           .on("mouseleave", () => {
             tooltip.style("opacity", 0);
             setLineageHover(t.track_number, false);
