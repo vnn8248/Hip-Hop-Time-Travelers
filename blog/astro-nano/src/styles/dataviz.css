@@ -539,6 +539,17 @@
 .dv-track-label.dv-track-label-active {
   fill: var(--dv-paper);
 }
+/* This chart's viewBox (640x360) is far more zoomed-in than
+   SampleTimeline's (1192x504) relative to how big both render on screen -
+   the same numeric font-size attribute ends up ~1.5x bigger here. Scale
+   these two down so the axis text actually reads the same size as the
+   other charts', not just shares their font-size value. */
+.dataviz[data-component="audio-feature-multiples"] .dv-track-label {
+  font-size: 7.2px;
+}
+.dataviz[data-component="audio-feature-multiples"] .dv-axis text {
+  font-size: 7.8px;
+}
 .dv-chart-bg-rect {
   pointer-events: all;
 }
