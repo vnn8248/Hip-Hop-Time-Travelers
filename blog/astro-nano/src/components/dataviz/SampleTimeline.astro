@@ -149,10 +149,9 @@ const { album } = Astro.props;
         .attr("height", H)
         .attr("fill", "transparent");
 
-      // Decade row bands + gridlines (blurred out on focus) and the y-axis
-      // decade labels (a separate sibling group, deliberately never blurred
-      // - a zoomed-in lineage is meaningless without still knowing which
-      // decade its nodes landed in).
+      // Decade row bands + gridlines, and the y-axis decade labels (a
+      // separate sibling group so the labels can sit on their row's start
+      // line rather than centered on it - both blur out together on focus).
       const rowsG = svg.append("g");
       const axisLabelsG = svg.append("g");
       // The very first row's own start (e.g. 1970 for a "1970s" row) has no
@@ -297,6 +296,12 @@ const { album } = Astro.props;
         });
 
         rowsG.classed("dv-lineage-blurred", true);
+        // Every sample already gets its exact year printed in the details
+        // panel, so the y-axis isn't pulling weight once that panel is
+        // open - blur it along with the rest of the background rather than
+        // carve out an exception that the panel (which can sit on either
+        // side) would inconsistently cover anyway.
+        axisLabelsG.classed("dv-lineage-blurred", true);
         labelsG.selectAll<SVGTextElement, unknown>(".dv-track-label").each(function () {
           const isActive = this.getAttribute("data-track") === String(trackNumber);
           d3.select(this)
@@ -317,6 +322,7 @@ const { album } = Astro.props;
           });
         plot.selectAll(".dv-node-track").classed("dv-node-active", false);
         rowsG.classed("dv-lineage-blurred", false);
+        axisLabelsG.classed("dv-lineage-blurred", false);
         labelsG
           .selectAll(".dv-track-label")
           .classed("dv-track-label-active", false)
