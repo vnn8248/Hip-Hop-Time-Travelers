@@ -23,9 +23,10 @@ const { album } = Astro.props;
       <button type="button" class="dv-hint-toggle" aria-label="How to use this chart">?</button>
       <p class="dv-hint" role="tooltip">
         Each column is a track. Above the release row: what it sampled.
-        Below: what later sampled, remixed, or covered it. Hover a
-        release-row dot to light up its name and lineage; click it to zoom
-        in with the full breakdown. Click the background to reset.
+        Below: what later sampled, remixed, or covered it. Hover any dot to
+        light up its track; click a release-row dot to zoom in with the
+        full breakdown, or click any other dot for its own details. Click
+        the background to reset.
       </p>
     </div>
 
@@ -36,7 +37,7 @@ const { album } = Astro.props;
       <div class="dv-credits-body"></div>
     </div>
   </div>
-  <div class="dv-tooltip" role="tooltip"></div>
+  <div class="dv-tooltip" role="tooltip" hidden></div>
 </div>
 
 <script>
@@ -95,7 +96,16 @@ const { album } = Astro.props;
   function initSampleTimeline(root: HTMLElement) {
     const album = root.dataset.album;
     const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
-    const tooltip = d3.select(root.querySelector<HTMLDivElement>(".dv-tooltip")!);
+    const tooltipEl = root.querySelector<HTMLDivElement>(".dv-tooltip")!;
+    // The blog post's <article> has a page-load entrance animation
+    // (transform: translateY(...)) - any non-none transform on an ancestor
+    // creates a new containing block for position:fixed descendants, so
+    // this tooltip was never actually positioning relative to the
+    // viewport, it was positioning relative to that <article>'s own box.
+    // That's why it rendered somewhere real but consistently invisible.
+    // Move it to <body> so it sits outside any transformed ancestor.
+    document.body.appendChild(tooltipEl);
+    const tooltip = d3.select(tooltipEl);
     setupHintToggle(root);
 
     Promise.all([
@@ -418,9 +428,11 @@ const { album } = Astro.props;
         creditsPanel.hidden = true;
         unfocusAll();
         activeTrackNumber = null;
+        hideSampleInfo();
       }
 
       function toggleDetails(track: TrackMeta) {
+        hideSampleInfo();
         if (activeTrackNumber === track.track_number) {
           closeDetails();
           return;
@@ -432,6 +444,40 @@ const { album } = Astro.props;
         plot
           .select(`.dv-track-lineage[data-track="${track.track_number}"] .dv-node-track`)
           .classed("dv-node-active", true);
+      }
+
+      // Click, not hover, for the same info a sample node would otherwise
+      // show - mousemove/mouseenter tooltips on nodes this small have
+      // repeatedly failed to appear for real users on this chart, while
+      // click (used for the track panel above) has been confirmed to work.
+      let activeSampleEl: Element | null = null;
+
+      function hideSampleInfo() {
+        const el = activeSampleEl;
+        activeSampleEl = null;
+        tooltip.attr("hidden", true);
+        if (el) setSampleGlow(el, Number(el.getAttribute("data-track")), false);
+      }
+
+      function showSampleInfo(el: Element, event: MouseEvent, d: SampleRecord) {
+        closeDetails(); // only one info surface open at a time
+        activeSampleEl = el;
+        setSampleGlow(el, d.track_number, true);
+        tooltip
+          .style("left", event.clientX + 14 + "px")
+          .style("top", event.clientY + 14 + "px")
+          .html(
+            `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+          )
+          .attr("hidden", null);
+      }
+
+      function toggleSampleInfo(el: Element, event: MouseEvent, d: SampleRecord) {
+        if (activeSampleEl === el) {
+          hideSampleInfo();
+          return;
+        }
+        showSampleInfo(el, event, d);
       }
 
       creditsClose.addEventListener("click", closeDetails);
@@ -480,19 +526,11 @@ const { album } = Astro.props;
             .attr("cy", y)
             .attr("r", 4.5)
             .attr("fill", color)
-            .on("mousemove", (event) => {
-              tooltip
-                .style("opacity", 1)
-                .style("left", event.clientX + 14 + "px")
-                .style("top", event.clientY + 14 + "px")
-                .html(
-                  `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
-                );
-            })
             .on("mouseenter", (event) => setSampleGlow(event.currentTarget as Element, t.track_number, true))
-            .on("mouseleave", (event) => {
-              tooltip.style("opacity", 0);
-              setSampleGlow(event.currentTarget as Element, t.track_number, false);
+            .on("mouseleave", (event) => setSampleGlow(event.currentTarget as Element, t.track_number, false))
+            .on("click", (event) => {
+              event.stopPropagation();
+              toggleSampleInfo(event.currentTarget as Element, event, d);
             });
         });
 
@@ -508,22 +546,8 @@ const { album } = Astro.props;
           .attr("cy", rowY(ANCHOR))
           .attr("r", trackHasData ? 7 : 6)
           .attr("fill", trackHasData ? "#FFFFFF" : "none")
-          .on("mousemove", (event) => {
-            tooltip
-              .style("opacity", 1)
-              .style("left", event.clientX + 14 + "px")
-              .style("top", event.clientY + 14 + "px")
-              .html(
-                trackHasData
-                  ? `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}`
-                  : `<b>${t.track_name}</b><br>Track ${t.track_number} · ${releaseYear}<br>${NO_DATA_LABEL}`,
-              );
-          })
           .on("mouseenter", () => setLineageHover(t.track_number, true))
-          .on("mouseleave", () => {
-            tooltip.style("opacity", 0);
-            setLineageHover(t.track_number, false);
-          })
+          .on("mouseleave", () => setLineageHover(t.track_number, false))
           .on("click", (event) => {
             event.stopPropagation();
             toggleDetails(t);

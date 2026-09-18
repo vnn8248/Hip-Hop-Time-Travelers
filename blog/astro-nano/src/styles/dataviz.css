@@ -255,19 +255,24 @@
   transform: translateY(0);
 }
 
-/* Follows the cursor - only its content and visibility change on hover. */
+/* Shown/hidden via the `hidden` attribute (toggled on click of a sample
+   node), positioned near the click point. Not hover-driven - opacity/
+   transition-based show/hide on this chart's tiny nodes has repeatedly
+   failed to appear for real users, so this sidesteps that entirely by
+   relying on the browser's native [hidden] handling instead. */
 .dv-tooltip {
   position: fixed;
   pointer-events: none;
-  background: var(--dv-paper);
-  color: var(--dv-bg);
+  /* Lives at <body> level (see the JS that moves it there), outside
+     .dataviz - so it can't reach that scope's --dv-paper/--dv-bg custom
+     properties. Same two values, just literal instead of var(). */
+  background: #ffffff;
+  color: #121c15;
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 11px;
   padding: 8px 10px;
   border-radius: 2px;
   line-height: 1.6;
-  opacity: 0;
-  transition: opacity 0.1s;
   white-space: nowrap;
   width: max-content;
   max-width: min(320px, 60vw);
