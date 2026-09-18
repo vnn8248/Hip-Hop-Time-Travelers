@@ -280,9 +280,19 @@
   text-overflow: ellipsis;
   z-index: 30;
 }
-.dv-tooltip b {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-weight: 600;
+/* Background is set inline per-instance to that sample's direction color
+   (same DIRECTION_COLOR the control buttons use), so this is the one line
+   in the popup that keeps its own distinct look instead of matching the
+   plain text everywhere else. */
+.dv-tooltip-type {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 10px;
+  color: #121c15;
 }
 
 /* Docked to the top-left of .dv-panel: a "reveal the tracklist" mini-game -

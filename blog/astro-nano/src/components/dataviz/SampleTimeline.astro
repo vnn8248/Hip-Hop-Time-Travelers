@@ -268,6 +268,13 @@ const { album } = Astro.props;
       const creditsBody = creditsPanel.querySelector<HTMLDivElement>(".dv-credits-body")!;
       const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
       let activeTrackNumber: number | null = null;
+      // A sample node glows while either condition holds: the cursor is
+      // over it, or its click-opened info popup is the current one. Track
+      // both separately and recompute on every change, so closing the
+      // popup while still hovering doesn't flicker the glow off, and
+      // leaving hover while the popup stays open doesn't turn it off either.
+      let hoveredSampleEl: Element | null = null;
+      let activeSampleEl: Element | null = null;
 
       function setLineageHover(trackNumber: number, on: boolean) {
         if (!on && activeTrackNumber === trackNumber) return; // stays lit while its panel is open
@@ -290,10 +297,15 @@ const { album } = Astro.props;
       // connected to - not every other sample in that track's lineage,
       // unlike hovering the track's own node (which previews the whole
       // lineage via setLineageHover).
-      function setSampleGlow(nodeEl: Element, trackNumber: number, on: boolean) {
+      function refreshSampleGlow(nodeEl: Element, trackNumber: number) {
+        const on = hoveredSampleEl === nodeEl || activeSampleEl === nodeEl;
         d3.select(nodeEl).classed("dv-glow", on);
         const group = (nodeEl as SVGGraphicsElement).parentNode as SVGGElement;
         d3.select(group).select(".dv-node-track").classed("dv-glow", on);
+        if (!on && activeTrackNumber === trackNumber) return; // stays lit while its panel is open
+        const label = labelsG.select<SVGTextElement>(`.dv-track-label[data-track="${trackNumber}"]`);
+        label.classed("dv-track-label-active", on);
+        if (on) label.raise();
       }
 
       // Largest scale a track's lineage can take, anchored at its
@@ -450,24 +462,24 @@ const { album } = Astro.props;
       // show - mousemove/mouseenter tooltips on nodes this small have
       // repeatedly failed to appear for real users on this chart, while
       // click (used for the track panel above) has been confirmed to work.
-      let activeSampleEl: Element | null = null;
-
       function hideSampleInfo() {
         const el = activeSampleEl;
         activeSampleEl = null;
         tooltip.attr("hidden", true);
-        if (el) setSampleGlow(el, Number(el.getAttribute("data-track")), false);
+        // Clear the glow it was holding open, unless the cursor is still
+        // actually over it (refreshSampleGlow re-checks hoveredSampleEl).
+        if (el) refreshSampleGlow(el, Number(el.getAttribute("data-track")));
       }
 
       function showSampleInfo(el: Element, event: MouseEvent, d: SampleRecord) {
         closeDetails(); // only one info surface open at a time
         activeSampleEl = el;
-        setSampleGlow(el, d.track_number, true);
+        refreshSampleGlow(el, d.track_number);
         tooltip
           .style("left", event.clientX + 14 + "px")
           .style("top", event.clientY + 14 + "px")
           .html(
-            `<b>${d.sample_title}</b><br>${d.sample_artist} (${d.sample_year})<br>${d.direction} · ${d.element}<br><span style="opacity:.7">${d.track_name}</span>`,
+            `${d.track_name}<br><span class="dv-tooltip-type" style="background:${DIRECTION_COLOR[d.direction] ?? "#5B564A"}">${d.direction}</span><br>${d.sample_year}<br>${d.sample_title}<br>${d.sample_artist}`,
           )
           .attr("hidden", null);
       }
@@ -526,8 +538,14 @@ const { album } = Astro.props;
             .attr("cy", y)
             .attr("r", 4.5)
             .attr("fill", color)
-            .on("mouseenter", (event) => setSampleGlow(event.currentTarget as Element, t.track_number, true))
-            .on("mouseleave", (event) => setSampleGlow(event.currentTarget as Element, t.track_number, false))
+            .on("mouseenter", (event) => {
+              hoveredSampleEl = event.currentTarget as Element;
+              refreshSampleGlow(event.currentTarget as Element, t.track_number);
+            })
+            .on("mouseleave", (event) => {
+              hoveredSampleEl = null;
+              refreshSampleGlow(event.currentTarget as Element, t.track_number);
+            })
             .on("click", (event) => {
               event.stopPropagation();
               toggleSampleInfo(event.currentTarget as Element, event, d);
