@@ -226,6 +226,17 @@
   transform: translateY(-4px);
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
+.dv-hint-wrap .dv-hint ul {
+  margin: 0;
+  padding-left: 1.2em;
+  list-style-type: circle;
+}
+.dv-hint-wrap .dv-hint li {
+  margin: 4px 0;
+}
+.dv-hint-wrap .dv-hint li::marker {
+  color: var(--dv-brand);
+}
 .dv-hint-wrap:hover .dv-hint,
 .dv-hint-wrap:focus-within .dv-hint,
 .dv-hint-wrap.dv-hint-open .dv-hint {

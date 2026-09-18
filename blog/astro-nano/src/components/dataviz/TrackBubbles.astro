@@ -19,7 +19,14 @@ const { album, artist } = Astro.props;
   <div class="dv-panel">
     <div class="dv-hint-wrap">
       <button type="button" class="dv-hint-toggle" aria-label="How to use this chart">?</button>
-      <p class="dv-hint" role="tooltip">Hover over a bubble to reveal it on the tracklist, click it to see who worked on it. Track bubbles are sized by the number of plays on Spotify.</p>
+      <div class="dv-hint" role="tooltip">
+        <ul>
+          <li>Each bubble is a track.</li>
+          <li>Hover over a bubble to reveal it on the tracklist.</li>
+          <li>Click it to see who worked on it.</li>
+          <li>Track bubbles are sized by the number of plays on Spotify.</li>
+        </ul>
+      </div>
     </div>
 
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
