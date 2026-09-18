@@ -89,10 +89,14 @@
 
 /* Sample-timeline controls: each button's active color matches the
    direction's node color (set as --dv-type-color inline by the JS, from
-   the same DIRECTION_COLOR map the nodes are painted with). */
-.dataviz[data-component="sample-timeline"] .dv-controls button.active {
+   the same DIRECTION_COLOR map the nodes are painted with). Hovering
+   previews that same color, so the button already looks like what
+   clicking it will do. */
+.dataviz[data-component="sample-timeline"] .dv-controls button.active,
+.dataviz[data-component="sample-timeline"] .dv-controls button:hover {
   background: var(--dv-type-color, var(--dv-brand));
   border-color: var(--dv-type-color, var(--dv-brand));
+  color: var(--dv-bg);
 }
 
 .dv-panel {
