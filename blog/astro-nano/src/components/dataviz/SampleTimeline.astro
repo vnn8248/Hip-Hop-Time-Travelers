@@ -149,8 +149,12 @@ const { album } = Astro.props;
         .attr("height", H)
         .attr("fill", "transparent");
 
-      // decade row bands + labels
+      // Decade row bands + gridlines (blurred out on focus) and the y-axis
+      // decade labels (a separate sibling group, deliberately never blurred
+      // - a zoomed-in lineage is meaningless without still knowing which
+      // decade its nodes landed in).
       const rowsG = svg.append("g");
+      const axisLabelsG = svg.append("g");
       rows.forEach((r) => {
         const y = rowY(r) - rowHeight / 2;
         const g = rowsG.append("g").attr("class", r === ANCHOR ? "dv-anchor-row" : undefined);
@@ -166,7 +170,8 @@ const { album } = Astro.props;
           .attr("x2", margin.left + plotW)
           .attr("y1", y + rowHeight)
           .attr("y2", y + rowHeight);
-        g.append("text")
+        axisLabelsG
+          .append("text")
           .attr("class", "dv-axis-label")
           .attr("x", margin.left - 10)
           .attr("y", rowY(r))
