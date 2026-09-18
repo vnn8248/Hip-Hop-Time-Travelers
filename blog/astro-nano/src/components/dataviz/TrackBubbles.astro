@@ -42,8 +42,6 @@ const { album, artist } = Astro.props;
       <div class="dv-credits-body"></div>
     </div>
   </div>
-
-  <div class="dv-legend"></div>
 </div>
 
 <script>
@@ -376,22 +374,6 @@ const { album, artist } = Astro.props;
         .attr("fill", (d) => palette[mode][(d as any)[mode] ?? "all"] || "#5B564A");
 
       sel.exit().remove();
-      renderLegend(mode);
-    }
-
-    function renderLegend(mode: "none" | "producer" | "mixer") {
-      const entries = Object.entries(palette[mode] || {});
-      const legend = root.querySelector<HTMLDivElement>(".dv-legend")!;
-      legend.innerHTML = "";
-      entries.forEach(([key, color]) => {
-        const item = document.createElement("span");
-        const swatch = document.createElement("span");
-        swatch.className = "dv-swatch";
-        swatch.style.background = color;
-        item.appendChild(swatch);
-        item.append(key === "all" ? "All tracks" : key);
-        legend.appendChild(item);
-      });
     }
 
     root.querySelectorAll<HTMLButtonElement>(".dv-controls button").forEach((btn) => {
