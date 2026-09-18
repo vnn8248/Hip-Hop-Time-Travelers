@@ -192,15 +192,19 @@ const { album } = Astro.props;
         }
         // Decade labels sit on their row's start (top) boundary - the solid
         // line - rather than centered on the dashed 5-year line. The anchor
-        // row already names an exact year, so it stays centered.
-        axisLabelsG
-          .append("text")
-          .attr("class", "dv-axis-label")
-          .attr("x", margin.left - 10)
-          .attr("y", r === ANCHOR ? rowY(r) : y)
-          .attr("text-anchor", "end")
-          .attr("dominant-baseline", "middle")
-          .text(r === ANCHOR ? `${releaseYear} · Release` : `${r}s`);
+        // row already names an exact year, so it stays centered. Skip the
+        // decade whose span the release year itself falls in (e.g. "2000s"
+        // right below "2000 · Release") - it's the same row already named.
+        if (r === ANCHOR || r !== decadeOf(releaseYear)) {
+          axisLabelsG
+            .append("text")
+            .attr("class", "dv-axis-label")
+            .attr("x", margin.left - 10)
+            .attr("y", r === ANCHOR ? rowY(r) : y)
+            .attr("text-anchor", "end")
+            .attr("dominant-baseline", "middle")
+            .text(r === ANCHOR ? `${releaseYear} · Release` : `${r}s`);
+        }
       });
 
       // Track column labels - dark by default so a full horizontal row of
