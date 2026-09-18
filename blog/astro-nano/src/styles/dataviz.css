@@ -162,6 +162,12 @@
   right: 8px;
   z-index: 20;
 }
+/* The hint icon's top-right corner is the same corner the details/credits
+   panel (and its close button) opens in - hide it while that panel is open
+   instead of sitting on top of the (x). */
+.dv-panel:has(.dv-credits:not([hidden])) .dv-hint-wrap {
+  display: none;
+}
 .dv-hint-toggle {
   display: flex;
   align-items: center;
