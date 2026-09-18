@@ -339,10 +339,14 @@ const { album } = Astro.props;
           (d) => d.direction,
         );
 
+        // Same color each sample type's control button uses, so a scan down
+        // the details list reads against the same key as the chart itself.
+        const typeAttrs = (direction: string) =>
+          `class="dv-type-item" style="background:${DIRECTION_COLOR[direction] ?? "#5B564A"}"`;
         const sampleItem = (s: SampleRecord) =>
-          `<li><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.element}</span></li>`;
+          `<li ${typeAttrs(s.direction)}><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.element}</span></li>`;
         const influenceItem = (s: SampleRecord) =>
-          `<li><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.direction} · ${s.element}</span></li>`;
+          `<li ${typeAttrs(s.direction)}><b>${s.sample_title}</b><br><span class="dv-role-detail">${s.sample_artist} · ${s.sample_year} · ${s.direction} · ${s.element}</span></li>`;
 
         let html = `<p class="dv-credits-title">${track.track_name}</p>`;
 

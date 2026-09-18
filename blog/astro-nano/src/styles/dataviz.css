@@ -383,6 +383,19 @@
 .dv-credits-body .dv-role-detail {
   color: var(--dv-paper-dim);
 }
+/* Sample-timeline detail rows: background is set inline per-item to that
+   sample's direction color (same value as its control button), so the
+   list reads against the same key as the chart. */
+.dv-credits-body li.dv-type-item {
+  padding: 6px 8px;
+  margin: 4px 0;
+  border-radius: 3px;
+  color: var(--dv-bg);
+}
+.dv-credits-body li.dv-type-item .dv-role-detail {
+  color: inherit;
+  opacity: 0.75;
+}
 .dv-credits-body .dv-empty {
   color: var(--dv-paper-dim);
   font-size: 13px;
