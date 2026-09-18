@@ -478,6 +478,12 @@
   stroke: var(--dv-grid);
   stroke-width: 1;
 }
+.dv-half-decade-gridline {
+  stroke: var(--dv-grid);
+  stroke-width: 1;
+  stroke-dasharray: 1.5 3;
+  opacity: 0.5;
+}
 .dv-anchor-row rect {
   fill: rgba(89, 126, 93, 0.16);
 }

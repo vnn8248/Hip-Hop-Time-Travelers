@@ -170,6 +170,16 @@ const { album } = Astro.props;
           .attr("x2", margin.left + plotW)
           .attr("y1", y + rowHeight)
           .attr("y2", y + rowHeight);
+        // Halfway through each decade row = the 5-year mark. The anchor row
+        // is a single release year, not a decade span, so it gets none.
+        if (r !== ANCHOR) {
+          g.append("line")
+            .attr("class", "dv-half-decade-gridline")
+            .attr("x1", margin.left)
+            .attr("x2", margin.left + plotW)
+            .attr("y1", rowY(r))
+            .attr("y2", rowY(r));
+        }
         axisLabelsG
           .append("text")
           .attr("class", "dv-axis-label")
