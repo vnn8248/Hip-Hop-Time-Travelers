@@ -570,18 +570,11 @@ const { album } = Astro.props;
     }
 
     function renderLegend() {
+      // The direction colors are already previewed on the control buttons
+      // themselves (hover/active), so the legend only needs to explain the
+      // one thing those buttons don't: the hollow "no data" marker.
       const legend = root.querySelector<HTMLDivElement>(".dv-legend")!;
       legend.innerHTML = "";
-      Object.entries(DIRECTION_COLOR).forEach(([key, color]) => {
-        const item = document.createElement("span");
-        const swatch = document.createElement("span");
-        swatch.className = "dv-swatch";
-        swatch.style.background = color;
-        item.appendChild(swatch);
-        item.append(key);
-        legend.appendChild(item);
-      });
-
       const noDataItem = document.createElement("span");
       const noDataSwatch = document.createElement("span");
       noDataSwatch.className = "dv-swatch dv-swatch-hollow";
