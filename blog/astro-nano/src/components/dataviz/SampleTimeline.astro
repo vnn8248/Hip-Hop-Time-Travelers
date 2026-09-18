@@ -155,6 +155,16 @@ const { album } = Astro.props;
       // decade its nodes landed in).
       const rowsG = svg.append("g");
       const axisLabelsG = svg.append("g");
+      // The very first row's own start (e.g. 1970 for a "1970s" row) has no
+      // boundary line of its own otherwise - every other row's start is
+      // already the row above it's bottom edge.
+      rowsG
+        .append("line")
+        .attr("class", "dv-decade-gridline")
+        .attr("x1", margin.left)
+        .attr("x2", margin.left + plotW)
+        .attr("y1", margin.top)
+        .attr("y2", margin.top);
       rows.forEach((r) => {
         const y = rowY(r) - rowHeight / 2;
         const g = rowsG.append("g").attr("class", r === ANCHOR ? "dv-anchor-row" : undefined);
@@ -180,11 +190,14 @@ const { album } = Astro.props;
             .attr("y1", rowY(r))
             .attr("y2", rowY(r));
         }
+        // Decade labels sit on their row's start (top) boundary - the solid
+        // line - rather than centered on the dashed 5-year line. The anchor
+        // row already names an exact year, so it stays centered.
         axisLabelsG
           .append("text")
           .attr("class", "dv-axis-label")
           .attr("x", margin.left - 10)
-          .attr("y", rowY(r))
+          .attr("y", r === ANCHOR ? rowY(r) : y)
           .attr("text-anchor", "end")
           .attr("dominant-baseline", "middle")
           .text(r === ANCHOR ? `${releaseYear} · Release` : `${r}s`);
