@@ -546,9 +546,9 @@
 .dataviz[data-component="sample-timeline"] .dv-track-lineage {
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-focus {
-  transform: scale(3);
-}
+/* The actual scale for .dv-lineage-focus is set inline by the JS (it's
+   computed per track, capped at 3x, backed off further to keep the whole
+   lineage on screen) - this class only carries the glow/stroke below. */
 .dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-hover .dv-node,
 .dataviz[data-component="sample-timeline"] .dv-track-lineage.dv-lineage-focus .dv-node {
   stroke: var(--dv-paper);

@@ -198,6 +198,7 @@ const { album } = Astro.props;
       const plot = svg.append("g");
       const stacked = new Map<string, number>();
       const recordsByTrack = d3.group(records, (d) => d.track_number);
+      const lineagePoints = new Map<number, { x: number; y: number }[]>();
       const creditsPanel = root.querySelector<HTMLDivElement>(".dv-credits")!;
       const creditsBody = creditsPanel.querySelector<HTMLDivElement>(".dv-credits-body")!;
       const creditsClose = root.querySelector<HTMLButtonElement>(".dv-credits-close")!;
@@ -219,9 +220,34 @@ const { album } = Astro.props;
         if (on) label.raise();
       }
 
+      // Largest scale a track's lineage can take, anchored at its
+      // release-row point, before any of its own nodes would spill past the
+      // chart's edges - capped at 3x, but backed off below that whenever a
+      // track's stems fan out far enough (many decades, heavy jitter) that
+      // a full 3x would push nodes out of view.
+      const MAX_FOCUS_SCALE = 3;
+      const FOCUS_PADDING = 12;
+      function computeFocusScale(trackNumber: number) {
+        const cx = trackX.get(trackNumber)!;
+        const cy = rowY(ANCHOR);
+        const points = lineagePoints.get(trackNumber) ?? [];
+
+        let scale = MAX_FOCUS_SCALE;
+        for (const p of points) {
+          const dx = p.x - cx;
+          const dy = p.y - cy;
+          if (dx > 0) scale = Math.min(scale, (W - FOCUS_PADDING - cx) / dx);
+          if (dx < 0) scale = Math.min(scale, (cx - FOCUS_PADDING) / -dx);
+          if (dy > 0) scale = Math.min(scale, (H - FOCUS_PADDING - cy) / dy);
+          if (dy < 0) scale = Math.min(scale, (cy - FOCUS_PADDING) / -dy);
+        }
+        return Math.max(1, scale);
+      }
+
       function focusTrack(trackNumber: number) {
         const cx = trackX.get(trackNumber)!;
         const cy = rowY(ANCHOR);
+        const scale = computeFocusScale(trackNumber);
 
         plot.selectAll<SVGGElement, unknown>(".dv-track-lineage").each(function () {
           const isActive = this.getAttribute("data-track") === String(trackNumber);
@@ -231,7 +257,10 @@ const { album } = Astro.props;
             .classed("dv-lineage-blurred", !isActive);
           if (isActive) {
             this.style.transformOrigin = `${cx}px ${cy}px`;
+            this.style.transform = `scale(${scale})`;
             d3.select(this).raise();
+          } else {
+            this.style.transform = "";
           }
         });
 
@@ -247,10 +276,13 @@ const { album } = Astro.props;
 
       function unfocusAll() {
         plot
-          .selectAll(".dv-track-lineage")
+          .selectAll<SVGGElement, unknown>(".dv-track-lineage")
           .classed("dv-lineage-focus", false)
           .classed("dv-lineage-hover", false)
-          .classed("dv-lineage-blurred", false);
+          .classed("dv-lineage-blurred", false)
+          .each(function () {
+            this.style.transform = "";
+          });
         plot.selectAll(".dv-node-track").classed("dv-node-active", false);
         rowsG.classed("dv-lineage-blurred", false);
         labelsG
@@ -343,6 +375,9 @@ const { album } = Astro.props;
           stacked.set(stackKey, n + 1);
           const JITTER = [0, -9, 9, -18, 18, -27, 27];
           y += JITTER[n % JITTER.length];
+
+          if (!lineagePoints.has(t.track_number)) lineagePoints.set(t.track_number, []);
+          lineagePoints.get(t.track_number)!.push({ x, y });
 
           const color = DIRECTION_COLOR[d.direction] ?? "#5B564A";
 
