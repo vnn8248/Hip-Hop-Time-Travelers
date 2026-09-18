@@ -361,6 +361,11 @@ const { album } = Astro.props;
 
         creditsBody.innerHTML = html;
         creditsPanel.hidden = false;
+        // The panel defaults to the right side, which otherwise sits right
+        // on top of a focus-zoomed track from the right half of the chart
+        // (the last track most of all). Flip it to the left for those.
+        const cx = trackX.get(track.track_number)!;
+        creditsPanel.classList.toggle("dv-credits-left", cx > margin.left + plotW / 2);
       }
 
       function closeDetails() {

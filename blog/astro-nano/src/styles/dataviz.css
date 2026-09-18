@@ -293,6 +293,15 @@
   z-index: 10;
 }
 
+/* Sample timeline only: flips the panel to the left of the chart instead of
+   the right, for a track whose own column would otherwise sit right under
+   it once focus-zoomed (the last track most of all). */
+.dataviz[data-component="sample-timeline"] .dv-credits.dv-credits-left {
+  left: 8px;
+  right: auto;
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.45);
+}
+
 /* Mobile bubble chart: hover doesn't really exist on touch, so drop the
    hint text and the hover-reveal tracklist entirely (it would otherwise
    cover the whole chart at this width anyway). Credits now open as a
