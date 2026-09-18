@@ -151,30 +151,67 @@
   border: 1.5px dashed var(--dv-paper-dim);
 }
 
-.dv-hint {
-  font-family: ui-monospace, "IBM Plex Mono", monospace;
-  font-size: 13px;
-  color: var(--dv-paper-dim);
-  margin: 4px 0 12px;
-  text-align: center;
-  flex: 0 0 auto;
-}
-
-/* Bubble chart only: the hint lives inside .dv-panel, pinned to the top
-   like the tracklist/credits overlays either side of it - a small chip
-   over the chart instead of a line of text above it. */
-.dataviz[data-component="track-bubbles"] .dv-panel > .dv-hint {
+/* An always-visible hint chip permanently covered real chart content on
+   wide screens (bubble group labels, timeline nodes near the top row) no
+   matter where it was anchored. Collapsed to a small corner icon instead -
+   hover/focus/tap reveals the full text as a popover, so it never
+   permanently occupies space over the chart. */
+.dv-hint-wrap {
   position: absolute;
   top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 8px;
+  z-index: 20;
+}
+.dv-hint-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--dv-grid);
+  background: var(--dv-panel);
+  color: var(--dv-paper-dim);
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.dv-hint-toggle:hover,
+.dv-hint-toggle:focus-visible,
+.dv-hint-wrap.dv-hint-open .dv-hint-toggle {
+  color: var(--dv-paper);
+  border-color: var(--dv-paper-dim);
+}
+.dv-hint-wrap .dv-hint {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(320px, 80vw);
   margin: 0;
-  max-width: min(480px, 90%);
   background: var(--dv-panel);
   border: 1px solid var(--dv-grid);
   border-radius: 3px;
-  padding: 4px 12px;
-  z-index: 10;
+  padding: 10px 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--dv-paper-dim);
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.dv-hint-wrap:hover .dv-hint,
+.dv-hint-wrap:focus-within .dv-hint,
+.dv-hint-wrap.dv-hint-open .dv-hint {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 /* Follows the cursor - only its content and visibility change on hover. */
@@ -313,7 +350,6 @@
     height: auto;
     min-height: 0;
   }
-  .dataviz[data-component="track-bubbles"] .dv-hint,
   .dataviz[data-component="track-bubbles"] .dv-hover-info {
     display: none;
   }

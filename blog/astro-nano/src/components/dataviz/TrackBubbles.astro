@@ -17,7 +17,10 @@ const { album, artist } = Astro.props;
   </div>
 
   <div class="dv-panel">
-    <p class="dv-hint">Hover over a bubble to reveal it on the tracklist, click it to see who worked on it. Track bubbles are sized by the number of plays on Spotify.</p>
+    <div class="dv-hint-wrap">
+      <button type="button" class="dv-hint-toggle" aria-label="How to use this chart">?</button>
+      <p class="dv-hint" role="tooltip">Hover over a bubble to reveal it on the tracklist, click it to see who worked on it. Track bubbles are sized by the number of plays on Spotify.</p>
+    </div>
 
     <svg class="dv-chart" viewBox="0 0 900 560" aria-label="Album tracks sized by Spotify play count"></svg>
 
@@ -112,6 +115,23 @@ const { album, artist } = Astro.props;
     panel.hidden = false;
   }
 
+  // The hint text only shows as a popover off the small "?" icon now (an
+  // always-visible chip used to permanently cover real chart content on
+  // wide screens) - hover/focus reveal it via CSS alone; this just adds a
+  // tap-to-toggle for touch, closing again on an outside tap.
+  function setupHintToggle(root: HTMLElement) {
+    const wrap = root.querySelector<HTMLDivElement>(".dv-hint-wrap");
+    const toggle = wrap?.querySelector<HTMLButtonElement>(".dv-hint-toggle");
+    if (!wrap || !toggle) return;
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      wrap.classList.toggle("dv-hint-open");
+    });
+    document.addEventListener("click", (event) => {
+      if (!wrap.contains(event.target as Node)) wrap.classList.remove("dv-hint-open");
+    });
+  }
+
   function initTrackBubbles(root: HTMLElement) {
     const album = root.dataset.album;
     const svg = d3.select(root.querySelector<SVGSVGElement>(".dv-chart")!);
@@ -146,6 +166,7 @@ const { album, artist } = Astro.props;
     }
 
     creditsClose.addEventListener("click", closeCredits);
+    setupHintToggle(root);
 
     // A "reveal the tracklist" mini-game: one row per track, in album order,
     // blank until that track's bubble has been hovered at least once.
