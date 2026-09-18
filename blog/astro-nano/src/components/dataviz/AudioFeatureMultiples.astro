@@ -9,15 +9,10 @@ const { album } = Astro.props;
 ---
 
 <div class="dataviz not-prose" data-component="audio-feature-multiples" data-album={album}>
-  <div class="dv-panel dv-carousel-panel">
-    <button type="button" class="dv-carousel-nav dv-carousel-prev" aria-label="Previous feature">&lsaquo;</button>
-    <div class="dv-carousel-chart">
-      <p class="dv-sm-title"></p>
-      <svg class="dv-chart" aria-label="Audio feature across the tracklist"></svg>
-    </div>
-    <button type="button" class="dv-carousel-nav dv-carousel-next" aria-label="Next feature">&rsaquo;</button>
+  <div class="dv-legend"></div>
+  <div class="dv-panel">
+    <svg class="dv-chart" aria-label="Energy, danceability, valence, and tempo across the tracklist"></svg>
   </div>
-  <div class="dv-carousel-dots"></div>
 </div>
 
 <script>
@@ -31,28 +26,32 @@ const { album } = Astro.props;
     tempo: number;
   };
 
-  const FEATURES: { key: keyof Track; label: string }[] = [
-    { key: "energy", label: "Energy" },
-    { key: "dance", label: "Danceability" },
-    { key: "valence", label: "Valence" },
-    { key: "tempo", label: "Tempo (BPM)" },
+  // Fixed categorical order, shared with the site's --dv-series-* palette
+  // (album-cover brand green first) so a color means the same thing across
+  // all three charts on the page.
+  const FEATURES: { key: keyof Track; label: string; color: string }[] = [
+    { key: "energy", label: "Energy", color: "#597E5D" },
+    { key: "dance", label: "Danceability", color: "#4A8FD6" },
+    { key: "valence", label: "Valence", color: "#B87F1C" },
+    { key: "tempo", label: "Tempo", color: "#29A67D" },
   ];
+
+  // Energy/danceability/valence are already 0-1. Tempo is raw BPM, so put
+  // it on that same axis by dividing by 100 - 100 BPM reads as 1.0, 150 as
+  // 1.5, and so on - instead of giving it its own separate scale.
+  function value(t: Track, key: keyof Track): number {
+    return key === "tempo" ? (t.tempo as number) / 100 : (t[key] as number);
+  }
 
   function initAudioFeatureMultiples(root: HTMLElement) {
     const album = root.dataset.album;
     const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
-    const titleEl = root.querySelector<HTMLParagraphElement>(".dv-sm-title")!;
-    const dotsEl = root.querySelector<HTMLDivElement>(".dv-carousel-dots")!;
-    const prevBtn = root.querySelector<HTMLButtonElement>(".dv-carousel-prev")!;
-    const nextBtn = root.querySelector<HTMLButtonElement>(".dv-carousel-next")!;
-
-    let tracks: Track[] = [];
-    let index = 0;
+    const legendEl = root.querySelector<HTMLDivElement>(".dv-legend")!;
 
     fetch(`/data/${album}/output/album_data_viz_${album}.json`)
       .then((res) => res.json())
       .then((recs) => {
-        tracks = recs
+        const tracks: Track[] = recs
           .slice()
           .sort((a: any, b: any) => a.track_number - b.track_number)
           .map((d: any) => ({
@@ -63,8 +62,8 @@ const { album } = Astro.props;
             tempo: d.audio_features.tempo,
           }));
 
-        renderDots();
-        renderSlide(index);
+        renderLegend();
+        render(tracks);
       })
       .catch((err) => {
         console.error(err);
@@ -72,11 +71,7 @@ const { album } = Astro.props;
           '<p class="dv-error">Couldn\'t load audio-feature data.</p>';
       });
 
-    function renderSlide(i: number) {
-      index = ((i % FEATURES.length) + FEATURES.length) % FEATURES.length;
-      const f = FEATURES[index];
-      titleEl.textContent = f.label;
-
+    function render(tracks: Track[]) {
       const w = Math.max(480, tracks.length * 40);
       const chartH = 320;
       const labelH = 70;
@@ -88,11 +83,15 @@ const { album } = Astro.props;
 
       const x = d3
         .scalePoint()
-        .domain(tracks.map((_d, i2) => String(i2)))
+        .domain(tracks.map((_d, i) => String(i)))
         .range([m.l, w - m.r]);
-      const yDomain =
-        f.key === "tempo" ? (d3.extent(tracks, (d) => d.tempo) as [number, number]) : [0, 1];
-      const y = d3.scaleLinear().domain(yDomain).nice().range([chartH - m.b, m.t]);
+
+      const allValues = FEATURES.flatMap((f) => tracks.map((t) => value(t, f.key)));
+      const y = d3
+        .scaleLinear()
+        .domain([0, d3.max(allValues) ?? 1])
+        .nice()
+        .range([chartH - m.b, m.t]);
 
       svg
         .append("g")
@@ -100,31 +99,37 @@ const { album } = Astro.props;
         .attr("transform", `translate(${m.l},0)`)
         .call(d3.axisLeft(y).ticks(5));
 
-      const line = d3
-        .line<Track>()
-        .x((_d, i2) => x(String(i2))!)
-        .y((d) => y(d[f.key] as number))
-        .curve(d3.curveMonotoneX);
+      FEATURES.forEach((f) => {
+        const line = d3
+          .line<Track>()
+          .x((_d, i) => x(String(i))!)
+          .y((d) => y(value(d, f.key)))
+          .curve(d3.curveMonotoneX);
 
-      svg
-        .append("path")
-        .datum(tracks)
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", "#597E5D")
-        .attr("stroke-width", 2);
+        svg
+          .append("path")
+          .datum(tracks)
+          .attr("d", line)
+          .attr("fill", "none")
+          .attr("stroke", f.color)
+          .attr("stroke-width", 2);
 
-      svg
-        .selectAll("circle")
-        .data(tracks)
-        .enter()
-        .append("circle")
-        .attr("cx", (_d, i2) => x(String(i2))!)
-        .attr("cy", (d) => y(d[f.key] as number))
-        .attr("r", 3)
-        .attr("fill", "#FFFFFF")
-        .append("title")
-        .text((d) => `${d.name}: ${d[f.key]}`);
+        svg
+          .selectAll(`circle.dv-point-${f.key}`)
+          .data(tracks)
+          .enter()
+          .append("circle")
+          .attr("class", `dv-point-${f.key}`)
+          .attr("cx", (_d, i) => x(String(i))!)
+          .attr("cy", (d) => y(value(d, f.key)))
+          .attr("r", 3)
+          .attr("fill", f.color)
+          .append("title")
+          .text(
+            (d) =>
+              `${d.name} — ${f.label}: ${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : d[f.key]}`,
+          );
+      });
 
       svg
         .selectAll("text.dv-track-label")
@@ -133,26 +138,22 @@ const { album } = Astro.props;
         .append("text")
         .attr("class", "dv-track-label")
         .attr("text-anchor", "end")
-        .attr("transform", (_d, i2) => `translate(${x(String(i2))},${chartH + 12}) rotate(-40)`)
+        .attr("transform", (_d, i) => `translate(${x(String(i))},${chartH + 12}) rotate(-40)`)
         .text((d) => d.name);
-
-      renderDots();
     }
 
-    function renderDots() {
-      dotsEl.innerHTML = "";
-      FEATURES.forEach((f, i) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "dv-carousel-dot" + (i === index ? " active" : "");
-        dot.setAttribute("aria-label", f.label);
-        dot.addEventListener("click", () => renderSlide(i));
-        dotsEl.appendChild(dot);
+    function renderLegend() {
+      legendEl.innerHTML = "";
+      FEATURES.forEach((f) => {
+        const item = document.createElement("span");
+        const swatch = document.createElement("span");
+        swatch.className = "dv-swatch";
+        swatch.style.background = f.color;
+        item.appendChild(swatch);
+        item.append(f.label);
+        legendEl.appendChild(item);
       });
     }
-
-    prevBtn.addEventListener("click", () => renderSlide(index - 1));
-    nextBtn.addEventListener("click", () => renderSlide(index + 1));
   }
 
   function setup() {
