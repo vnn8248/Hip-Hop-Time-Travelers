@@ -59,10 +59,57 @@
 .dv-controls {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 12px;
-  flex: 0 0 auto;
+}
+/* Each hint label + its buttons is one hugging unit, so "Audio Features"
+   and "Views" sit directly above their own group with no gap, rather than
+   being centered somewhere inside an oversized shared column. */
+.dv-control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.dv-controls-hint {
+  margin: 0;
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dv-paper-dim);
+  opacity: 0.6;
+}
+.dv-controls-divider {
+  /* Centering against the whole group's height (label + buttons) puts
+     this too high - the label sits above it in every other group, so
+     push down past that and center on just the button row instead. */
+  align-self: flex-start;
+  margin-top: 28px;
+  color: var(--dv-paper);
+  font-size: 15px;
+  font-weight: 700;
+}
+/* Audio-feature multiples: the four feature-filter buttons stay grouped as
+   their own flex row, under their "Audio Features" label. */
+.dv-feature-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dv-feature-buttons[hidden] {
+  display: none;
+}
+.dv-controls-divider {
+  display: flex;
+  align-items: center;
+  color: var(--dv-paper-dim);
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 18px;
+  font-weight: 700;
 }
 .dv-controls button {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
@@ -99,6 +146,16 @@
   color: var(--dv-bg);
 }
 
+/* Audio-feature controls: same convention - each button's color is set as
+   --dv-type-color inline by the JS, from the same per-feature color each
+   line/point is drawn with. */
+.dataviz[data-component="audio-feature-multiples"] .dv-controls button.active,
+.dataviz[data-component="audio-feature-multiples"] .dv-controls button:hover {
+  background: var(--dv-type-color, var(--dv-brand));
+  border-color: var(--dv-type-color, var(--dv-brand));
+  color: var(--dv-bg);
+}
+
 .dv-panel {
   position: relative;
   flex: 1 1 auto;
@@ -118,6 +175,72 @@
   width: auto;
   max-width: 100%;
   display: block;
+}
+.dv-chart[hidden] {
+  display: none;
+}
+/* Small multiples <-> multi-line chart: fade rather than an instant cut -
+   .dv-view-hiding is added/removed by the JS around the moment the
+   `hidden` attribute actually flips, so the fade plays while each view is
+   still genuinely in the layout (a transition can't run across a
+   display:none boundary). */
+.dataviz[data-component="audio-feature-multiples"] .dv-chart-combined,
+.dataviz[data-component="audio-feature-multiples"] .dv-small-multiples {
+  transition: opacity 0.2s ease;
+}
+.dataviz[data-component="audio-feature-multiples"] .dv-chart-combined.dv-view-hiding,
+.dataviz[data-component="audio-feature-multiples"] .dv-small-multiples.dv-view-hiding {
+  opacity: 0;
+}
+
+/* Small-multiples view: one panel per audio feature, in quadrants - each
+   panel's own <svg> shares the combined chart's exact geometry, just
+   rendered smaller by its grid cell, same as .dv-chart above. */
+.dv-small-multiples {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+}
+/* The `display: grid` above is an author rule, which otherwise overrides
+   the browser's own `[hidden] { display: none }` default - restate it so
+   toggling the `hidden` attribute actually hides this. */
+.dv-small-multiples[hidden] {
+  display: none;
+}
+/* Four panels sharing one widget's height budget are cramped even with
+   the marks/text above scaled up - give the whole widget more room while
+   that view is active, rather than shrinking every panel to fit the same
+   height the single combined chart used. */
+.dataviz[data-component="audio-feature-multiples"]:has(.dv-small-multiples:not([hidden])) {
+  height: min(95vh, 900px);
+}
+.dv-sm-chart {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dv-sm-chart .dv-chart {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+.dv-sm-title {
+  font-family: ui-monospace, "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--dv-brand);
+  margin: 0 0 6px;
+  flex: 0 0 auto;
 }
 
 .dv-group-label {
@@ -429,6 +552,30 @@
     box-shadow: none;
   }
 }
+
+/* Small multiples on mobile: one column instead of quadrants. Four fixed-
+   height panels stacked and scrolled, rather than cramming a 2x2 grid into
+   the same fixed viewport-height budget the desktop layout uses - .dataviz
+   and .dv-panel give up that fixed height here so the widget grows with
+   the page instead of squashing each panel unreadably small. */
+@media (max-width: 640px) {
+  .dataviz[data-component="audio-feature-multiples"]:has(.dv-small-multiples:not([hidden])) {
+    height: auto;
+    min-height: 0;
+  }
+  .dataviz[data-component="audio-feature-multiples"] .dv-panel:has(.dv-small-multiples:not([hidden])) {
+    height: auto;
+    overflow: visible;
+  }
+  .dataviz[data-component="audio-feature-multiples"] .dv-small-multiples {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    height: auto;
+  }
+  .dataviz[data-component="audio-feature-multiples"] .dv-sm-chart {
+    height: 260px;
+  }
+}
 .dv-credits-close {
   position: absolute;
   top: 8px;
@@ -503,6 +650,16 @@
 .dv-axis line {
   stroke: var(--dv-grid);
 }
+/* Vertical gridline per track (audio-feature charts) - dashed, same
+   convention as SampleTimeline's .dv-half-decade-gridline, so it reads as
+   a guide rather than competing with the axis's own solid domain line.
+   Hovering one (via the wider invisible hit-rect drawn alongside it) glows
+   every song's node in that column and reveals the track name below,
+   without changing the gridline's own appearance. */
+.dv-vline {
+  stroke: var(--dv-grid);
+  stroke-dasharray: 4 3;
+}
 .dv-axis text {
   font-family: ui-monospace, "IBM Plex Mono", monospace;
   font-size: 12px;
@@ -549,6 +706,16 @@
 }
 .dataviz[data-component="audio-feature-multiples"] .dv-axis text {
   font-size: 7.8px;
+}
+/* Each small-multiple panel renders at roughly half the combined chart's
+   scale (four panels sharing the same space one used to fill), so the
+   above sizing - already tuned for the combined chart specifically -
+   reads far too small here. Scale back up to compensate. */
+.dataviz[data-component="audio-feature-multiples"] .dv-sm-chart .dv-track-label {
+  font-size: 12px;
+}
+.dataviz[data-component="audio-feature-multiples"] .dv-sm-chart .dv-axis text {
+  font-size: 13px;
 }
 .dv-chart-bg-rect {
   pointer-events: all;
@@ -626,6 +793,28 @@
    overflows further than that. */
 .dataviz[data-component="sample-timeline"] .dv-chart {
   overflow: visible;
+}
+
+/* Feature controls: clicking one glows its own line/points and blurs the
+   other three, so its shape stands out from the tangle instead of just
+   picking it out with a flat opacity fade. */
+.dataviz[data-component="audio-feature-multiples"] .dv-line,
+.dataviz[data-component="audio-feature-multiples"] .dv-point {
+  transition: opacity 0.25s ease, filter 0.25s ease, stroke-width 0.25s ease;
+}
+.dataviz[data-component="audio-feature-multiples"] .dv-dim {
+  opacity: 0.5;
+  filter: blur(1px);
+}
+/* White-dominant, not brand-colored - energy's own line color IS the
+   brand green, so a green halo behind it gives no contrast at all (green
+   on green). A bright white glow works regardless of the line's own hue. */
+.dataviz[data-component="audio-feature-multiples"] .dv-line.dv-glow {
+  stroke-width: 3.5px;
+  filter: drop-shadow(0 0 2px var(--dv-brand)) drop-shadow(0 0 8px var(--dv-paper));
+}
+.dataviz[data-component="audio-feature-multiples"] .dv-point.dv-glow {
+  filter: drop-shadow(0 0 2px var(--dv-brand)) drop-shadow(0 0 6px var(--dv-paper));
 }
 
 /* Bubble chart only: a small continuous pulse per circle, like a bass

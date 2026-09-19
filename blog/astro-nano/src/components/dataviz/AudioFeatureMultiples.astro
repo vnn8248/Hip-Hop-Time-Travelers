@@ -9,9 +9,46 @@ const { album } = Astro.props;
 ---
 
 <div class="dataviz not-prose" data-component="audio-feature-multiples" data-album={album}>
-  <div class="dv-legend"></div>
+  <div class="dv-controls" role="group" aria-label="Highlight one audio feature">
+    <div class="dv-control-group">
+      <p class="dv-controls-hint" aria-hidden="true">Audio Features</p>
+      <div class="dv-feature-buttons">
+        <button type="button" data-feature="energy">Energy</button>
+        <button type="button" data-feature="dance">Danceability</button>
+        <button type="button" data-feature="valence">Valence</button>
+        <button type="button" data-feature="tempo">Tempo</button>
+      </div>
+    </div>
+    <span class="dv-controls-divider" aria-hidden="true">|</span>
+    <div class="dv-control-group">
+      <p class="dv-controls-hint" aria-hidden="true">Views</p>
+      <button type="button" class="dv-view-toggle" aria-pressed="false">Small Multiples</button>
+    </div>
+  </div>
+
   <div class="dv-panel">
-    <svg class="dv-chart" aria-label="Energy, danceability, valence, and tempo across the tracklist"></svg>
+    <svg
+      class="dv-chart dv-chart-combined"
+      aria-label="Energy, danceability, valence, and tempo across the tracklist"
+    ></svg>
+    <div class="dv-small-multiples" hidden>
+      <div class="dv-sm-chart" data-feature="energy">
+        <p class="dv-sm-title">Energy</p>
+        <svg class="dv-chart" aria-label="Energy across the tracklist"></svg>
+      </div>
+      <div class="dv-sm-chart" data-feature="dance">
+        <p class="dv-sm-title">Danceability</p>
+        <svg class="dv-chart" aria-label="Danceability across the tracklist"></svg>
+      </div>
+      <div class="dv-sm-chart" data-feature="valence">
+        <p class="dv-sm-title">Valence</p>
+        <svg class="dv-chart" aria-label="Valence across the tracklist"></svg>
+      </div>
+      <div class="dv-sm-chart" data-feature="tempo">
+        <p class="dv-sm-title">Tempo</p>
+        <svg class="dv-chart" aria-label="Tempo across the tracklist"></svg>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -26,10 +63,12 @@ const { album } = Astro.props;
     tempo: number;
   };
 
+  type Feature = { key: keyof Track; label: string; color: string };
+
   // Fixed categorical order, shared with the site's --dv-series-* palette
   // (album-cover brand green first) so a color means the same thing across
   // all three charts on the page.
-  const FEATURES: { key: keyof Track; label: string; color: string }[] = [
+  const FEATURES: Feature[] = [
     { key: "energy", label: "Energy", color: "#597E5D" },
     { key: "dance", label: "Danceability", color: "#4A8FD6" },
     { key: "valence", label: "Valence", color: "#B87F1C" },
@@ -43,10 +82,270 @@ const { album } = Astro.props;
     return key === "tempo" ? (t.tempo as number) / 100 : (t[key] as number);
   }
 
+  // Shared geometry for the combined chart AND every small-multiple panel,
+  // so all five stay proportioned identically and only differ in how big
+  // their container renders them.
+  const DIMS = { chartH: 320, labelH: 40, m: { t: 16, r: 16, b: 6, l: 46 } };
+  function widthFor(trackCount: number) {
+    return Math.max(480, trackCount * 40);
+  }
+
+  // Computed once from every feature's values (not just one), so a single
+  // feature's small multiple reads on the same scale as the combined chart
+  // and its siblings - a comparison across panels, not four independent ones.
+  function computeYDomain(tracks: Track[]): [number, number] {
+    const allValues = FEATURES.flatMap((f) => tracks.map((t) => value(t, f.key)));
+    const y = d3.scaleLinear().domain([0, d3.max(allValues) ?? 1]).nice();
+    const [lo, hi] = y.domain();
+    return [lo, hi];
+  }
+
+  function drawAxes(svg: d3.Selection<SVGSVGElement, unknown, null, undefined>, x: d3.ScalePoint<string>, y: d3.ScaleLinear<number, number>) {
+    svg
+      .append("g")
+      .attr("class", "dv-axis")
+      .attr("transform", `translate(${DIMS.m.l},0)`)
+      .call(d3.axisLeft(y).ticks(5));
+
+    // Baseline only - no tick text, since the hover-revealed track labels
+    // below already cover that. The vertical gridlines themselves are drawn
+    // (and made hoverable) by createColumnGrid below, once the track labels
+    // it lights up on hover exist.
+    svg
+      .append("g")
+      .attr("class", "dv-axis")
+      .attr("transform", `translate(0,${DIMS.chartH - DIMS.m.b})`)
+      .call(d3.axisBottom(x).tickFormat(() => ""));
+  }
+
+  // Track column labels - dark by default (lights up only while hovered,
+  // via the song nodes) so a full horizontal row of them can overlap
+  // without reading as clutter. Full track titles run much longer than
+  // SampleTimeline's, so a column near either edge would otherwise center
+  // its label half off the chart - measure each one and anchor it to
+  // start/end instead of middle wherever that would happen. Returns the
+  // hover setter so the caller can wire it to that chart's own points.
+  function createTrackLabels(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    tracks: Track[],
+    x: d3.ScalePoint<string>,
+    w: number,
+  ) {
+    const labelsG = svg.append("g");
+    tracks.forEach((t, i) => {
+      const cx = x(String(i))!;
+      const label = labelsG
+        .append("text")
+        .attr("class", "dv-track-label")
+        .attr("data-track", i)
+        .attr("x", cx)
+        .attr("y", DIMS.chartH + 22)
+        .attr("text-anchor", "middle")
+        .text(t.name);
+
+      label.classed("dv-track-label-active", true);
+      const halfWidth = (label.node() as SVGTextElement).getComputedTextLength() / 2;
+      label.classed("dv-track-label-active", false);
+
+      const PAD = 4;
+      if (cx - halfWidth < PAD) {
+        label.attr("text-anchor", "start").attr("x", PAD);
+      } else if (cx + halfWidth > w - PAD) {
+        label.attr("text-anchor", "end").attr("x", w - PAD);
+      }
+    });
+
+    return function setTrackLabelHover(i: number, on: boolean) {
+      const label = labelsG.select<SVGTextElement>(`.dv-track-label[data-track="${i}"]`);
+      label.classed("dv-track-label-active", on);
+      if (on) label.raise();
+    };
+  }
+
+  // One dashed vertical gridline per track, each with a wider invisible hit
+  // target (drawn - and so painted - before the lines/points that follow,
+  // so those still win at their own exact position; the gridline only
+  // catches hover in the gaps between them). Hovering one glows every
+  // song's node in that column across every feature shown in this chart,
+  // and reveals the track's name - same "which column is this" question
+  // the track-label hover already answers, just answerable from anywhere
+  // along the column instead of only exactly on a node.
+  function createColumnGrid(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    tracks: Track[],
+    x: d3.ScalePoint<string>,
+    setTrackLabelHover: (i: number, on: boolean) => void,
+    getActiveFeature: () => string | null,
+  ) {
+    const top = DIMS.m.t;
+    const bottom = DIMS.chartH - DIMS.m.b;
+    const gridG = svg.append("g").attr("class", "dv-vgrid");
+
+    tracks.forEach((_t, i) => {
+      const cx = x(String(i))!;
+      gridG
+        .append("line")
+        .attr("class", "dv-vline")
+        .attr("data-track", i)
+        .attr("x1", cx)
+        .attr("x2", cx)
+        .attr("y1", top)
+        .attr("y2", bottom);
+    });
+
+    function setColumnHover(i: number, on: boolean) {
+      svg.selectAll<SVGCircleElement, unknown>(`.dv-point[data-track="${i}"]`).each(function () {
+        // A filtered-out feature's node is meant to stay blurred - don't
+        // let hovering the column cheat past that, same rule the line
+        // hover already follow.
+        const active = getActiveFeature();
+        const key = [...this.classList].find((c) => c.startsWith("dv-point-"))?.slice("dv-point-".length);
+        if (active !== null && active !== key) return;
+        this.classList.toggle("dv-glow", on);
+      });
+      setTrackLabelHover(i, on);
+    }
+
+    const step = tracks.length > 1 ? Math.abs(x(String(1))! - x(String(0))!) : 40;
+    const hitHalfWidth = Math.min(step / 2, 18);
+    tracks.forEach((_t, i) => {
+      const cx = x(String(i))!;
+      gridG
+        .append("rect")
+        .attr("data-track", i)
+        .attr("x", cx - hitHalfWidth)
+        .attr("y", top)
+        .attr("width", hitHalfWidth * 2)
+        .attr("height", bottom - top)
+        .attr("fill", "transparent")
+        .style("pointer-events", "all")
+        .style("cursor", "pointer")
+        .on("mouseenter", () => setColumnHover(i, true))
+        .on("mouseleave", () => setColumnHover(i, false));
+    });
+  }
+
+  // One feature's line + points, undecorated - used for every small
+  // multiple, which each show only one feature so there's nothing to
+  // filter/glow-on-hover the way the combined chart's overlapping lines do.
+  // A small multiple's <svg> renders at roughly half the combined chart's
+  // scale (quartering its area for four panels), so its marks default
+  // bigger to compensate - a "2px line" at half scale is barely a pixel.
+  function renderFeatureSeries(
+    svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
+    f: Feature,
+    tracks: Track[],
+    x: d3.ScalePoint<string>,
+    y: d3.ScaleLinear<number, number>,
+    setTrackLabelHover: (i: number, on: boolean) => void,
+    marks: { strokeWidth: number; pointRadius: number } = { strokeWidth: 2, pointRadius: 3 },
+    getActiveFeature: () => string | null = () => null,
+  ) {
+    const line = d3
+      .line<Track>()
+      .x((_d, i) => x(String(i))!)
+      .y((d) => y(value(d, f.key)))
+      .curve(d3.curveMonotoneX);
+
+    svg
+      .append("path")
+      .datum(tracks)
+      .attr("class", `dv-line dv-line-${f.key}`)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", f.color)
+      .attr("stroke-width", marks.strokeWidth);
+
+    // A wider invisible circle on top of the small visible one, purely so
+    // hovering has a reasonable hit target - same idea as the line's own
+    // wider invisible hit-path above.
+    svg
+      .selectAll(`circle.dv-point-hit-${f.key}`)
+      .data(tracks)
+      .enter()
+      .append("circle")
+      .attr("class", `dv-point-hit-${f.key}`)
+      .attr("data-track", (_d, i) => i)
+      .attr("cx", (_d, i) => x(String(i))!)
+      .attr("cy", (d) => y(value(d, f.key)))
+      .attr("r", marks.pointRadius + 5)
+      .attr("fill", "transparent")
+      .style("pointer-events", "all")
+      .style("cursor", "pointer")
+      .on("mouseenter", (event) => {
+        const i = Number((event.currentTarget as Element).getAttribute("data-track"));
+        setTrackLabelHover(i, true);
+        const active = getActiveFeature();
+        // A filtered-out feature's node is meant to stay blurred - don't
+        // let hovering it cheat past that, same rule the line/column
+        // hover already follow.
+        if (active !== null && active !== f.key) return;
+        svg.select(`.dv-point-${f.key}[data-track="${i}"]`).classed("dv-glow", true);
+      })
+      .on("mouseleave", (event) => {
+        const i = Number((event.currentTarget as Element).getAttribute("data-track"));
+        setTrackLabelHover(i, false);
+        // The whole feature is click-focused - its points are meant to
+        // stay glowing regardless of hover, so leave this one alone.
+        if (getActiveFeature() === f.key) return;
+        svg.select(`.dv-point-${f.key}[data-track="${i}"]`).classed("dv-glow", false);
+      })
+      .append("title")
+      .text(
+        (d) =>
+          `${d.name} — ${f.label}: ${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : d[f.key]}`,
+      );
+
+    svg
+      .selectAll(`circle.dv-point-${f.key}`)
+      .data(tracks)
+      .enter()
+      .append("circle")
+      .attr("class", `dv-point dv-point-${f.key}`)
+      .attr("data-track", (_d, i) => i)
+      .attr("cx", (_d, i) => x(String(i))!)
+      .attr("cy", (d) => y(value(d, f.key)))
+      .attr("r", marks.pointRadius)
+      .attr("fill", f.color)
+      .style("pointer-events", "none");
+  }
+
+  function renderSmallMultiple(svgEl: SVGSVGElement, f: Feature, tracks: Track[], yDomain: [number, number]) {
+    const w = widthFor(tracks.length);
+    const h = DIMS.chartH + DIMS.labelH;
+
+    const svg = d3.select(svgEl).attr("viewBox", `0 0 ${w} ${h}`);
+    svg.selectAll("*").remove();
+
+    const x = d3
+      .scalePoint()
+      .domain(tracks.map((_d, i) => String(i)))
+      .range([DIMS.m.l, w - DIMS.m.r]);
+    const y = d3.scaleLinear().domain(yDomain).range([DIMS.chartH - DIMS.m.b, DIMS.m.t]);
+
+    drawAxes(svg, x, y);
+    const setTrackLabelHover = createTrackLabels(svg, tracks, x, w);
+    createColumnGrid(svg, tracks, x, setTrackLabelHover, () => null);
+    renderFeatureSeries(svg, f, tracks, x, y, setTrackLabelHover, { strokeWidth: 4, pointRadius: 5.5 });
+  }
+
   function initAudioFeatureMultiples(root: HTMLElement) {
     const album = root.dataset.album;
-    const svgEl = root.querySelector<SVGSVGElement>(".dv-chart")!;
-    const legendEl = root.querySelector<HTMLDivElement>(".dv-legend")!;
+    const combinedSvgEl = root.querySelector<SVGSVGElement>(".dv-chart-combined")!;
+    const smallMultiplesEl = root.querySelector<HTMLDivElement>(".dv-small-multiples")!;
+    const smSvgByFeature = new Map<string, SVGSVGElement>(
+      Array.from(root.querySelectorAll<HTMLDivElement>(".dv-sm-chart")).map((el) => [
+        el.dataset.feature!,
+        el.querySelector<SVGSVGElement>("svg")!,
+      ]),
+    );
+    const controlButtons = root.querySelectorAll<HTMLButtonElement>(".dv-feature-buttons button[data-feature]");
+    const viewToggleBtn = root.querySelector<HTMLButtonElement>(".dv-view-toggle")!;
+    let activeFeature: string | null = null;
+    let showSmallMultiples = false;
+    let smallMultiplesRendered = false;
+    let loadedTracks: Track[] = [];
+    let loadedYDomain: [number, number] = [0, 1];
 
     fetch(`/data/${album}/output/album_data_viz_${album}.json`)
       .then((res) => res.json())
@@ -62,8 +361,15 @@ const { album } = Astro.props;
             tempo: d.audio_features.tempo,
           }));
 
-        renderLegend();
-        render(tracks);
+        loadedTracks = tracks;
+        loadedYDomain = computeYDomain(tracks);
+        renderCombined(tracks, loadedYDomain);
+        // Small multiples start hidden ([hidden] on the panel), and SVG text
+        // measurement (used to keep long track names from overflowing, same
+        // as the combined chart's own) returns wrong values for anything
+        // inside a display:none subtree - render them once they're actually
+        // visible instead, in the toggle handler below.
+        setupControls();
       })
       .catch((err) => {
         console.error(err);
@@ -71,70 +377,79 @@ const { album } = Astro.props;
           '<p class="dv-error">Couldn\'t load audio-feature data.</p>';
       });
 
-    function render(tracks: Track[]) {
-      const w = Math.max(480, tracks.length * 40);
-      const chartH = 320;
-      const labelH = 40;
-      const h = chartH + labelH;
-      const m = { t: 16, r: 16, b: 6, l: 46 };
+    // Clicking a feature - its line, its own hit-path, or its control
+    // button - glows that line/points and blurs the other three, so its
+    // shape stands out against the rest instead of just picking it out of
+    // an otherwise-unchanged tangle of lines. Only meaningful for the
+    // combined chart, which is the only view where multiple lines overlap.
+    function applyFeatureFilter(key: string | null) {
+      activeFeature = key;
+      const svg = d3.select(combinedSvgEl);
 
-      const svg = d3.select(svgEl).attr("viewBox", `0 0 ${w} ${h}`);
+      FEATURES.forEach((f) => {
+        const match = key === null || f.key === key;
+        svg
+          .select(`.dv-line-${f.key}`)
+          .classed("dv-dim", key !== null && !match)
+          .classed("dv-glow", key !== null && match);
+        svg
+          .selectAll(`.dv-point-${f.key}`)
+          .classed("dv-dim", key !== null && !match)
+          .classed("dv-glow", key !== null && match);
+      });
+
+      controlButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.feature === key);
+      });
+    }
+
+    function renderCombined(tracks: Track[], yDomain: [number, number]) {
+      const w = widthFor(tracks.length);
+      const h = DIMS.chartH + DIMS.labelH;
+
+      const svg = d3.select(combinedSvgEl).attr("viewBox", `0 0 ${w} ${h}`);
       svg.selectAll("*").remove();
+
+      // Invisible full-size backdrop, drawn first so it sits behind
+      // everything else - clicking empty chart space resets whichever
+      // feature is currently focused, same as SampleTimeline's.
+      svg
+        .append("rect")
+        .attr("class", "dv-chart-bg-rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", w)
+        .attr("height", h)
+        .attr("fill", "transparent")
+        .on("click", () => applyFeatureFilter(null));
 
       const x = d3
         .scalePoint()
         .domain(tracks.map((_d, i) => String(i)))
-        .range([m.l, w - m.r]);
+        .range([DIMS.m.l, w - DIMS.m.r]);
+      const y = d3.scaleLinear().domain(yDomain).range([DIMS.chartH - DIMS.m.b, DIMS.m.t]);
 
-      const allValues = FEATURES.flatMap((f) => tracks.map((t) => value(t, f.key)));
-      const y = d3
-        .scaleLinear()
-        .domain([0, d3.max(allValues) ?? 1])
-        .nice()
-        .range([chartH - m.b, m.t]);
+      drawAxes(svg, x, y);
+      const setTrackLabelHover = createTrackLabels(svg, tracks, x, w);
+      createColumnGrid(svg, tracks, x, setTrackLabelHover, () => activeFeature);
 
-      svg
-        .append("g")
-        .attr("class", "dv-axis")
-        .attr("transform", `translate(${m.l},0)`)
-        .call(d3.axisLeft(y).ticks(5));
-
-      // Track column labels - dark by default (same as SampleTimeline's) so
-      // a full horizontal row of them can overlap without reading as
-      // clutter; a label only lights up (white) while its column is
-      // hovered, via the song nodes below. Full track titles run much
-      // longer than SampleTimeline's, so a column near either edge would
-      // otherwise center its label half off the chart - measure each one
-      // (at the smaller size it renders at once active) and anchor it to
-      // start/end instead of middle wherever that would happen.
-      const labelsG = svg.append("g");
-      tracks.forEach((t, i) => {
-        const cx = x(String(i))!;
-        const label = labelsG
-          .append("text")
-          .attr("class", "dv-track-label")
-          .attr("data-track", i)
-          .attr("x", cx)
-          .attr("y", chartH + 22)
-          .attr("text-anchor", "middle")
-          .text(t.name);
-
-        label.classed("dv-track-label-active", true);
-        const halfWidth = (label.node() as SVGTextElement).getComputedTextLength() / 2;
-        label.classed("dv-track-label-active", false);
-
-        const PAD = 4;
-        if (cx - halfWidth < PAD) {
-          label.attr("text-anchor", "start").attr("x", PAD);
-        } else if (cx + halfWidth > w - PAD) {
-          label.attr("text-anchor", "end").attr("x", w - PAD);
+      // Hovering a line glows it (and its points), same visual as the
+      // click filter below but without blurring the other three - a
+      // lightweight preview rather than a persistent selection. Once a
+      // feature is click-focused, though, the others are meant to stay
+      // blurred - skip the preview for any line that isn't the focused one
+      // so a blurred line can't be lit back up by just hovering it.
+      function setLineHover(key: string, on: boolean) {
+        if (activeFeature !== null && activeFeature !== key) return;
+        // The focused line is already glowing from the click itself - don't
+        // let the mouse leaving it turn that back off.
+        if (!on && activeFeature === key) return;
+        const path = svg.select(`.dv-line-${key}`).classed("dv-glow", on);
+        const points = svg.selectAll(`.dv-point-${key}`).classed("dv-glow", on);
+        if (on) {
+          path.raise();
+          points.raise();
         }
-      });
-
-      function setTrackLabelHover(i: number, on: boolean) {
-        const label = labelsG.select<SVGTextElement>(`.dv-track-label[data-track="${i}"]`);
-        label.classed("dv-track-label-active", on);
-        if (on) label.raise();
       }
 
       FEATURES.forEach((f) => {
@@ -144,49 +459,92 @@ const { album } = Astro.props;
           .y((d) => y(value(d, f.key)))
           .curve(d3.curveMonotoneX);
 
+        // A wider invisible stroke on top of the thin visible line, purely
+        // so hovering has a reasonable hit target - 2px is too thin to
+        // reliably land the cursor on.
         svg
           .append("path")
           .datum(tracks)
           .attr("d", line)
           .attr("fill", "none")
-          .attr("stroke", f.color)
-          .attr("stroke-width", 2);
+          .attr("stroke", "transparent")
+          .attr("stroke-width", 14)
+          .style("pointer-events", "stroke")
+          .style("cursor", "pointer")
+          .on("mouseenter", () => setLineHover(f.key, true))
+          .on("mouseleave", () => setLineHover(f.key, false))
+          .on("click", () => applyFeatureFilter(activeFeature === f.key ? null : f.key));
 
-        svg
-          .selectAll(`circle.dv-point-${f.key}`)
-          .data(tracks)
-          .enter()
-          .append("circle")
-          .attr("class", `dv-point-${f.key}`)
-          .attr("data-track", (_d, i) => i)
-          .attr("cx", (_d, i) => x(String(i))!)
-          .attr("cy", (d) => y(value(d, f.key)))
-          .attr("r", 3)
-          .attr("fill", f.color)
-          .on("mouseenter", (event) => {
-            setTrackLabelHover(Number(event.currentTarget.getAttribute("data-track")), true);
-          })
-          .on("mouseleave", (event) => {
-            setTrackLabelHover(Number(event.currentTarget.getAttribute("data-track")), false);
-          })
-          .append("title")
-          .text(
-            (d) =>
-              `${d.name} — ${f.label}: ${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : d[f.key]}`,
-          );
+        renderFeatureSeries(svg, f, tracks, x, y, setTrackLabelHover, undefined, () => activeFeature);
+        svg.select(`.dv-line-${f.key}`).style("pointer-events", "none");
       });
     }
 
-    function renderLegend() {
-      legendEl.innerHTML = "";
-      FEATURES.forEach((f) => {
-        const item = document.createElement("span");
-        const swatch = document.createElement("span");
-        swatch.className = "dv-swatch";
-        swatch.style.background = f.color;
-        item.appendChild(swatch);
-        item.append(f.label);
-        legendEl.appendChild(item);
+    function setupControls() {
+      controlButtons.forEach((btn) => {
+        const f = FEATURES.find((f) => f.key === btn.dataset.feature);
+        if (f) btn.style.setProperty("--dv-type-color", f.color);
+
+        btn.addEventListener("click", () => {
+          // The filter only affects the combined chart, which isn't shown
+          // right now - leave the buttons hoverable (their color preview
+          // still means something, as a reminder of what they'll do once
+          // switched back) but inert to actually click.
+          if (showSmallMultiples) return;
+          const key = btn.dataset.feature!;
+          applyFeatureFilter(activeFeature === key ? null : key);
+        });
+      });
+
+      // el.hidden (the IDL property) doesn't reflect to the actual `hidden`
+      // attribute on SVG elements in every browser - set the attribute
+      // directly so the CSS [hidden] rules this relies on actually match.
+      function setHidden(el: Element, hidden: boolean) {
+        if (hidden) el.setAttribute("hidden", "");
+        else el.removeAttribute("hidden");
+      }
+
+      // A tad slower than an instant cut - fade the outgoing view out, swap
+      // which one is actually in the layout once that's done, then fade the
+      // new one in.
+      const VIEW_TRANSITION_MS = 200;
+
+      viewToggleBtn.addEventListener("click", () => {
+        showSmallMultiples = !showSmallMultiples;
+        // The label itself names the view a click switches to (not the one
+        // currently showing), so there's no separate "active" state to
+        // highlight - it never gets the pressed/colored button look.
+        viewToggleBtn.textContent = showSmallMultiples ? "Multi-Line Chart" : "Small Multiples";
+        viewToggleBtn.setAttribute("aria-pressed", String(showSmallMultiples));
+
+        const hideEl = showSmallMultiples ? combinedSvgEl : smallMultiplesEl;
+        const showEl = showSmallMultiples ? smallMultiplesEl : combinedSvgEl;
+
+        hideEl.classList.add("dv-view-hiding");
+        window.setTimeout(() => {
+          setHidden(hideEl, true);
+          hideEl.classList.remove("dv-view-hiding");
+
+          // Unhide before doing anything else - text measurement (the
+          // track-name overflow guard) needs the panel actually visible,
+          // same reason the first small-multiples render is deferred here.
+          setHidden(showEl, false);
+          if (showSmallMultiples) {
+            applyFeatureFilter(null);
+            if (!smallMultiplesRendered) {
+              FEATURES.forEach((f) =>
+                renderSmallMultiple(smSvgByFeature.get(f.key)!, f, loadedTracks, loadedYDomain),
+              );
+              smallMultiplesRendered = true;
+            }
+          }
+
+          showEl.classList.add("dv-view-hiding");
+          // Force a reflow so the browser registers the opacity:0 starting
+          // point before removing the class, or the fade-in won't play.
+          void (showEl as HTMLElement).offsetHeight;
+          showEl.classList.remove("dv-view-hiding");
+        }, VIEW_TRANSITION_MS);
       });
     }
   }
