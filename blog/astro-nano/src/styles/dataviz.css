@@ -800,7 +800,7 @@
    picking it out with a flat opacity fade. */
 .dataviz[data-component="audio-feature-multiples"] .dv-line,
 .dataviz[data-component="audio-feature-multiples"] .dv-point {
-  transition: opacity 0.25s ease, filter 0.25s ease, stroke-width 0.25s ease;
+  transition: opacity 0.25s ease, filter 0.25s ease, stroke 0.25s ease, stroke-width 0.25s ease;
 }
 .dataviz[data-component="audio-feature-multiples"] .dv-dim {
   opacity: 0.5;
@@ -813,7 +813,12 @@
   stroke-width: 3.5px;
   filter: drop-shadow(0 0 2px var(--dv-brand)) drop-shadow(0 0 8px var(--dv-paper));
 }
+/* Same visual language as SampleTimeline's sample-node click glow (white
+   ring + soft halo) - white-dominant rather than brand-dominant here too,
+   since energy's own line color already IS the brand green. */
 .dataviz[data-component="audio-feature-multiples"] .dv-point.dv-glow {
+  stroke: var(--dv-paper);
+  stroke-width: 1.5px;
   filter: drop-shadow(0 0 2px var(--dv-brand)) drop-shadow(0 0 6px var(--dv-paper));
 }
 

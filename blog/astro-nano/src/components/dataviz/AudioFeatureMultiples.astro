@@ -27,6 +27,19 @@ const { album } = Astro.props;
   </div>
 
   <div class="dv-panel">
+    <div class="dv-hint-wrap">
+      <button type="button" class="dv-hint-toggle" aria-label="How to use this chart">?</button>
+      <div class="dv-hint" role="tooltip">
+        <ul>
+          <li>Each line is an audio feature, colored to match its button above.</li>
+          <li>Tempo is scaled to share the same axis - 100 BPM reads as 1.0.</li>
+          <li>Click a feature's button, line, or node to glow it and blur the rest; click the background to reset.</li>
+          <li>Hover a line, node, or gridline for a quick preview without clicking.</li>
+          <li>Toggle Small Multiples to see each feature on its own chart.</li>
+        </ul>
+      </div>
+    </div>
+
     <svg
       class="dv-chart dv-chart-combined"
       aria-label="Energy, danceability, valence, and tempo across the tracklist"
@@ -50,6 +63,7 @@ const { album } = Astro.props;
       </div>
     </div>
   </div>
+  <div class="dv-tooltip" role="tooltip" hidden></div>
 </div>
 
 <script>
@@ -240,6 +254,8 @@ const { album } = Astro.props;
     setTrackLabelHover: (i: number, on: boolean) => void,
     marks: { strokeWidth: number; pointRadius: number } = { strokeWidth: 2, pointRadius: 3 },
     getActiveFeature: () => string | null = () => null,
+    showTooltip: (event: MouseEvent, d: Track, f: Feature) => void = () => {},
+    hideTooltip: () => void = () => {},
   ) {
     const line = d3
       .line<Track>()
@@ -272,9 +288,10 @@ const { album } = Astro.props;
       .attr("fill", "transparent")
       .style("pointer-events", "all")
       .style("cursor", "pointer")
-      .on("mouseenter", (event) => {
+      .on("mouseenter", (event, d) => {
         const i = Number((event.currentTarget as Element).getAttribute("data-track"));
         setTrackLabelHover(i, true);
+        showTooltip(event, d, f);
         const active = getActiveFeature();
         // A filtered-out feature's node is meant to stay blurred - don't
         // let hovering it cheat past that, same rule the line/column
@@ -282,19 +299,16 @@ const { album } = Astro.props;
         if (active !== null && active !== f.key) return;
         svg.select(`.dv-point-${f.key}[data-track="${i}"]`).classed("dv-glow", true);
       })
+      .on("mousemove", (event) => showTooltip(event, d3.select(event.currentTarget).datum() as Track, f))
       .on("mouseleave", (event) => {
         const i = Number((event.currentTarget as Element).getAttribute("data-track"));
         setTrackLabelHover(i, false);
+        hideTooltip();
         // The whole feature is click-focused - its points are meant to
         // stay glowing regardless of hover, so leave this one alone.
         if (getActiveFeature() === f.key) return;
         svg.select(`.dv-point-${f.key}[data-track="${i}"]`).classed("dv-glow", false);
-      })
-      .append("title")
-      .text(
-        (d) =>
-          `${d.name} — ${f.label}: ${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : d[f.key]}`,
-      );
+      });
 
     svg
       .selectAll(`circle.dv-point-${f.key}`)
@@ -310,7 +324,14 @@ const { album } = Astro.props;
       .style("pointer-events", "none");
   }
 
-  function renderSmallMultiple(svgEl: SVGSVGElement, f: Feature, tracks: Track[], yDomain: [number, number]) {
+  function renderSmallMultiple(
+    svgEl: SVGSVGElement,
+    f: Feature,
+    tracks: Track[],
+    yDomain: [number, number],
+    showTooltip: (event: MouseEvent, d: Track, f: Feature) => void,
+    hideTooltip: () => void,
+  ) {
     const w = widthFor(tracks.length);
     const h = DIMS.chartH + DIMS.labelH;
 
@@ -326,11 +347,41 @@ const { album } = Astro.props;
     drawAxes(svg, x, y);
     const setTrackLabelHover = createTrackLabels(svg, tracks, x, w);
     createColumnGrid(svg, tracks, x, setTrackLabelHover, () => null);
-    renderFeatureSeries(svg, f, tracks, x, y, setTrackLabelHover, { strokeWidth: 4, pointRadius: 5.5 });
+    renderFeatureSeries(
+      svg,
+      f,
+      tracks,
+      x,
+      y,
+      setTrackLabelHover,
+      { strokeWidth: 4, pointRadius: 5.5 },
+      () => null,
+      showTooltip,
+      hideTooltip,
+    );
+  }
+
+  // The hint text only shows as a popover off the small "?" icon now (an
+  // always-visible chip used to permanently cover real chart content on
+  // wide screens) - hover/focus reveal it via CSS alone; this just adds a
+  // tap-to-toggle for touch, closing again on an outside tap.
+  function setupHintToggle(root: HTMLElement) {
+    const wrap = root.querySelector<HTMLDivElement>(".dv-hint-wrap");
+    const toggle = wrap?.querySelector<HTMLButtonElement>(".dv-hint-toggle");
+    if (!wrap || !toggle) return;
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      wrap.classList.toggle("dv-hint-open");
+      toggle.classList.add("dv-hint-seen"); // stop wobbling/glowing once noticed
+    });
+    document.addEventListener("click", (event) => {
+      if (!wrap.contains(event.target as Node)) wrap.classList.remove("dv-hint-open");
+    });
   }
 
   function initAudioFeatureMultiples(root: HTMLElement) {
     const album = root.dataset.album;
+    setupHintToggle(root);
     const combinedSvgEl = root.querySelector<SVGSVGElement>(".dv-chart-combined")!;
     const smallMultiplesEl = root.querySelector<HTMLDivElement>(".dv-small-multiples")!;
     const smSvgByFeature = new Map<string, SVGSVGElement>(
@@ -341,6 +392,28 @@ const { album } = Astro.props;
     );
     const controlButtons = root.querySelectorAll<HTMLButtonElement>(".dv-feature-buttons button[data-feature]");
     const viewToggleBtn = root.querySelector<HTMLButtonElement>(".dv-view-toggle")!;
+
+    // Same popup SampleTimeline uses for its sample nodes - moved to <body>
+    // for the same reason: the blog post's <article> has a page-load
+    // transform, which creates a new containing block for position:fixed
+    // descendants, so a tooltip left inside it would render somewhere real
+    // but consistently invisible.
+    const tooltipEl = root.querySelector<HTMLDivElement>(".dv-tooltip")!;
+    document.body.appendChild(tooltipEl);
+    const tooltip = d3.select(tooltipEl);
+    function showTooltip(event: MouseEvent, d: Track, f: Feature) {
+      tooltip
+        .style("left", event.clientX + 14 + "px")
+        .style("top", event.clientY + 14 + "px")
+        .html(
+          `${d.name}<br><span class="dv-tooltip-type" style="background:${f.color}">${f.label}</span><br>${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : value(d, f.key)}`,
+        )
+        .attr("hidden", null);
+    }
+    function hideTooltip() {
+      tooltip.attr("hidden", true);
+    }
+
     let activeFeature: string | null = null;
     let showSmallMultiples = false;
     let smallMultiplesRendered = false;
@@ -475,7 +548,18 @@ const { album } = Astro.props;
           .on("mouseleave", () => setLineHover(f.key, false))
           .on("click", () => applyFeatureFilter(activeFeature === f.key ? null : f.key));
 
-        renderFeatureSeries(svg, f, tracks, x, y, setTrackLabelHover, undefined, () => activeFeature);
+        renderFeatureSeries(
+          svg,
+          f,
+          tracks,
+          x,
+          y,
+          setTrackLabelHover,
+          undefined,
+          () => activeFeature,
+          showTooltip,
+          hideTooltip,
+        );
         svg.select(`.dv-line-${f.key}`).style("pointer-events", "none");
       });
     }
@@ -533,7 +617,14 @@ const { album } = Astro.props;
             applyFeatureFilter(null);
             if (!smallMultiplesRendered) {
               FEATURES.forEach((f) =>
-                renderSmallMultiple(smSvgByFeature.get(f.key)!, f, loadedTracks, loadedYDomain),
+                renderSmallMultiple(
+                  smSvgByFeature.get(f.key)!,
+                  f,
+                  loadedTracks,
+                  loadedYDomain,
+                  showTooltip,
+                  hideTooltip,
+                ),
               );
               smallMultiplesRendered = true;
             }
