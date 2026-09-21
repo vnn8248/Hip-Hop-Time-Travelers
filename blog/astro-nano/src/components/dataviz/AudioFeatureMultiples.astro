@@ -32,10 +32,10 @@ const { album } = Astro.props;
       <div class="dv-hint" role="tooltip">
         <ul>
           <li>Each line is an audio feature, colored to match its button above.</li>
+          <li><strong>Click</strong> a feature's button, line, or node to glow it and blur the rest; click the background to reset.</li>
+          <li><strong>Hover</strong> a line, node, or gridline for a quick preview without clicking.</li>
+          <li><strong>Toggle</strong> Small Multiples to see each feature on its own chart.</li>
           <li>Tempo is scaled to share the same axis - 100 BPM reads as 1.0.</li>
-          <li>Click a feature's button, line, or node to glow it and blur the rest; click the background to reset.</li>
-          <li>Hover a line, node, or gridline for a quick preview without clicking.</li>
-          <li>Toggle Small Multiples to see each feature on its own chart.</li>
         </ul>
       </div>
     </div>
@@ -77,16 +77,41 @@ const { album } = Astro.props;
     tempo: number;
   };
 
-  type Feature = { key: keyof Track; label: string; color: string };
+  type Feature = { key: keyof Track; label: string; color: string; definition: string };
 
   // Fixed categorical order, shared with the site's --dv-series-* palette
   // (album-cover brand green first) so a color means the same thing across
-  // all three charts on the page.
+  // all three charts on the page. Each definition surfaces in the node
+  // hover tooltip, under that track's specific value.
   const FEATURES: Feature[] = [
-    { key: "energy", label: "Energy", color: "#597E5D" },
-    { key: "dance", label: "Danceability", color: "#4A8FD6" },
-    { key: "valence", label: "Valence", color: "#B87F1C" },
-    { key: "tempo", label: "Tempo", color: "#29A67D" },
+    {
+      key: "energy",
+      label: "Energy",
+      color: "#597E5D",
+      definition:
+        "Energy in music refers to the intensity and liveliness of a track, with a range from 0 to 1. A score of 0 indicates a very calm, relaxed, or low-energy song, while a score of 1 represents a high-energy, intense track. It's influenced by elements like tempo, loudness, and the overall drive or excitement in the music.",
+    },
+    {
+      key: "dance",
+      label: "Danceability",
+      color: "#4A8FD6",
+      definition:
+        "Danceability is a measure of how suitable a song is for dancing, ranging from 0 to 1. A score of 0 means the song is not danceable at all, while a score of 1 indicates it is highly danceable. This score takes into account factors like tempo, rhythm, beat consistency, and energy, with higher scores indicating stronger, more rhythmically engaging tracks.",
+    },
+    {
+      key: "valence",
+      label: "Valence",
+      color: "#B87F1C",
+      definition:
+        "Valence in music measures the emotional tone or mood of a track, with a range from 0 to 1. A score of 0 indicates a song with a more negative, sad, or dark feeling, while a score of 1 represents a more positive, happy, or uplifting mood. Tracks with a high valence tend to feel joyful or energetic, while those with a low valence may evoke feelings of melancholy or sadness.",
+    },
+    {
+      key: "tempo",
+      label: "Tempo",
+      color: "#29A67D",
+      definition:
+        "The overall estimated tempo of a track in beats per minute (BPM). Values typically range between 0 and 250.",
+    },
   ];
 
   // Energy/danceability/valence are already 0-1. Tempo is raw BPM, so put
@@ -406,7 +431,7 @@ const { album } = Astro.props;
         .style("left", event.clientX + 14 + "px")
         .style("top", event.clientY + 14 + "px")
         .html(
-          `${d.name}<br><span class="dv-tooltip-type" style="background:${f.color}">${f.label}</span><br>${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : value(d, f.key)}`,
+          `${d.name}<br><span class="dv-tooltip-type" style="background:${f.color}">${f.label}</span><br>${f.key === "tempo" ? `${Math.round(d.tempo)} BPM` : value(d, f.key)}<p class="dv-tooltip-definition">${f.definition}</p>`,
         )
         .attr("hidden", null);
     }

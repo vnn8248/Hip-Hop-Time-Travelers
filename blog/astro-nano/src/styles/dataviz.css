@@ -398,7 +398,7 @@
   line-height: 1.6;
   white-space: normal;
   width: max-content;
-  max-width: min(320px, 60vw);
+  max-width: min(360px, 70vw);
   overflow-wrap: break-word;
   z-index: 30;
 }
@@ -415,6 +415,18 @@
   letter-spacing: 0.04em;
   font-size: 10px;
   color: #121c15;
+}
+/* General "what this feature means" copy (audio-feature chart only) -
+   set apart from the track-specific name/badge/value above it with a
+   rule and dimmer, smaller text, so it reads as reference info rather
+   than competing with the actual data point. */
+.dv-tooltip-definition {
+  margin: 6px 0 0;
+  padding-top: 6px;
+  border-top: 1px solid rgba(18, 28, 21, 0.15);
+  font-size: 10px;
+  line-height: 1.5;
+  color: rgba(18, 28, 21, 0.7);
 }
 
 /* Docked to the top-left of .dv-panel: a "reveal the tracklist" mini-game -
