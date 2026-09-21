@@ -87,22 +87,25 @@ const { title, description, image = "/favicon.png" } = Astro.props;
     const backToPrev = document.getElementById("back-to-prev");
     backToPrev?.addEventListener("click", () => window.history.back());
 
-    const lightThemeButton = document.getElementById("light-theme-button");
-    lightThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "light");
-      toggleTheme(false);
+    document.querySelectorAll(".light-theme-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        localStorage.setItem("theme", "light");
+        toggleTheme(false);
+      });
     });
 
-    const darkThemeButton = document.getElementById("dark-theme-button");
-    darkThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "dark");
-      toggleTheme(true);
+    document.querySelectorAll(".dark-theme-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        localStorage.setItem("theme", "dark");
+        toggleTheme(true);
+      });
     });
 
-    const systemThemeButton = document.getElementById("system-theme-button");
-    systemThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "system");
-      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.querySelectorAll(".system-theme-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        localStorage.setItem("theme", "system");
+        toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      });
     });
 
     window.matchMedia("(prefers-color-scheme: dark)")
