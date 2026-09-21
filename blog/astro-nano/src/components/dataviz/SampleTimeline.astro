@@ -200,13 +200,13 @@ const { album } = Astro.props;
         .attr("y2", margin.top);
       rows.forEach((r) => {
         const y = rowY(r) - rowHeight / 2;
-        const g = rowsG.append("g").attr("class", r === ANCHOR ? "dv-anchor-row" : undefined);
+        const g = rowsG.append("g").attr("class", r === ANCHOR ? "dv-anchor-row" : null);
         g.append("rect")
           .attr("x", margin.left)
           .attr("y", y)
           .attr("width", plotW)
           .attr("height", rowHeight)
-          .attr("fill", r === ANCHOR ? undefined : "none");
+          .attr("fill", r === ANCHOR ? null : "none");
         g.append("line")
           .attr("class", "dv-decade-gridline")
           .attr("x1", margin.left)

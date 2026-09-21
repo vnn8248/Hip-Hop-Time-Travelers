@@ -150,7 +150,7 @@ const { album, artist } = Astro.props;
 
     let currentMode: "none" | "producer" | "mixer" = "none";
     let tracks: Track[] = [];
-    let radius: d3.ScaleSqrt<number, number> | null = null;
+    let radius: d3.ScalePower<number, number> | null = null;
     let palette: Record<string, Record<string, string>> = {};
     const revealed = new Set<string>();
     let activeCreditsId: string | null = null;
