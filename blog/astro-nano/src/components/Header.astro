@@ -1,27 +1,23 @@
 ---
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import ThemeToggle from "@components/ThemeToggle.astro";
 import { SITE } from "@consts";
 ---
 
 <header>
   <Container>
-    <div class="flex flex-wrap gap-y-2 justify-between items-center">
+    <div class="flex flex-wrap gap-y-2 justify-between">
       <Link href="/" underline={false}>
         <div class="flex items-center gap-2 font-semibold">
           <img src="/favicon.webp" alt="" width="24" height="24" />
           {SITE.NAME}
         </div>
       </Link>
-      <div class="flex items-center gap-2">
-        <nav class="flex gap-1">
-          <Link href="/blog">
-            blog
-          </Link>
-        </nav>
-        <ThemeToggle />
-      </div>
+      <nav class="flex gap-1">
+        <Link href="/blog">
+          blog
+        </Link>
+      </nav>
     </div>
   </Container>
 </header>
