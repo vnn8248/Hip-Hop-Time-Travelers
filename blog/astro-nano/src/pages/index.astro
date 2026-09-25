@@ -15,25 +15,30 @@ const blog = (await getCollection("blog"))
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <h4 class="animate font-semibold text-black dark:text-white">
-      Welcome To Hip-Hop Time Travelers <span class="text-xl">🎧</span>
+      Welcome To The Crew
     </h4>
     <div class="space-y-16">
       <section>
         <article class="space-y-4">
           <p class="animate">
-            This is a blog for 90's Hip-Hop fans who love discovering new, old music. We're the old heads (even if we're 30 something years old). Music that is "new to me" but has been released for years. Times are busy but whenever we finally make the time to sit a listen to a full album, it's a feeling like no other, Because 90's Hip-Hop, is a rabbit-hole like no other. It's the Golden Era, it's evergreen, and it's timeless.
+            We've been expecting you.
           </p>
           <p class="animate">
-            Each post pairs the write-up with data pulled straight from the source: who
+            We are the Hip-Hop Time Travelers. We are a team that studies one of the most amazing forms of music to have ever been created: Hip-Hop. Its universe is vast and continuously expanding, forming new material every day while distant relics remain timeless. 
+          </p>
+          <p class="animate">
+            As a new crew member you've been given the unique capability to explore any time you want in the Hip-Hop universe. Your mission is to immerse yourself with an album of choice and come back with a report on why this time, artist, verse, or piece of musical art was special and how other worlds and cultures have changed since then, or not.
+          </p>
+          <p class="animate">
+            Each report pairs a write-up with data visualizations pulled straight from the source: who
             produced and mixed every track, what got sampled and what it went on to
-            influence, and how the album's energy, danceability, valence, and tempo move
-            from song to song.
+            influence, and how the album's vibes move from song to song.
           </p>
           <p class="animate">
-            The data pipeline and visualizations behind these posts are
-            <Link href="https://github.com/vnn8248/Hip-Hop-Time-Travelers" aria-label={`${SITE.NAME} on Github`} external>
-              open on Github
-            </Link>.
+            Choose your tools: a record player, a sound system, a pair of headphones; a pen, a pad, your favorite hat. You know what suits you best.
+          </p>
+          <p class="animate">
+            We'll see you when you get back.
           </p>
         </article>
       </section>
@@ -41,7 +46,7 @@ const blog = (await getCollection("blog"))
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
           <h5 class="font-semibold text-black dark:text-white">
-            Latest posts
+            Latest Reports
           </h5>
           <Link href="/blog">
             See all posts
@@ -62,25 +67,26 @@ const blog = (await getCollection("blog"))
         </h5>
         <article>
           <p>
-            If you want to get in touch about something or just to say hi,
-            reach out on social media or send us an email.
+            Want to report on an album, have an idea for a new data viz, or just want to say what's up? Send us an email.
           </p>
-        </article>
-        <ul class="flex flex-wrap gap-2">
-          {SOCIALS.map(SOCIAL => (
-            <li class="flex gap-x-2 text-nowrap">
-              <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
-                {SOCIAL.NAME}
-              </Link>
-              {"/"}
-            </li>
-          ))}
-          <li class="line-clamp-1">
+          <div class="not-prose flex items-center gap-2">
+            <img src="/favicon.webp" alt="" width="24" height="24" />
             <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
               {SITE.EMAIL}
             </Link>
-          </li>
-        </ul>
+          </div>
+        </article>
+        <h5 class="font-semibold text-black dark:text-white">
+          The Methods
+        </h5>
+        <article>
+          <p class="animate">
+            All data sources, pipelines, and visualizations behind these reports are
+            <Link href="https://github.com/vnn8248/Hip-Hop-Time-Travelers" aria-label={`${SITE.NAME} on Github`} external>
+              open on Github
+            </Link>.
+          </p>
+        </article>
       </section>
     </div>
   </Container>
